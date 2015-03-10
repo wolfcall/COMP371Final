@@ -109,4 +109,8 @@
       <Filter>Source Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\ThirdParty\glew-1.12.0\lib\Release\Win32\glew32.lib" />
+    <Library Include="..\ThirdParty\glew-1.12.0\lib\Release\Win32\glew32s.lib" />
+  </ItemGroup>
 </Project>
