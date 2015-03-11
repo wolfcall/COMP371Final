@@ -59,7 +59,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\ThirdParty\glfw-3.1\include;../ThirdParty/glew-1.10.0/include;../ThirdParty/glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Georges\Documents\Visual Studio 2013\COMP371Final\ThirdParty\glfw-3.1\include;../ThirdParty/glew-1.10.0/include;../ThirdParty/glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +128,10 @@
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\ThirdParty\glew-1.12.0\lib\Release\Win32\glew32.lib" />
+    <Library Include="..\ThirdParty\glew-1.12.0\lib\Release\Win32\glew32s.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
