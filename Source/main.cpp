@@ -10,7 +10,7 @@
 #include "Renderer.h"
 #include "World.h"
 #include "EventManager.h"
-// Doing another test...
+
 
 int main(int argc, char*argv[])
 {
