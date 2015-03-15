@@ -1,5 +1,8 @@
 #pragma once
-class WormModel
+// Having an issue with include directories
+//#include "Model.h"
+class WormModel 
+
 {
 public:
 	WormModel();
