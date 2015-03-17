@@ -40,22 +40,26 @@ void Path::Update(float dt)
 
 void Path::Draw()
 {
+	// The Model View Projection transforms are computed in the Vertex Shader
 	glBindVertexArray(mVertexArrayID);
 
 	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform");
 	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
 
+	// 1st attribute buffer : vertex Positions
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 	glVertexAttribPointer(0,
-		3,
-		GL_FLOAT,
-		GL_FALSE,
-		sizeof(Vertex),
-		(void*)0
+		3,				// size
+		GL_FLOAT,		// type
+		GL_FALSE,		// normalized?
+		sizeof(Vertex), // stride
+		(void*)0        // array buffer offset
 		);
 
+	// Draw the triangles !
 	glDrawArrays(GL_LINE_LOOP, 0, mWaypoints.size());
+
 	glDisableVertexAttribArray(0);
 }
 
@@ -94,7 +98,7 @@ void Path::ClearWaypoints()
 
 vec3 Path::GetWaypoint(unsigned int index)
 {
-	// Need to consider the position of the path in the world
+	// Need to consider the position/rotation/scaling of the path in the world
 	// + the relative position of the waypoint
-	return mPosition + mWaypoints[index % mWaypoints.size()];
+	return  vec3(GetWorldMatrix() *  vec4(mWaypoints[index % mWaypoints.size()], 1.0f));
 }

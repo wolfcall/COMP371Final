@@ -12,10 +12,13 @@
 #include "ParsingHelper.h"
 
 #include "StaticCamera.h"
+#include "BSplineCamera.h"
+#include "ThirdPersonCamera.h"
 
 #include "CubeModel.h"
 #include "SphereModel.h"
 #include "Path.h"
+#include "BSpline.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
@@ -28,13 +31,6 @@ World* World::instance;
 World::World()
 {
     instance = this;
-
-	// Setup Camera
-	mCamera.push_back(new StaticCamera(vec3(3.0f, 5.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
-	mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
-	mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
-	mCurrentCamera = 0;
-
 }
 
 World::~World()
@@ -47,8 +43,19 @@ World::~World()
 
 	mModel.clear();
 
-    // Paths are deleted in mModel
+    // Paths
+    for (vector<Path*>::iterator it = mPath.begin(); it < mPath.end(); ++it)
+	{
+		delete *it;
+	}
 	mPath.clear();
+
+    // Splines
+    for (vector<BSpline*>::iterator it = mSpline.begin(); it < mSpline.end(); ++it)
+	{
+		delete *it;
+	}
+	mSpline.clear();
 
 	// Camera
 	for (vector<Camera*>::iterator it = mCamera.begin(); it < mCamera.end(); ++it)
@@ -83,6 +90,22 @@ void World::Update(float dt)
 		if (mCamera.size() > 2)
 		{
 			mCurrentCamera = 2;
+		}
+	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4 ) == GLFW_PRESS)
+	{
+        // Spline camera
+		if (mCamera.size() > 3 && mSpline.size() > 0)
+		{
+			mCurrentCamera = 3;
+		}
+	}
+	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
+	{
+        // Spline camera
+		if (mCamera.size() > 4 && mModel.size() > 0)
+		{
+			mCurrentCamera = 4;
 		}
 	}
 
@@ -123,7 +146,6 @@ void World::Draw()
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
 	{
-		
 		// Draw model
 		(*it)->Draw();
 	}
@@ -141,10 +163,13 @@ void World::Draw()
 
 	for (vector<Path*>::iterator it = mPath.begin(); it < mPath.end(); ++it)
 	{
-		// Send the view projection constants to the shader
-		mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
-		glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+		// Draw model
+		(*it)->Draw();
+	}
 
+    // Draw B-Spline Lines (using the same shader for Path Lines)
+    for (vector<BSpline*>::iterator it = mSpline.begin(); it < mSpline.end(); ++it)
+	{
 		// Draw model
 		(*it)->Draw();
 	}
@@ -194,8 +219,13 @@ void World::LoadScene(const char * scene_path)
 			{
 				Path* path = new Path();
 				path->Load(iss);
-				//mModel.push_back(path);
                 mPath.push_back(path);
+			}
+            else if( result == "spline" )
+			{
+				BSpline* path = new BSpline();
+				path->Load(iss);
+                mSpline.push_back(path);
 			}
 			else if ( result.empty() == false && result[0] == '#')
 			{
@@ -218,6 +248,42 @@ void World::LoadScene(const char * scene_path)
 		(*it)->CreateVertexBuffer();
 	}
 
+    // Set B-SPLINE vertex buffers
+    for (vector<BSpline*>::iterator it = mSpline.begin(); it < mSpline.end(); ++it)
+	{
+		// Draw model
+		(*it)->CreateVertexBuffer();
+	}
+    
+    LoadCameras();
+}
+
+void World::LoadCameras()
+{
+    // Setup Camera
+    mCamera.push_back(new StaticCamera(vec3(3.0f, 5.0f, 5.0f),  vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
+    mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
+    mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
+    
+    // Cube Character controlled with Third Person Camera
+    CubeModel* character = new CubeModel();
+    character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+    mCamera.push_back(new ThirdPersonCamera(character));
+    mModel.push_back(character);
+    
+    // BSpline Camera
+    BSpline* spline = FindSpline("\"RollerCoaster\"");
+    if (spline == nullptr)
+    {
+        spline = FindSplineByIndex(0);
+    }
+    
+    if (spline != nullptr)
+    {
+        mCamera.push_back(new BSplineCamera(spline , 5.0f));
+    }
+    
+    mCurrentCamera = 0;
 }
 
 Path* World::FindPath(ci_string pathName)
@@ -230,4 +296,26 @@ Path* World::FindPath(ci_string pathName)
         }
     }
     return nullptr;
+}
+
+BSpline* World::FindSpline(ci_string pathName)
+{
+    for(std::vector<BSpline*>::iterator it = mSpline.begin(); it < mSpline.end(); ++it)
+    {
+        if((*it)->GetName() == pathName)
+        {
+            return *it;
+        }
+    }
+    return nullptr;
+}
+
+BSpline* World::FindSplineByIndex(unsigned int index)
+{
+    return mSpline.size() > 0 ? mSpline[index % mSpline.size()] : nullptr;
+}
+
+Model* World::FindModelByIndex(unsigned int index)
+{
+    return mModel.size() > 0 ? mModel[index % mModel.size()] : nullptr;
 }
