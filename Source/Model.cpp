@@ -9,15 +9,15 @@
 
 #include "Model.h"
 #include "Path.h"
+#include "BSpline.h"
 #include "World.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
-#include <glm/gtx/vector_angle.hpp>
 
 using namespace std;
 using namespace glm;
 
-Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f), mPath(nullptr), mSpeed(0.0f), mTargetWaypoint(0)
+Model::Model() : mName("UNNAMED"), mPosition(0.0f, 0.0f, 0.0f), mScaling(1.0f, 1.0f, 1.0f), mRotationAxis(0.0f, 1.0f, 0.0f), mRotationAngleInDegrees(0.0f), mPath(nullptr), mSpeed(0.0f), mTargetWaypoint(1), mSpline(nullptr), mSplineParameterT(0.0f)
 {
 }
 
@@ -27,27 +27,32 @@ Model::~Model()
 
 void Model::Update(float dt)
 {
-	if (mPath)
+	if(mPath != nullptr)
 	{
-		glm::vec3 dest = mPath->GetWaypoint(mTargetWaypoint);
-		glm::vec3 velocity = dest - mPosition;
-		velocity = glm::normalize(velocity);
-		glm::vec3 add = dt * mSpeed * velocity;
-		if (glm::length(dest - mPosition) < glm::length(add))
+		vec3 target = mPath->GetWaypoint(mTargetWaypoint);
+		vec3 directionToTarget = target - mPosition;
+		float distanceToTarget = length(directionToTarget);
+
+		// Normalize direction and update direction
+		directionToTarget = normalize(directionToTarget);
+		float distance = mSpeed*dt;
+		mPosition += distance * directionToTarget;
+
+		// Update waypoint
+		if (distance > distanceToTarget)
 		{
-			mPosition = dest;
 			++mTargetWaypoint;
 		}
-		else
-		{
-			mPosition += add;
-		}
 	}
-	// @TODO 4 - If the model moves along a Path, update its position
-	//           towards the next waypoint according to the speed.
-	//           If you go beyond the waypoint, update the target
-	//           waypoint to the next one
+	else if (mSpline)
+	{
+		// @TODO - Animate along the spline   TT
+		//         You can adjust the parameter T every frame to compute the new position
+		//         Make sure the speed matches mSpeed in units per second
+		mSplineParameterT += (mSpeed*dt*0.2);
+		mPosition = mSpline->GetPosition(mSplineParameterT);
 
+	}
 }
 
 void Model::Draw()
@@ -70,7 +75,7 @@ void Model::Load(ci_istringstream& iss)
 
 		if (ParseLine(token) == false)
 		{
-			fprintf(stderr, "Error loading scene file... token:  %s!", token[0].c_str());
+			fprintf(stderr, "Error loading scene file... token:  %s!", token[0]);
 			getchar();
 			exit(-1);
 		}
@@ -79,7 +84,7 @@ void Model::Load(ci_istringstream& iss)
 
 bool Model::ParseLine(const std::vector<ci_string> &token)
 {
-		if (token.empty() == false)
+	if (token.empty() == false)
 	{
 		if (token[0].empty() == false && token[0][0] == '#')
 		{
@@ -122,26 +127,34 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 			mScaling.y = static_cast<float>(atof(token[3].c_str()));
 			mScaling.z = static_cast<float>(atof(token[4].c_str()));
 		}
-        else if (token[0] == "pathspeed")
+		else if (token[0] == "pathspeed")
 		{
 			assert(token.size() > 2);
 			assert(token[1] == "=");
 
-            float speed = static_cast<float>(atof(token[2].c_str()));
-            SetSpeed(speed);
+			float speed = static_cast<float>(atof(token[2].c_str()));
+			SetSpeed(speed);
 		}
-        else if (token[0] == "boundpath")
+		else if (token[0] == "boundpath")
 		{
 			assert(token.size() > 2);
 			assert(token[1] == "=");
 
 			ci_string pathName = token[2];
-            World* w = World::GetInstance();
-            mPath = w->FindPath(pathName);
-			mTargetWaypoint = 1;
+			World* w = World::GetInstance();
+			mPath = w->FindPath(pathName);
+
+			if (mPath == nullptr)
+			{
+				mSpline = w->FindSpline(pathName);
+			}
 			if (mPath != nullptr)
 			{
 				mPosition = mPath->GetWaypoint(0);
+			}
+			else if (mSpline)
+			{
+				mPosition = mSpline->GetPosition(mSplineParameterT);
 			}
 		}
 		else
@@ -156,9 +169,12 @@ bool Model::ParseLine(const std::vector<ci_string> &token)
 glm::mat4 Model::GetWorldMatrix() const
 {
 	mat4 worldMatrix(1.0f);
-	worldMatrix = glm::translate(worldMatrix, this->mPosition);
-	worldMatrix = glm::rotate(worldMatrix, this->mRotationAngleInDegrees, this->mRotationAxis);
-	worldMatrix = glm::scale(worldMatrix, this->mScaling);
+
+	mat4 t = glm::translate(mat4(1.0f), mPosition);
+	mat4 r = glm::rotate(mat4(1.0f), mRotationAngleInDegrees, mRotationAxis);
+	mat4 s = glm::scale(mat4(1.0f), mScaling);
+	worldMatrix = t * r * s;
+
 	return worldMatrix;
 }
 
@@ -180,5 +196,5 @@ void Model::SetRotation(glm::vec3 axis, float angleDegrees)
 
 void Model::SetSpeed(float spd)
 {
-    mSpeed = spd;
+	mSpeed = spd;
 }

@@ -26,11 +26,6 @@ using namespace std;
 #include <GLFW/glfw3.h>
 
 
-#if defined(PLATFORM_OSX)
-#define fscanf_s fscanf
-#endif
-
-
 std::vector<unsigned int> Renderer::sShaderProgramID;
 unsigned int Renderer::sCurrentShader;
 
@@ -64,24 +59,9 @@ void Renderer::Initialize()
 	glLineWidth(2);
 
 	// Loading Shaders
-#if defined(PLATFORM_OSX)
-    std::string shaderPathPrefix = "Shaders/";
-#else
-    std::string shaderPathPrefix = "../Source/Shaders/";
-#endif
-
-	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
-                            shaderPathPrefix + "SolidColor.fragmentshader")
-                               );
-	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "PathLines.vertexshader",
-                            shaderPathPrefix + "PathLines.fragmentshader")
-                               );
-	sShaderProgramID.push_back(
-                LoadShaders(shaderPathPrefix + "SolidColor.vertexshader",
-                            shaderPathPrefix + "BlueColor.fragmentshader")
-                               );
+	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/SolidColor.fragmentshader"));
+	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/PathLines.vertexshader", "../Source/Shaders/PathLines.fragmentshader"));
+	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/BlueColor.fragmentshader"));
 	sCurrentShader = 0;
 
 }
@@ -125,7 +105,7 @@ void Renderer::SetShader(ShaderType type)
 // The following code is taken from
 // www.opengl-tutorial.org
 //
-GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment_shader_path)
+GLuint Renderer::LoadShaders(const char * vertex_shader_path,const char * fragment_shader_path)
 {
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -140,7 +120,7 @@ GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment
 			VertexShaderCode += "\n" + Line;
 		VertexShaderStream.close();
 	}else{
-		printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", vertex_shader_path.c_str());
+		printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", vertex_shader_path);
 		getchar();
 		exit(-1);
 	}
@@ -159,7 +139,7 @@ GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment
 	int InfoLogLength;
 
 	// Compile Vertex Shader
-	printf("Compiling shader : %s\n", vertex_shader_path.c_str());
+	printf("Compiling shader : %s\n", vertex_shader_path);
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, nullptr);
 	glCompileShader(VertexShaderID);
@@ -174,7 +154,7 @@ GLuint Renderer::LoadShaders(std::string vertex_shader_path,std::string fragment
 	}
 
 	// Compile Fragment Shader
-	printf("Compiling shader : %s\n", fragment_shader_path.c_str());
+	printf("Compiling shader : %s\n", fragment_shader_path);
 	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, nullptr);
 	glCompileShader(FragmentShaderID);
@@ -235,13 +215,7 @@ bool Renderer::LoadOBJ(	const char * path,
 
 
 	FILE * file;
-    
-#if defined(PLATFORM_OSX)
-    file = fopen(path, "r");
-#else
-    fopen_s(&file, path, "r");
-#endif
-    
+	fopen_s(&file, path, "r");
 	if (file == nullptr){
 		printf("Impossible to open the file ! Are you in the right path ? See Tutorial 1 for details\n");
 		getchar();
@@ -252,7 +226,7 @@ bool Renderer::LoadOBJ(	const char * path,
 
 		char lineHeader[128];
 		// read the first word of the line
-        int res = fscanf_s(file, "%s", lineHeader);
+		int res = fscanf_s(file, "%s", lineHeader);
 		if (res == EOF)
 			break; // EOF = End Of File. Quit the loop.
 

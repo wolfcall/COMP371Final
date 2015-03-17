@@ -15,6 +15,7 @@
 class Camera;
 class Model;
 class Path;
+class BSpline;
 
 class World
 {
@@ -28,13 +29,19 @@ public:
 	void Draw();
 
 	void LoadScene(const char * scene_path);
+    void LoadCameras();
+
     Path* FindPath(ci_string pathName);
+    BSpline* FindSpline(ci_string pathName);
+    BSpline* FindSplineByIndex(unsigned int index);
+    Model* FindModelByIndex(unsigned int index);
 
 private:
     static World* instance;
 
 	std::vector<Model*> mModel;
     std::vector<Path*> mPath;
+    std::vector<BSpline*> mSpline;
 	std::vector<Camera*> mCamera;
 	unsigned int mCurrentCamera;
 };

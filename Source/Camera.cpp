@@ -20,6 +20,12 @@ Camera::~Camera()
 
 glm::mat4 Camera::GetViewProjectionMatrix() const
 {
+	// @TODO 1 - Calculate View Projection Matrix
+	//           The projection matrix is hardcoded below
+	//           The view matrix is set in the derived camera classes.
+	//glm::mat4 viewProjection(15.0f); // identity, you need to change this
+
+	//we need 
 	return GetProjectionMatrix() * GetViewMatrix();
 }
 
