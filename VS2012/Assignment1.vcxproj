@@ -106,6 +106,7 @@
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\SheepModel.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
     <ClCompile Include="..\Source\Path.cpp" />
     <ClCompile Include="..\Source\SphereModel.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="..\Source\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
     <ClInclude Include="..\Source\Camera.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\Path.h" />
@@ -132,6 +134,9 @@
   <ItemGroup>
     <Library Include="..\ThirdParty\glew-1.12.0\lib\Release\Win32\glew32.lib" />
     <Library Include="..\ThirdParty\glew-1.12.0\lib\Release\Win32\glew32s.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\Objects\Obj file and Sheep Model Class\SHEEP.OBJ" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
