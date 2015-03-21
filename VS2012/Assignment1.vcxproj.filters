@@ -15,7 +15,7 @@
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
-    <ClCompile Include="WormModel.cpp" />
+    <ClCompile Include="..\Source\WormModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
