@@ -61,7 +61,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\glfw-3.0.4\include;..\ThirdParty\glew-1.10.0\include;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include;../ThirdParty/glm</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories>..\ThirdParty\glfw-3.1\include;../ThirdParty/glew-1.10.0/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>C:\Users\rstorm\Documents\Git\Source;../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,7 +125,6 @@
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
-    <ClCompile Include="WormModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
