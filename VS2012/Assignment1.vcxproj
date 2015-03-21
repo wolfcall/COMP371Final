@@ -131,9 +131,6 @@
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\World.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\Objects\Obj file and Sheep Model Class\SHEEP.OBJ" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

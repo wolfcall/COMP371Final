@@ -113,7 +113,4 @@
     </ClInclude>
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\Objects\Obj file and Sheep Model Class\SHEEP.OBJ" />
-  </ItemGroup>
 </Project>

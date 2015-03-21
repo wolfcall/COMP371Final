@@ -8,7 +8,7 @@
 //
 
 #include "SheepModel.h"
-#include "Renderer.h"
+#include "..\..\Source\Renderer.h"
 
 // Include GLEW - OpenGL Extension Wrangler
 #include <GL/glew.h>

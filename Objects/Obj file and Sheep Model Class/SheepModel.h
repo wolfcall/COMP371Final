@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "Model.h"
+#include "..\..\Source\Model.h"
 
 class SheepModel : public Model
 {
