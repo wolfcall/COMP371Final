@@ -37,12 +37,8 @@ struct ci_char_traits : public std::char_traits<char>
   static int compare( const char* s1,
                       const char* s2,
                       size_t n ) {
-#if defined(PLATFORM_OSX)
-      return strcasecmp( s1, s2 );
-#else
       return _memicmp( s1, s2, n );
-#endif
-      // if available on your compiler,
+             // if available on your compiler,
              //  otherwise you can roll your own
     }
 

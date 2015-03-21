@@ -16,6 +16,7 @@
 #include <GLM/glm.hpp>
 
 class Path;
+class BSpline;
 
 class Model
 {
@@ -53,6 +54,8 @@ protected:
 
     // Makes the model follow a path defined by a set of waypoints
     Path* mPath;
+	BSpline* mSpline;
+	float mSplineParameterT;
     float mSpeed;
     unsigned int mTargetWaypoint;
 };

@@ -42,23 +42,9 @@ void EventManager::Initialize()
 	}
 		
 	glfwWindowHint(GLFW_SAMPLES, 4);
-    
-#if defined(PLATFORM_OSX)
-    // OS X would use legacy opengl by default, and wouldn't be able to load shaders
-    // This is the proper way to setup GLFW to use modern OpenGL
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    
-#else
-    // Allow older laptops to run the framework, even though, our framework
-    // is compatible with OpenGL 3.3 (which removed many deprecated features)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-#endif
-    
-    
+
 	// Open a window and create its OpenGL context
 	glfwWindowHint(GLFW_RESIZABLE, 0);
 	spWindow = glfwCreateWindow(1024, 768, "COMP371 - Assignment Framework", nullptr, nullptr);
