@@ -33,6 +33,8 @@
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="..\Source\WormModel.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene" />
@@ -43,5 +45,8 @@
     <None Include="..\Source\Shaders\PathLines.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.vertexshader" />
     <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Assignment1.rc" />
   </ItemGroup>
 </Project>

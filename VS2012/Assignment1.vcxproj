@@ -128,6 +128,7 @@
     <ClCompile Include="..\Source\WormModel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\BSplineCamera.h" />
@@ -143,6 +144,10 @@
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="..\Source\WormModel.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Assignment1.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

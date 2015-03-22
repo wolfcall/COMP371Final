@@ -14,7 +14,8 @@ bool LoadOBJ(
 	);
 
 
-
+/**
+Not sure if we need this...
 bool LoadAssImp(
 	const char * path,
 	std::vector<unsigned short> & indices,
@@ -22,5 +23,5 @@ bool LoadAssImp(
 	std::vector<glm::vec2> & uvs,
 	std::vector<glm::vec3> & normals
 	);
-
+*/
 #endif
