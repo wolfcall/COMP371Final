@@ -49,4 +49,7 @@
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Object Include="..\Objects\Obj file and Sheep Model Class\PacWorm.obj" />
+  </ItemGroup>
 </Project>
