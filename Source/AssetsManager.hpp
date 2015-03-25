@@ -3,6 +3,9 @@
 #include <memory>
 #include "ObjMesh.hpp"
 #include "tiny_obj_loader.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 class AssetsManager
 {
@@ -27,34 +30,89 @@ public:
 
 		std::string err = tinyobj::LoadObj(shapes, materials, path.c_str());
 
-		if (!err.empty()) {
+		if (!err.empty())
+		{
 			std::cerr << err << std::endl;
-			exit(1);
+			return nullptr;
 		}
+
+		auto mesh = std::make_shared<ObjMesh>();
+
+		mesh->_subMeshs.resize(shapes.size());
+
+		std::vector<glm::vec3> tmp;
+
+		for (auto i = 0; i < shapes.size(); ++i)
+		{
+			auto &sub = mesh->_subMeshs[i];
+			auto &shape = shapes[i];
+			auto &mesh = shape.mesh;
+
+			tmp.clear();
+			tmp.reserve(mesh.indices.size() * 4); // 4 == positions + normals + colors + UVs -> very dirty cause Uvs use vec3 ... okay for now :)
+
+			for (size_t f = 0; f < mesh.indices.size() / 3; f++)
+			{
+				auto x = mesh.indices[3 * f + 0];
+				auto y = mesh.indices[3 * f + 1];
+				auto z = mesh.indices[3 * f + 2];
+
+				if (mesh.positions.empty())
+				{
+					// should not appened normally :)
+					tmp.push_back(glm::vec3(0.0f));
+				}
+				else
+				{
+					tmp.push_back(glm::vec3(mesh.positions[x], mesh.positions[y], mesh.positions[z]));
+				}
+
+				if (mesh.normals.empty())
+				{
+					// should not appened normally :)
+					tmp.push_back(glm::vec3(0, 0, 0));
+				}
+				else
+				{
+					tmp.push_back(glm::vec3(mesh.normals[x], mesh.normals[y], mesh.normals[z]));
+				}
+
+				if (false /*mesh.colors.empty()*/) //@cesar : todo based on materials
+				{
+					// should not appened normally :)
+					tmp.push_back(glm::vec3(1, 1, 1));
+				}
+				else
+				{
+					//tmp.push_back(glm::vec3(mesh.colors[x], mesh.colors[y], mesh.colors[z]));
+				}
+
+				if (mesh.texcoords.empty())
+				{
+					// should not appened normally :)
+					tmp.push_back(glm::vec3(1, 1, 1));
+				}
+				else
+				{
+					tmp.push_back(glm::vec3(mesh.texcoords[x], mesh.texcoords[y], mesh.texcoords[z]));
+				}
+			}
+
+			sub._numOfVertices = mesh.indices.size();
+
+			glGenVertexArrays(1, &sub._vertexArrayID);
+			glGenBuffers(1, &sub._vertexBufferID);
+			glBindBuffer(GL_ARRAY_BUFFER, sub._vertexBufferID);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * tmp.size(), glm::value_ptr(tmp.front()), GL_STATIC_DRAW);
+
+		}
+
+		return mesh;
 
 		// debug to erase
 		{
 			std::cout << "# of shapes    : " << shapes.size() << std::endl;
 			std::cout << "# of materials : " << materials.size() << std::endl;
-
-			for (size_t i = 0; i < shapes.size(); i++) {
-				printf("shape[%ld].name = %s\n", i, shapes[i].name.c_str());
-				printf("Size of shape[%ld].indices: %ld\n", i, shapes[i].mesh.indices.size());
-				printf("Size of shape[%ld].material_ids: %ld\n", i, shapes[i].mesh.material_ids.size());
-				assert((shapes[i].mesh.indices.size() % 3) == 0);
-				for (size_t f = 0; f < shapes[i].mesh.indices.size() / 3; f++) {
-					printf("  idx[%ld] = %d, %d, %d. mat_id = %d\n", f, shapes[i].mesh.indices[3 * f + 0], shapes[i].mesh.indices[3 * f + 1], shapes[i].mesh.indices[3 * f + 2], shapes[i].mesh.material_ids[f]);
-				}
-
-				printf("shape[%ld].vertices: %ld\n", i, shapes[i].mesh.positions.size());
-				assert((shapes[i].mesh.positions.size() % 3) == 0);
-				for (size_t v = 0; v < shapes[i].mesh.positions.size() / 3; v++) {
-					printf("  v[%ld] = (%f, %f, %f)\n", v,
-						shapes[i].mesh.positions[3 * v + 0],
-						shapes[i].mesh.positions[3 * v + 1],
-						shapes[i].mesh.positions[3 * v + 2]);
-				}
-			}
 
 			for (size_t i = 0; i < materials.size(); i++) {
 				printf("material[%ld].name = %s\n", i, materials[i].name.c_str());
@@ -79,13 +137,6 @@ public:
 				printf("\n");
 			}
 		}
-
-		//numOfVertices = sizeof(vertexBuffer) / sizeof(Vertex);
-
-		//glGenVertexArrays(1, &mVertexArrayID);
-		//glGenBuffers(1, &mVertexBufferID);
-		//glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
-		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
 		return nullptr;
 	}
 };

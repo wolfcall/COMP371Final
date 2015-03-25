@@ -6,7 +6,7 @@ class ObjMesh
 {
 private:
 
-	struct SubObj
+	struct SubMesh
 	{
 		unsigned int _vertexArrayID = 0;
 		unsigned int _vertexBufferID = 0;
@@ -18,7 +18,7 @@ private:
 
 	};
 
-	std::vector < SubObj > _subObjs;
+	std::vector < SubMesh > _subMeshs;
 
 	friend class AssetsManager;
 };
