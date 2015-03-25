@@ -86,5 +86,6 @@ public:
 		//glGenBuffers(1, &mVertexBufferID);
 		//glBindBuffer(GL_ARRAY_BUFFER, mVertexBufferID);
 		//glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBuffer), vertexBuffer, GL_STATIC_DRAW);
+		return nullptr;
 	}
 };
