@@ -44,7 +44,7 @@ int main(int argc, char*argv[])
 
 	auto testModel = world.CreateModel<MeshModel>(testMesh);
 
-	//testModel->SetScaling(glm::vec3(0.1));
+	testModel->SetScaling(glm::vec3(2));
 
 	// Main Loop
 	do

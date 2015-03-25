@@ -80,7 +80,7 @@ public:
 				);
 
 			// Draw the triangles !
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, e._numOfVertices);
+			glDrawArrays(GL_TRIANGLES, 0, e._numOfVertices);
 
 			glDisableVertexAttribArray(3);
 			glDisableVertexAttribArray(2);

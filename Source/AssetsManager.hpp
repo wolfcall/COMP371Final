@@ -60,54 +60,50 @@ public:
 			tmp.clear();
 			tmp.reserve(mesh.indices.size() * 4); // 4 == positions + normals + colors + UVs -> very dirty cause Uvs use vec3 ... okay for now :)
 
-			for (size_t f = 0; f < mesh.indices.size() / 3; f++)
+			for (size_t f = 0; f < mesh.indices.size(); f++)
 			{
-				auto x = mesh.indices[3 * f + 0];
-				auto y = mesh.indices[3 * f + 1];
-				auto z = mesh.indices[3 * f + 2];
+					auto x = mesh.indices[f] * 3;
+					auto y = mesh.indices[f] * 2;
 
-				if (mesh.positions.empty())
-				{
-					// should not appened normally :)
-					tmp.push_back(glm::vec3(0.0f));
-				}
-				else
-				{
-					tmp.push_back(glm::vec3(mesh.positions[x], mesh.positions[y], mesh.positions[z]));
-				}
+					if (mesh.positions.empty())
+					{
+						// should not appened normally :)
+						tmp.push_back(glm::vec3(0.0f));
+					}
+					else
+					{
+						tmp.push_back(glm::vec3(mesh.positions[x + 0], mesh.positions[x + 1], mesh.positions[x + 2]));
+					}
 
-				if (mesh.normals.empty())
-				{
-					// should not appened normally :)
-					tmp.push_back(glm::vec3(0, 0, 0));
-				}
-				else
-				{
-					tmp.push_back(glm::vec3(mesh.normals[x], mesh.normals[y], mesh.normals[z]));
-				}
+					if (mesh.normals.empty())
+					{
+						tmp.push_back(glm::vec3(1));
+					}
+					else
+					{
+						tmp.push_back(glm::vec3(mesh.normals[x + 0], mesh.normals[x + 1], mesh.normals[x + 2]));
+					}
 
-				if (false /*mesh.colors.empty()*/) //@cesar : todo based on materials
-				{
-					// should not appened normally :)
-					tmp.push_back(glm::vec3(1, 1, 1));
-				}
-				else
-				{
-					//tmp.push_back(glm::vec3(mesh.colors[x], mesh.colors[y], mesh.colors[z]));
-				}
+					if (true /*mesh.colors.empty()*/) //@cesar : todo based on materials
+					{
+						tmp.push_back(glm::vec3(1, 1, 1));
+					}
+					else
+					{
+						//tmp.push_back(glm::vec3(mesh.colors[x], mesh.colors[y], mesh.colors[z]));
+					}
 
-				if (mesh.texcoords.empty())
-				{
-					// should not appened normally :)
-					tmp.push_back(glm::vec3(1, 1, 1));
-				}
-				else
-				{
-					tmp.push_back(glm::vec3(mesh.texcoords[x], mesh.texcoords[y], mesh.texcoords[z]));
-				}
+					if (mesh.texcoords.empty())
+					{
+						tmp.push_back(glm::vec3(1, 1, 1));
+					}
+					else
+					{
+						tmp.push_back(glm::vec3(mesh.texcoords[y], mesh.texcoords[y + 1], 0));
+					}
 			}
 
-			sub._numOfVertices = mesh.indices.size();
+			sub._numOfVertices = mesh.indices.size() / (sizeof(glm::vec3) * 4);
 
 			glGenVertexArrays(1, &sub._vertexArrayID);
 			glGenBuffers(1, &sub._vertexBufferID);
