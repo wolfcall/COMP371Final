@@ -34,6 +34,7 @@ int main(int argc, char*argv[])
         //world.LoadScene("../Scenes/PathScene.scene");
         world.LoadScene("../Scenes/BSplineScene.scene");
 #endif
+
 	}
 
 	// Main Loop

@@ -44,13 +44,14 @@
     <OutDir>$(SolutionDir)/../Bin/</OutDir>
     <IntDir>$(SolutionDir)/../Build/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
-    <SourcePath>D:\Git\Source;$(SourcePath)</SourcePath>
+    <SourcePath>..\ThirdParty\tinyObj</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)/../Bin/</OutDir>
     <IntDir>$(SolutionDir)/../Build/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
+    <SourcePath>..\ThirdParty\tinyObj</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -61,7 +62,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\glfw-3.0.4\include;..\ThirdParty\glew-1.10.0\include;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include;../ThirdParty/glm</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories>..\ThirdParty\glfw-3.1\include;../ThirdParty/glew-1.10.0/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include;..\ThirdParty\tinyObj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,7 +86,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;;..\ThirdParty\tinyObj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,11 +127,13 @@
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
+    <ClCompile Include="..\ThirdParty\tinyObj\tiny_obj_loader.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
+    <ClInclude Include="..\Source\AssetsManager.hpp" />
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\BSplineCamera.h" />
     <ClInclude Include="..\Source\Camera.h" />
