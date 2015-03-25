@@ -1297,7 +1297,6 @@ SphereModel::~SphereModel()
 
 void SphereModel::Update(float dt)
 {
-	// @cesar > WTF is that ? Calling a pure virtual function !
     Model::Update(dt);
 }
 

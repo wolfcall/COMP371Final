@@ -4,7 +4,7 @@ class AssetsManager;
 
 class ObjMesh
 {
-private:
+public:
 
 	struct SubMesh
 	{
@@ -18,6 +18,9 @@ private:
 
 	};
 
+	std::vector<SubMesh> &getSubMeshs() { return _subMeshs; }
+
+private:
 	std::vector < SubMesh > _subMeshs;
 
 	friend class AssetsManager;

@@ -38,6 +38,7 @@
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
     <ClInclude Include="..\Source\AssetsManager.hpp" />
     <ClInclude Include="..\Source\ObjMesh.hpp" />
+    <ClInclude Include="..\Source\MeshModel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene" />

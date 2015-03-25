@@ -12,6 +12,8 @@ class AssetsManager
 private:
 	AssetsManager()
 	{}
+
+	std::map<std::string, std::shared_ptr<ObjMesh> > _meshs;
 public:
 	static AssetsManager *getInstance()
 	{
@@ -25,6 +27,11 @@ public:
 
 	std::shared_ptr < ObjMesh > loadMesh(const std::string &path)
 	{
+		if (_meshs.find(path) != _meshs.end())
+		{
+			return _meshs[path];
+		}
+
 		std::vector<tinyobj::shape_t> shapes;
 		std::vector<tinyobj::material_t> materials;
 
@@ -37,6 +44,8 @@ public:
 		}
 
 		auto mesh = std::make_shared<ObjMesh>();
+
+		_meshs.insert(std::make_pair(path, mesh));
 
 		mesh->_subMeshs.resize(shapes.size());
 

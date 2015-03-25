@@ -11,6 +11,7 @@
 #include "World.h"
 #include "EventManager.h"
 #include "AssetsManager.hpp"
+#include "MeshModel.hpp"
 
 int main(int argc, char*argv[])
 {
@@ -39,7 +40,11 @@ int main(int argc, char*argv[])
 
 	auto assetsManager = AssetsManager::getInstance();
 
-	auto testMesh = assetsManager->loadMesh("../Objects/PacWorm.obj");
+	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+
+	auto testModel = world.CreateModel<MeshModel>(testMesh);
+
+	//testModel->SetScaling(glm::vec3(0.1));
 
 	// Main Loop
 	do

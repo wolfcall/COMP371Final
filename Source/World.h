@@ -36,6 +36,14 @@ public:
     BSpline* FindSplineByIndex(unsigned int index);
     Model* FindModelByIndex(unsigned int index);
 
+	template <typename T, typename... Args>
+	Model *CreateModel(Args... args)
+	{
+		auto res = new T(args...);
+		mModel.push_back(res);
+		return res;
+	}
+
 private:
     static World* instance;
 
