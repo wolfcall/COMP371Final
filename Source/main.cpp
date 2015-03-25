@@ -10,7 +10,7 @@
 #include "Renderer.h"
 #include "World.h"
 #include "EventManager.h"
-
+#include "AssetsManager.hpp"
 
 int main(int argc, char*argv[])
 {
@@ -36,6 +36,10 @@ int main(int argc, char*argv[])
 #endif
 
 	}
+
+	auto assetsManager = AssetsManager::getInstance();
+
+	auto testMesh = assetsManager->loadMesh("../Objects/PacWorm.obj");
 
 	// Main Loop
 	do
