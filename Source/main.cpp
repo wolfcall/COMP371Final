@@ -28,11 +28,11 @@ int main(int argc, char*argv[])
 #if defined(PLATFORM_OSX)
         //world.LoadScene("Scenes/CoordinateSystem.scene");
         //world.LoadScene("Scenes/PathScene.scene");
-        world.LoadScene("Scenes/BSplineScene.scene");
+        //world.LoadScene("Scenes/BSplineScene.scene");
 #else
         //world.LoadScene("../Scenes/CoordinateSystem.scene");
         //world.LoadScene("../Scenes/PathScene.scene");
-        world.LoadScene("../Scenes/BSplineScene.scene");
+       // world.LoadScene("../Scenes/BSplineScene.scene");
 #endif
 	}
 
