@@ -28,8 +28,10 @@ private:
     // Cartesian Coordinates
     float mHorizontalAngle;
 	float wormSteering;
+	float wormSteeringOffset;
     float mVerticalAngle;
     float mRadius;
+	int inc;
     
     // Camera Vectors
     glm::vec3 mPosition;
