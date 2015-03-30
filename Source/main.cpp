@@ -32,7 +32,7 @@ int main(int argc, char*argv[])
 #else
         //world.LoadScene("../Scenes/CoordinateSystem.scene");
         //world.LoadScene("../Scenes/PathScene.scene");
-       // world.LoadScene("../Scenes/BSplineScene.scene");
+        world.LoadScene("../Scenes/BSplineScene.scene");
 #endif
 	}
 
