@@ -9,6 +9,7 @@ public:
 	struct SubMesh
 	{
 		unsigned int _vertexArrayID = 0;
+		unsigned int _indexArrayID = 0;
 		unsigned int _vertexBufferID = 0;
 		unsigned int _numOfVertices = 0;
 	};

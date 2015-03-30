@@ -80,6 +80,7 @@ public:
 				);
 
 			// Draw the triangles !
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, e._indexArrayID);
 			glDrawArrays(GL_TRIANGLES, 0, e._numOfVertices);
 
 			glDisableVertexAttribArray(3);

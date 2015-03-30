@@ -7,6 +7,17 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
+//quick function - to remove
+float randomColor()
+{
+	return (float)(rand() % 100) / 100.0f;
+}
+
+glm::vec3 randomVec4Color()
+{
+	return glm::vec3(randomColor(), randomColor(), randomColor());
+}
+
 class AssetsManager
 {
 private:
@@ -86,7 +97,7 @@ public:
 
 					if (true /*mesh.colors.empty()*/) //@cesar : todo based on materials
 					{
-						tmp.push_back(glm::vec3(1, 1, 1));
+						tmp.push_back(randomVec4Color());
 					}
 					else
 					{
@@ -103,7 +114,10 @@ public:
 					}
 			}
 
-			sub._numOfVertices = mesh.indices.size() / (sizeof(glm::vec3) * 4);
+			sub._numOfVertices = mesh.indices.size();
+			glGenVertexArrays(1, &sub._indexArrayID);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sub._indexArrayID);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh.indices.size() * sizeof(unsigned int), &mesh.indices[0], GL_STATIC_DRAW);
 
 			glGenVertexArrays(1, &sub._vertexArrayID);
 			glGenBuffers(1, &sub._vertexBufferID);
