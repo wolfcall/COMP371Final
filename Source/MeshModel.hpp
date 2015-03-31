@@ -63,10 +63,6 @@ public:
 				3,
 				GL_FLOAT,
 				GL_FALSE,
-			glVertexAttribPointer(3,
-				3,
-				GL_FLOAT,
-				GL_FALSE,
 				sizeof(glm::vec3) * 3,
 				(void*)(2 * sizeof(glm::vec3))
 				);
