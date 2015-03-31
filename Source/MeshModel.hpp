@@ -41,7 +41,7 @@ public:
 				3,              // size
 				GL_FLOAT,       // type
 				GL_FALSE,       // normalized?
-				sizeof(glm::vec3) * 4, // stride
+				sizeof(glm::vec3) * 3, // stride
 				(void*)0        // array buffer offset
 				);
 
@@ -52,38 +52,29 @@ public:
 				3,
 				GL_FLOAT,
 				GL_FALSE,
-				sizeof(glm::vec3) * 4,
+				sizeof(glm::vec3) * 3,
 				(void*)sizeof(glm::vec3)    // Normal is Offseted by vec3 (see class Vertex)
 				);
 
-
-			// 3rd attribute buffer : vertex color
+			// 3th attribute buffer : UVs
 			glEnableVertexAttribArray(2);
 			glBindBuffer(GL_ARRAY_BUFFER, e._vertexBufferID);
 			glVertexAttribPointer(2,
 				3,
 				GL_FLOAT,
 				GL_FALSE,
-				sizeof(glm::vec3) * 4,
-				(void*)(2 * sizeof(glm::vec3)) // Color is Offseted by 2 vec3 (see class Vertex)
-				);
-
-			// 4th attribute buffer : UVs
-			glEnableVertexAttribArray(3);
-			glBindBuffer(GL_ARRAY_BUFFER, e._vertexBufferID);
 			glVertexAttribPointer(3,
 				3,
 				GL_FLOAT,
 				GL_FALSE,
-				sizeof(glm::vec3) * 4,
-				(void*)(3 * sizeof(glm::vec3))
+				sizeof(glm::vec3) * 3,
+				(void*)(2 * sizeof(glm::vec3))
 				);
 
 			// Draw the triangles !
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, e._indexArrayID);
 			glDrawArrays(GL_TRIANGLES, 0, e._numOfVertices);
 
-			glDisableVertexAttribArray(3);
 			glDisableVertexAttribArray(2);
 			glDisableVertexAttribArray(1);
 			glDisableVertexAttribArray(0);

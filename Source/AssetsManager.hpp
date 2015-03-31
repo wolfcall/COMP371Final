@@ -13,7 +13,7 @@ float randomColor()
 	return (float)(rand() % 100) / 100.0f;
 }
 
-glm::vec3 randomVec4Color()
+glm::vec3 randomVec3Color()
 {
 	return glm::vec3(randomColor(), randomColor(), randomColor());
 }
@@ -142,7 +142,7 @@ public:
 			auto &mesh = shape.mesh;
 
 			tmp.clear();
-			tmp.reserve(mesh.indices.size() * 4); // 4 == positions + normals + colors + UVs -> very dirty cause Uvs use vec3 ... okay for now :)
+			tmp.reserve(mesh.indices.size() * 3); // 3 == positions + normals + UVs -> very dirty cause Uvs use vec3 ... okay for now :)
 
 			for (size_t f = 0; f < mesh.indices.size(); f++)
 			{
@@ -166,15 +166,6 @@ public:
 					else
 					{
 						tmp.push_back(glm::vec3(mesh.normals[x + 0], mesh.normals[x + 1], mesh.normals[x + 2]));
-					}
-
-					if (true /*mesh.colors.empty()*/) //@cesar : todo based on materials
-					{
-						tmp.push_back(randomVec4Color());
-					}
-					else
-					{
-						//tmp.push_back(glm::vec3(mesh.colors[x], mesh.colors[y], mesh.colors[z]));
 					}
 
 					if (mesh.texcoords.empty())
