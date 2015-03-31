@@ -142,7 +142,6 @@ void ThirdPersonCamera::Update(float dt)
 			inc++;
 		}
 	}
-	wormSteeringOffset = wormSteering + inc/40.000;
 	// @TODO
 	// Align target model with the horizontal angle
 	mTargetModel->SetRotation(vec3(0, 1, 0), wormSteering*57.3); //Not working 100% properly
