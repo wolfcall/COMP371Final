@@ -5,9 +5,9 @@
 #include "tiny_obj_loader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "SOIL.h"
 
-
-//quick function - to remove
+//quick functions - to remove
 float randomColor()
 {
 	return (float)(rand() % 100) / 100.0f;
@@ -18,6 +18,19 @@ glm::vec3 randomVec4Color()
 	return glm::vec3(randomColor(), randomColor(), randomColor());
 }
 
+std::string GetFile(const std::string& str)
+{
+	unsigned found = str.find_last_of("/\\");
+	return str.substr(found + 1);
+}
+
+std::string GetFolder(const std::string& str)
+{
+	unsigned found = str.find_last_of("/\\");
+	return str.substr(0, found) + "/";
+}
+//------------
+
 class AssetsManager
 {
 private:
@@ -25,6 +38,7 @@ private:
 	{}
 
 	std::map<std::string, std::shared_ptr<ObjMesh> > _meshs;
+	std::map<std::string, GLuint> _textures;
 public:
 	static AssetsManager *getInstance()
 	{
@@ -34,6 +48,30 @@ public:
 			ptr = std::unique_ptr<AssetsManager>(new AssetsManager());
 		}
 		return ptr.get();
+	}
+
+	GLuint loadTexture(const std::string &path)
+	{
+		if (_textures.find(path) != _textures.end())
+		{
+			return _textures[path];
+		}
+
+		GLuint tex_2d = SOIL_load_OGL_texture
+			(
+			path.c_str(),
+			SOIL_LOAD_AUTO,
+			SOIL_CREATE_NEW_ID,
+			SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
+			);
+
+		/* check for an error during the load process */
+		if (0 == tex_2d)
+		{
+			return -1;
+		}
+		_textures.insert(std::make_pair(path, tex_2d));
+		return tex_2d;
 	}
 
 	std::shared_ptr < ObjMesh > loadMesh(const std::string &path)
@@ -46,7 +84,7 @@ public:
 		std::vector<tinyobj::shape_t> shapes;
 		std::vector<tinyobj::material_t> materials;
 
-		std::string err = tinyobj::LoadObj(shapes, materials, path.c_str());
+		std::string err = tinyobj::LoadObj(shapes, materials, path.c_str(), GetFolder(path).c_str());
 
 		if (!err.empty())
 		{
@@ -54,11 +92,46 @@ public:
 			return nullptr;
 		}
 
+
 		auto mesh = std::make_shared<ObjMesh>();
 
 		_meshs.insert(std::make_pair(path, mesh));
 
 		mesh->_subMeshs.resize(shapes.size());
+		mesh->_subMaterials.resize(materials.size());
+
+		
+		for (size_t i = 0; i < materials.size(); i++)
+		{
+			auto &sub = mesh->_subMaterials[i];
+
+			//printf("material[%ld].name = %s\n", i, materials[i].name.c_str());
+			sub.colorAmbiant = glm::vec3(materials[i].ambient[0], materials[i].ambient[1], materials[i].ambient[2]);
+			sub.colorDiffuse = glm::vec3(materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
+			sub.colorSpecular = glm::vec3(materials[i].specular[0], materials[i].specular[1], materials[i].specular[2]);
+			sub.colorTransmittance = glm::vec3(materials[i].transmittance[0], materials[i].transmittance[1], materials[i].transmittance[2]);
+			sub.colorEmission = glm::vec3(materials[i].emission[0], materials[i].emission[1], materials[i].emission[2]);
+
+			if (materials[i].ambient_texname.size() > 0)
+			{
+				sub.textureAmbiant = loadTexture(GetFolder(path) + materials[i].ambient_texname);
+			}
+			if (materials[i].diffuse_texname.size() > 0)
+			{
+				sub.textureDiffuse = loadTexture(GetFolder(path) + materials[i].diffuse_texname);
+			}
+			if (materials[i].specular_texname.size() > 0)
+			{
+				sub.textureSpecular = loadTexture(GetFolder(path) + materials[i].specular_texname);
+			}
+			if (materials[i].normal_texname.size() > 0)
+			{
+				sub.textureNormal = loadTexture(GetFolder(path) + materials[i].normal_texname);
+			}
+		}
+		
+
+		//------------------------
 
 		std::vector<glm::vec3> tmp;
 
@@ -127,35 +200,5 @@ public:
 		}
 
 		return mesh;
-
-		// debug to erase
-		{
-			std::cout << "# of shapes    : " << shapes.size() << std::endl;
-			std::cout << "# of materials : " << materials.size() << std::endl;
-
-			for (size_t i = 0; i < materials.size(); i++) {
-				printf("material[%ld].name = %s\n", i, materials[i].name.c_str());
-				printf("  material.Ka = (%f, %f ,%f)\n", materials[i].ambient[0], materials[i].ambient[1], materials[i].ambient[2]);
-				printf("  material.Kd = (%f, %f ,%f)\n", materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
-				printf("  material.Ks = (%f, %f ,%f)\n", materials[i].specular[0], materials[i].specular[1], materials[i].specular[2]);
-				printf("  material.Tr = (%f, %f ,%f)\n", materials[i].transmittance[0], materials[i].transmittance[1], materials[i].transmittance[2]);
-				printf("  material.Ke = (%f, %f ,%f)\n", materials[i].emission[0], materials[i].emission[1], materials[i].emission[2]);
-				printf("  material.Ns = %f\n", materials[i].shininess);
-				printf("  material.Ni = %f\n", materials[i].ior);
-				printf("  material.dissolve = %f\n", materials[i].dissolve);
-				printf("  material.illum = %d\n", materials[i].illum);
-				printf("  material.map_Ka = %s\n", materials[i].ambient_texname.c_str());
-				printf("  material.map_Kd = %s\n", materials[i].diffuse_texname.c_str());
-				printf("  material.map_Ks = %s\n", materials[i].specular_texname.c_str());
-				printf("  material.map_Ns = %s\n", materials[i].normal_texname.c_str());
-				std::map<std::string, std::string>::const_iterator it(materials[i].unknown_parameter.begin());
-				std::map<std::string, std::string>::const_iterator itEnd(materials[i].unknown_parameter.end());
-				for (; it != itEnd; it++) {
-					printf("  material.%s = %s\n", it->first.c_str(), it->second.c_str());
-				}
-				printf("\n");
-			}
-		}
-		return nullptr;
 	}
 };
