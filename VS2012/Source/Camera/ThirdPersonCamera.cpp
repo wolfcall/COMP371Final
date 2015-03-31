@@ -114,7 +114,7 @@ void ThirdPersonCamera::Update(float dt)
 	{
 		//mTargetModel->SetPosition(mTargetModel->GetPosition() - mRight * dt * speed);
 		wormSteering += mouseSpeed * dt * speed;
-		if (inc < +20)
+		if (inc < +40)
 		{
 			inc++;
 		}
@@ -125,7 +125,7 @@ void ThirdPersonCamera::Update(float dt)
 	{
 		//mTargetModel->SetPosition(mTargetModel->GetPosition() + mRight * dt * speed);
 		wormSteering -= mouseSpeed * dt * speed;
-		if (inc > -20)
+		if (inc > -40)
 		{
 			inc--;
 		}
@@ -142,11 +142,7 @@ void ThirdPersonCamera::Update(float dt)
 			inc++;
 		}
 	}
-<<<<<<< HEAD:Source/ThirdPersonCamera.cpp
-	wormSteeringOffset = wormSteering - inc/60.000; //set to + inc/40.000 for 'look-ahead' camera steering, set to - inc/60.000 for 'driving game-like' camera steering
-=======
-	wormSteeringOffset = wormSteering + inc/40.000;
->>>>>>> origin/master:VS2012/Source/Camera/ThirdPersonCamera.cpp
+	wormSteeringOffset = wormSteering - inc/150.000; //set to + inc/40.000 for 'look-ahead' camera steering, set to - inc/60.000 for 'driving game-like' camera steering
 	// @TODO
 	// Align target model with the horizontal angle
 	mTargetModel->SetRotation(vec3(0, 1, 0), wormSteering*57.3); //Not working 100% properly

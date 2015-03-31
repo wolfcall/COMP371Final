@@ -1,51 +1,121 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\SheepModel.cpp" />
-    <ClCompile Include="..\Source\BSpline.cpp" />
-    <ClCompile Include="..\Source\BSplineCamera.cpp" />
-    <ClCompile Include="..\Source\Camera.cpp" />
-    <ClCompile Include="..\Source\Path.cpp" />
-    <ClCompile Include="..\Source\SphereModel.cpp" />
-    <ClCompile Include="..\Source\StaticCamera.cpp" />
-    <ClCompile Include="..\Source\EventManager.cpp" />
-    <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\Model.cpp" />
-    <ClCompile Include="..\Source\CubeModel.cpp" />
-    <ClCompile Include="..\Source\Renderer.cpp" />
-    <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
-    <ClCompile Include="..\Source\World.cpp" />
-    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\WormModel.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
-    <ClInclude Include="..\Source\BSpline.h" />
-    <ClInclude Include="..\Source\BSplineCamera.h" />
-    <ClInclude Include="..\Source\Camera.h" />
-    <ClInclude Include="..\Source\ParsingHelper.h" />
-    <ClInclude Include="..\Source\Path.h" />
-    <ClInclude Include="..\Source\SphereModel.h" />
-    <ClInclude Include="..\Source\StaticCamera.h" />
-    <ClInclude Include="..\Source\EventManager.h" />
-    <ClInclude Include="..\Source\CubeModel.h" />
-    <ClInclude Include="..\Source\Renderer.h" />
-    <ClInclude Include="..\Source\ThirdPersonCamera.h" />
-    <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
-    <ClInclude Include="..\Source\Model.h" />
+    <ClInclude Include="Source\Model_Classes\CubeModel.h">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model_Classes\Model.h">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model_Classes\OBJLoader.h">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model_Classes\SheepModel.h">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model_Classes\SphereModel.h">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model_Classes\WormModel.h">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BSpline\BSpline.h">
+      <Filter>BSpline</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\BSpline\BSplineCamera.h">
+      <Filter>BSpline</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\StaticCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Camera\ThirdPersonCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EventManager.h" />
+    <ClInclude Include="Source\ParsingHelper.h" />
+    <ClInclude Include="Source\Path.h" />
+    <ClInclude Include="Source\Renderer.h" />
+    <ClInclude Include="Source\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Scenes\BSplineScene.scene" />
-    <None Include="..\Scenes\CoordinateSystem.scene" />
-    <None Include="..\Scenes\PathScene.scene" />
-    <None Include="..\Source\Shaders\Gouraud.fragmentshader" />
-    <None Include="..\Source\Shaders\Gouraud.vertexshader" />
-    <None Include="..\Source\Shaders\Phong.fragmentshader" />
-    <None Include="..\Source\Shaders\Phong.vertexshader" />
+    <None Include="..\Scenes\BSplineScene.scene">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Scenes\CoordinateSystem.scene">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Gouraud.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Gouraud.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Scenes\PathScene.scene">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Phong.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\Phong.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Model_Classes">
+      <UniqueIdentifier>{fc5afffe-69f2-4876-9403-e4fe5ab06694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d936b5ca-4693-46a2-b691-f76ad2e45bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BSpline">
+      <UniqueIdentifier>{e5f9004f-5098-4dfb-ab40-a13002c66629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{f36eb82b-90c2-49cc-ae3e-c46087fa7550}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Model_Classes\CubeModel.cpp">
+      <Filter>Model_Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model_Classes\Model.cpp">
+      <Filter>Model_Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model_Classes\SheepModel.cpp">
+      <Filter>Model_Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model_Classes\SphereModel.cpp">
+      <Filter>Model_Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model_Classes\WormModel.cpp">
+      <Filter>Model_Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BSpline\BSpline.cpp">
+      <Filter>BSpline</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\BSpline\BSplineCamera.cpp">
+      <Filter>BSpline</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\StaticCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Camera\ThirdPersonCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\EventManager.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Path.cpp" />
+    <ClCompile Include="Source\Renderer.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
 </Project>

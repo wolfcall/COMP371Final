@@ -110,43 +110,43 @@
     <None Include="..\Source\Shaders\Phong.vertexshader" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\SheepModel.cpp" />
-    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\WormModel.cpp" />
-    <ClCompile Include="..\Source\BSpline.cpp" />
-    <ClCompile Include="..\Source\BSplineCamera.cpp" />
-    <ClCompile Include="..\Source\Camera.cpp" />
-    <ClCompile Include="..\Source\Path.cpp" />
-    <ClCompile Include="..\Source\SphereModel.cpp" />
-    <ClCompile Include="..\Source\StaticCamera.cpp" />
-    <ClCompile Include="..\Source\EventManager.cpp" />
-    <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\Model.cpp" />
-    <ClCompile Include="..\Source\CubeModel.cpp" />
-    <ClCompile Include="..\Source\Renderer.cpp" />
-    <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
-    <ClCompile Include="..\Source\World.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
-    <ClInclude Include="..\Source\BSpline.h" />
-    <ClInclude Include="..\Source\BSplineCamera.h" />
-    <ClInclude Include="..\Source\Camera.h" />
-    <ClInclude Include="..\Source\Model.h" />
-    <ClInclude Include="..\Source\ParsingHelper.h" />
-    <ClInclude Include="..\Source\Path.h" />
-    <ClInclude Include="..\Source\SphereModel.h" />
-    <ClInclude Include="..\Source\StaticCamera.h" />
-    <ClInclude Include="..\Source\EventManager.h" />
-    <ClInclude Include="..\Source\CubeModel.h" />
-    <ClInclude Include="..\Source\Renderer.h" />
-    <ClInclude Include="..\Source\ThirdPersonCamera.h" />
-    <ClInclude Include="..\Source\World.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\BSpline\BSpline.h" />
+    <ClInclude Include="Source\BSpline\BSplineCamera.h" />
+    <ClInclude Include="Source\Camera\Camera.h" />
+    <ClInclude Include="Source\Camera\StaticCamera.h" />
+    <ClInclude Include="Source\Camera\ThirdPersonCamera.h" />
+    <ClInclude Include="Source\EventManager.h" />
+    <ClInclude Include="Source\Model_Classes\CubeModel.h" />
+    <ClInclude Include="Source\Model_Classes\Model.h" />
+    <ClInclude Include="Source\Model_Classes\OBJLoader.h" />
+    <ClInclude Include="Source\Model_Classes\SheepModel.h" />
+    <ClInclude Include="Source\Model_Classes\SphereModel.h" />
+    <ClInclude Include="Source\Model_Classes\WormModel.h" />
+    <ClInclude Include="Source\ParsingHelper.h" />
+    <ClInclude Include="Source\Path.h" />
+    <ClInclude Include="Source\Renderer.h" />
+    <ClInclude Include="Source\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\BSpline\BSpline.cpp" />
+    <ClCompile Include="Source\BSpline\BSplineCamera.cpp" />
+    <ClCompile Include="Source\Camera\Camera.cpp" />
+    <ClCompile Include="Source\Camera\StaticCamera.cpp" />
+    <ClCompile Include="Source\Camera\ThirdPersonCamera.cpp" />
+    <ClCompile Include="Source\EventManager.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Model_Classes\CubeModel.cpp" />
+    <ClCompile Include="Source\Model_Classes\Model.cpp" />
+    <ClCompile Include="Source\Model_Classes\SheepModel.cpp" />
+    <ClCompile Include="Source\Model_Classes\SphereModel.cpp" />
+    <ClCompile Include="Source\Model_Classes\WormModel.cpp" />
+    <ClCompile Include="Source\Path.cpp" />
+    <ClCompile Include="Source\Renderer.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
