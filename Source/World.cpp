@@ -203,7 +203,7 @@ void World::Draw()
     for (vector<BSpline*>::iterator it = mSpline.begin(); it < mSpline.end(); ++it)
 	{
 		// Draw model
-		(*it)->Draw();
+		//(*it)->Draw();
 	}
 
 	// Restore previous shader
@@ -234,18 +234,19 @@ void World::LoadScene(const char * scene_path)
 		ci_string result;
 		if( std::getline( iss, result, ']') )
 		{
+
 			if( result == "cube" )
 			{
 				// Box attributes
 				CubeModel* cube = new CubeModel();
 				cube->Load(iss);
-				mModel.push_back(cube);
+				//mModel.push_back(cube);
 			}
             else if( result == "sphere" )
             {
                 SphereModel* sphere = new SphereModel();
                 sphere->Load(iss);
-                mModel.push_back(sphere);
+                //mModel.push_back(sphere);
             }
             else if( result == "path" )
 			{
