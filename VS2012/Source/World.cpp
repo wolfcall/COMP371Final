@@ -11,14 +11,14 @@
 #include "Renderer.h"
 #include "ParsingHelper.h"
 
-#include "StaticCamera.h"
-#include "BSplineCamera.h"
-#include "ThirdPersonCamera.h"
+#include "Camera/StaticCamera.h"
+#include "BSpline/BSplineCamera.h"
+#include "Camera/ThirdPersonCamera.h"
 
-#include "CubeModel.h"
-#include "SphereModel.h"
+#include "Model_Classes/CubeModel.h"
+#include "Model_Classes/SphereModel.h"
 #include "Path.h"
-#include "BSpline.h"
+#include "BSpline/BSpline.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"

@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "Camera.h"
+#include "../Camera/Camera.h"
 #include "BSpline.h"
 
 class BSplineCamera : public Camera

@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include "ParsingHelper.h"
-#include "Model.h"
+#include "../ParsingHelper.h"
+#include "../Model_Classes/Model.h"
 #include <vector>
 
 #include <GLM/glm.hpp>

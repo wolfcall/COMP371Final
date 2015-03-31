@@ -8,9 +8,9 @@
 //
 
 #include "Model.h"
-#include "Path.h"
-#include "BSpline.h"
-#include "World.h"
+#include "../Path.h"
+#include "../BSpline/BSpline.h"
+#include "../World.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/common.hpp>
 

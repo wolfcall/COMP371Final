@@ -8,7 +8,7 @@
 //
 
 #include "SphereModel.h"
-#include "Renderer.h"
+#include "../Renderer.h"
 #include <GL/glew.h>
 
 using namespace glm;
