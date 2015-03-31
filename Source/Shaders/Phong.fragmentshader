@@ -1,0 +1,51 @@
+#version 330 core
+
+
+// Light and Material Uniform Variables
+uniform vec4 materialCoefficients; // x: ambient   y: diffuse   z: specular   w: specular exponent
+
+uniform vec3 lightColor;
+uniform vec3 lightAttenuation; // x: kC  y: kL  z: kQ
+
+
+// Inputs
+in vec3 v_color;		 // vertex color: also diffuse color
+
+in vec3 normal;          // Transformed normal in View Space
+in vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
+in vec3 lightVector;     // Vector from the vertex to the Light in View Space
+						 // Length of lightVector is the distance between light and vertex
+						 // if w = 1: Point light, if w = 0: directional light
+
+// Ouput data
+out vec3 color;
+
+void main()
+{
+	// Implment Phong Shading based on the parameters above
+	// Remember that directional light don't have attenuation
+	
+	// Normalize the normal
+	vec3 newNormal  = normalize(normal);
+
+	// Normalize the lightColor
+	vec3 lightNormal = normalize(lightColor); 
+
+	// Cosine of the angle between the normal and the light direction clamped above 0
+	float cosTheta = clamp(dot(newNormal,lightNormal), 0,1);	
+	
+	// For the ambient color to use as hack
+	vec3 ambientColor = v_color * vec3(0.1,0.1,0.1);		
+
+	// For the specular color
+	vec3 specular_Color = vec3(0.40,0.40,0.40);
+
+	vec3 eye = normalize(eyeVector);
+	vec3 ref = reflect(-lightNormal,newNormal);
+
+	float cosBeta = clamp(dot(eye,ref),0,1);
+
+	color = ambientColor + v_color * lightColor * cosTheta + 
+	specular_Color * lightColor * pow(cosBeta,5);
+
+}

@@ -26,6 +26,13 @@
 using namespace std;
 using namespace glm;
 
+// Light Coefficients
+const vec3 lightColor(1.0f, 1.0f, 1.0f);
+const float lightKc = 0.0f;
+const float lightKl = 0.0f;
+const float lightKq = 2.0f;
+const vec4 lightPosition(0.0f, 10.0f, 0.0f, 1.0f);
+
 World* World::instance;
 
 World::World()
@@ -112,11 +119,11 @@ void World::Update(float dt)
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
-		Renderer::SetShader(SHADER_SOLID_COLOR);
+		Renderer::SetShader(GOURAUD_SHADER);
 	}
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
 	{
-		Renderer::SetShader(SHADER_BLUE);
+		Renderer::SetShader(PHONG_SHADER);
 	}
 
 	// Update current Camera
@@ -132,8 +139,20 @@ void World::Update(float dt)
 void World::Draw()
 {
 	Renderer::BeginFrame();
+
 	
 	// Set shader to use
+	// Get a handle for our Transformation Matrices uniform
+	GLuint WorldMatrixID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform");
+	GLuint ViewMatrixID = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	GLuint ProjMatrixID = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+
+	// Get a handle for Light Attributes uniform
+	GLuint LightPositionID = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldLightPosition");
+	GLuint LightColorID = glGetUniformLocation(Renderer::GetShaderProgramID(), "lightColor");
+	GLuint LightAttenuationID = glGetUniformLocation(Renderer::GetShaderProgramID(), "lightAttenuation");
+
+
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// This looks for the MVP Uniform variable in the Vertex Program
@@ -142,6 +161,19 @@ void World::Draw()
 	// Send the view projection constants to the shader
 	mat4 VP = mCamera[mCurrentCamera]->GetViewProjectionMatrix();
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+
+	glm::mat4 worldMatrix(1.0f);
+	glm::mat4 viewMatrix = mCamera[mCurrentCamera]->GetViewMatrix();
+	glm::mat4 projectionMatrix = mCamera[mCurrentCamera]->GetProjectionMatrix();
+
+	glUniformMatrix4fv(WorldMatrixID, 1, GL_FALSE, &worldMatrix[0][0]);
+	glUniformMatrix4fv(ViewMatrixID, 1, GL_FALSE, &viewMatrix[0][0]);
+	glUniformMatrix4fv(ProjMatrixID, 1, GL_FALSE, &projectionMatrix[0][0]);
+
+	// Shader constants for Light
+	glUniform4f(LightPositionID, lightPosition.x, lightPosition.y, lightPosition.z, lightPosition.w);
+	glUniform3f(LightColorID, lightColor.r, lightColor.g, lightColor.b);
+	glUniform3f(LightAttenuationID, lightKc, lightKl, lightKq);
 
 	// Draw models
 	for (vector<Model*>::iterator it = mModel.begin(); it < mModel.end(); ++it)
@@ -154,7 +186,7 @@ void World::Draw()
 	
 	// Set Shader for path lines
 	unsigned int prevShader = Renderer::GetCurrentShader();
-	Renderer::SetShader(SHADER_PATH_LINES);
+	//Renderer::SetShader(SHADER_PATH_LINES);
 	glUseProgram(Renderer::GetShaderProgramID());
 
 	// Send the view projection constants to the shader

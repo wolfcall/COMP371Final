@@ -27,7 +27,6 @@
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />
-    <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
@@ -35,16 +34,16 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
+    <ClInclude Include="..\Source\Model.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene" />
     <None Include="..\Scenes\CoordinateSystem.scene" />
     <None Include="..\Scenes\PathScene.scene" />
-    <None Include="..\Source\Shaders\BlueColor.fragmentshader" />
-    <None Include="..\Source\Shaders\PathLines.fragmentshader" />
-    <None Include="..\Source\Shaders\PathLines.vertexshader" />
-    <None Include="..\Source\Shaders\SolidColor.vertexshader" />
-    <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
+    <None Include="..\Source\Shaders\Gouraud.fragmentshader" />
+    <None Include="..\Source\Shaders\Gouraud.vertexshader" />
+    <None Include="..\Source\Shaders\Phong.fragmentshader" />
+    <None Include="..\Source\Shaders\Phong.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />
