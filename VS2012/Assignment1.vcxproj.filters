@@ -15,7 +15,7 @@
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
-    <ClCompile Include="..\Source\WormModel.cpp" />
+    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\WormModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
@@ -27,14 +27,14 @@
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />
-    <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\World.h" />
-    <ClInclude Include="..\Source\WormModel.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
+    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
+    <ClInclude Include="..\Source\Model.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene" />
@@ -48,8 +48,5 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\Objects\Obj file and Sheep Model Class\PacWorm.obj" />
   </ItemGroup>
 </Project>

@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Objects\Obj file and Sheep Model Class\SheepModel.cpp" />
+    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\WormModel.cpp" />
     <ClCompile Include="..\Source\BSpline.cpp" />
     <ClCompile Include="..\Source\BSplineCamera.cpp" />
     <ClCompile Include="..\Source\Camera.cpp" />
@@ -125,32 +126,28 @@
     <ClCompile Include="..\Source\Renderer.cpp" />
     <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
     <ClCompile Include="..\Source\World.cpp" />
-    <ClCompile Include="..\Source\WormModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
     <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
+    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
     <ClInclude Include="..\Source\BSpline.h" />
     <ClInclude Include="..\Source\BSplineCamera.h" />
     <ClInclude Include="..\Source\Camera.h" />
+    <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\ParsingHelper.h" />
     <ClInclude Include="..\Source\Path.h" />
     <ClInclude Include="..\Source\SphereModel.h" />
     <ClInclude Include="..\Source\StaticCamera.h" />
     <ClInclude Include="..\Source\EventManager.h" />
-    <ClInclude Include="..\Source\Model.h" />
     <ClInclude Include="..\Source\CubeModel.h" />
     <ClInclude Include="..\Source\Renderer.h" />
     <ClInclude Include="..\Source\ThirdPersonCamera.h" />
     <ClInclude Include="..\Source\World.h" />
-    <ClInclude Include="..\Source\WormModel.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Object Include="..\Objects\Obj file and Sheep Model Class\PacWorm.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
