@@ -10,7 +10,7 @@
 #pragma once
 
 #include "Camera.h"
-#include "BSpline.h"
+#include "../BSpline/BSpline.h"
 
 class ThirdPersonCamera : public Camera
 {

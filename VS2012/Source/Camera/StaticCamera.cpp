@@ -10,7 +10,7 @@
 #include "StaticCamera.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "EventManager.h"
+#include "../EventManager.h"
 
 using namespace glm;
 

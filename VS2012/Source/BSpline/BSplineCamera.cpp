@@ -8,8 +8,8 @@
 //
 
 #include "BSplineCamera.h"
-#include "EventManager.h"
-#include "World.h"
+#include "../EventManager.h"
+#include "../World.h"
 #include <GLM/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 

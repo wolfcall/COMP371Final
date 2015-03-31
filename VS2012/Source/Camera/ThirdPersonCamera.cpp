@@ -8,8 +8,8 @@
 //
 
 #include "ThirdPersonCamera.h"
-#include "EventManager.h"
-#include "World.h"
+#include "../EventManager.h"
+#include "../World.h"
 #include <GLM/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/vector_angle.hpp>
@@ -143,6 +143,7 @@ void ThirdPersonCamera::Update(float dt)
 		}
 	}
 	wormSteeringOffset = wormSteering - inc/60.000; //set to + inc/40.000 for 'look-ahead' camera steering, set to - inc/60.000 for 'driving game-like' camera steering
+	//wormSteeringOffset = wormSteering + inc/40.000;
 	// @TODO
 	// Align target model with the horizontal angle
 	mTargetModel->SetRotation(vec3(0, 1, 0), wormSteering*57.3); //Not working 100% properly
