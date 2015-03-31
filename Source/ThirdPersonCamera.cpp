@@ -142,6 +142,7 @@ void ThirdPersonCamera::Update(float dt)
 			inc++;
 		}
 	}
+	wormSteeringOffset = wormSteering - inc/60.000; //set to + inc/40.000 for 'look-ahead' camera steering, set to - inc/60.000 for 'driving game-like' camera steering
 	// @TODO
 	// Align target model with the horizontal angle
 	mTargetModel->SetRotation(vec3(0, 1, 0), wormSteering*57.3); //Not working 100% properly
