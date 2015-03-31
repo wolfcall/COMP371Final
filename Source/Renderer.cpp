@@ -58,10 +58,17 @@ void Renderer::Initialize()
 	// Line width
 	glLineWidth(2);
 
+	std::string shaderPath = "../Source/Shaders/";
+
 	// Loading Shaders
-	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/SolidColor.fragmentshader"));
-	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/PathLines.vertexshader", "../Source/Shaders/PathLines.fragmentshader"));
-	sShaderProgramID.push_back(LoadShaders("../Source/Shaders/SolidColor.vertexshader", "../Source/Shaders/BlueColor.fragmentshader"));
+	sShaderProgramID.push_back(
+		LoadShaders(shaderPath + "Phong.vertexshader",
+		shaderPath + "Phong.fragmentshader")
+		);
+	sShaderProgramID.push_back(
+		LoadShaders(shaderPath + "Gouraud.vertexshader",
+		shaderPath + "Gouraud.fragmentshader")
+		);
 	sCurrentShader = 0;
 
 }
@@ -105,7 +112,7 @@ void Renderer::SetShader(ShaderType type)
 // The following code is taken from
 // www.opengl-tutorial.org
 //
-GLuint Renderer::LoadShaders(const char * vertex_shader_path,const char * fragment_shader_path)
+GLuint Renderer::LoadShaders(std::string vertex_shader_path, std::string fragment_shader_path)
 {
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);

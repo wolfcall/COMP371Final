@@ -20,9 +20,8 @@ struct GLFWwindow;
 
 enum ShaderType
 {
-	SHADER_SOLID_COLOR,
-	SHADER_PATH_LINES,
-	SHADER_BLUE,
+	PHONG_SHADER,
+	GOURAUD_SHADER,
 	NUM_SHADERS
 };
 
@@ -36,7 +35,7 @@ public:
 	static void BeginFrame();
 	static void EndFrame();
 
-	static GLuint LoadShaders(const char * vertex_shader_path, const char * fragment_shader_path);
+	static GLuint LoadShaders(std::string vertex_shader_path, std::string fragment_shader_path);
 	static bool   LoadOBJ(const char * path, std::vector<glm::vec3> & out_vertices, std::vector<glm::vec2> & out_uvs, std::vector<glm::vec3> & out_normals );
 
 	static unsigned int GetShaderProgramID() { return sShaderProgramID[sCurrentShader]; }
