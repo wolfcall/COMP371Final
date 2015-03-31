@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Source/Model.h"
+#include "Model.h"
 
 class WormModel : public Model
 {

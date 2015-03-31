@@ -8,7 +8,7 @@
 //
 
 #include "WormModel.h"
-#include "../../Source/Renderer.h"
+#include "Renderer.h"
 
 // Include GLEW - OpenGL Extension Wrangler
 #include <GL/glew.h>
