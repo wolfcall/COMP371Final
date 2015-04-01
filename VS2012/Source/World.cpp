@@ -31,7 +31,7 @@ const vec3 lightColor(1.0f, 1.0f, 1.0f);
 const float lightKc = 0.0f;
 const float lightKl = 0.0f;
 const float lightKq = 2.0f;
-const vec4 lightPosition(-1.0f, 10.0f, 0.0f, 1.0f);
+const vec4 lightPosition(0.0f, 10.0f, 0.0f, 1.0f);
 
 World* World::instance;
 
