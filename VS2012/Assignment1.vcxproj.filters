@@ -43,6 +43,9 @@
     <ClInclude Include="Source\AssetsManager.hpp" />
     <ClInclude Include="Source\Model_Classes\MeshModel.hpp" />
     <ClInclude Include="Source\Model_Classes\ObjMesh.hpp" />
+    <ClInclude Include="..\ThirdParty\tinyObj\tiny_obj_loader.h">
+      <Filter>ExtInc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene">
@@ -83,6 +86,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{f36eb82b-90c2-49cc-ae3e-c46087fa7550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ExtInc">
+      <UniqueIdentifier>{7000ba97-b4db-49b8-9918-2c2e66ef5867}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Model_Classes\CubeModel.cpp">
@@ -120,5 +126,13 @@
     <ClCompile Include="Source\Path.cpp" />
     <ClCompile Include="Source\Renderer.cpp" />
     <ClCompile Include="Source\World.cpp" />
+    <ClCompile Include="..\ThirdParty\tinyObj\tiny_obj_loader.cc">
+      <Filter>ExtInc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\ThirdParty\soil\SOIL.lib">
+      <Filter>ExtInc</Filter>
+    </Library>
   </ItemGroup>
 </Project>
