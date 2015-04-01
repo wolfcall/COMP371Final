@@ -110,7 +110,6 @@
     <None Include="..\Source\Shaders\Phong.vertexshader" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ThirdParty\soil\SOIL.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Source\AssetsManager.hpp" />
     <ClInclude Include="Source\BSpline\BSpline.h" />

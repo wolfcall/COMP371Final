@@ -43,7 +43,6 @@
     <ClInclude Include="Source\AssetsManager.hpp" />
     <ClInclude Include="Source\Model_Classes\MeshModel.hpp" />
     <ClInclude Include="Source\Model_Classes\ObjMesh.hpp" />
-    <ClInclude Include="..\ThirdParty\soil\SOIL.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene">
