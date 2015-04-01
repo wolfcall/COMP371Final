@@ -44,14 +44,13 @@
     <OutDir>$(SolutionDir)/../Bin/</OutDir>
     <IntDir>$(SolutionDir)/../Build/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
-    <SourcePath>..\ThirdParty\tinyObj</SourcePath>
+    <SourcePath>D:\Git\Source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)/../Bin/</OutDir>
     <IntDir>$(SolutionDir)/../Build/$(Configuration)/</IntDir>
     <TargetName>$(ProjectName)-$(Configuration)</TargetName>
-    <SourcePath>..\ThirdParty\tinyObj</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -62,15 +61,15 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\ThirdParty\glfw-3.0.4\include;..\ThirdParty\glew-1.10.0\include;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include;../ThirdParty/glm</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories>..\ThirdParty\glfw-3.1\include;../ThirdParty/glew-1.10.0/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include;..\ThirdParty\tinyObj;..\ThirdParty\SOIL</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;..\ThirdParty\glew-1.12.0\include;..\ThirdParty\glfw-3.1\include;..\ThirdParty\tinyObj;..\ThirdParty\soil</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\Georges\Documents\Visual Studio 2013\COMP371Final\ThirdParty\glew-1.12.0\lib\Release\Win32;..\ThirdParty\glfw-3.1\lib-vc2013</AdditionalLibraryDirectories>
       <AdditionalLibraryDirectories>..\ThirdParty\glew-1.12.0\lib\Release\Win32;..\ThirdParty\glfw-3.1\lib-vc2013</AdditionalLibraryDirectories>
-      <AdditionalLibraryDirectories>..\ThirdParty\glfw-3.1\lib-vc2013;../ThirdParty/glew-1.12.0/lib/Release/Win32;../ThirdParty/glew-1.10.0/lib/Release/Win32;../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110;../ThirdParty/SOIL</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;SOIL.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\ThirdParty\glfw-3.1\lib-vc2013;../ThirdParty/glew-1.12.0/lib/Release/Win32;../ThirdParty/glew-1.10.0/lib/Release/Win32;../ThirdParty/glfw-3.0.4/lib/Win32/lib-msvc110;..\ThirdParty\soil</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>
@@ -86,7 +85,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm;;..\ThirdParty\tinyObj</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/glew-1.10.0/include;../ThirdParty/glfw-3.0.4/include;../ThirdParty/glm</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,54 +104,53 @@
     <None Include="..\Scenes\BSplineScene.scene" />
     <None Include="..\Scenes\CoordinateSystem.scene" />
     <None Include="..\Scenes\PathScene.scene" />
-    <None Include="..\Source\Shaders\BlueColor.fragmentshader" />
-    <None Include="..\Source\Shaders\PathLines.fragmentshader" />
-    <None Include="..\Source\Shaders\PathLines.vertexshader" />
-    <None Include="..\Source\Shaders\SolidColor.vertexshader" />
-    <None Include="..\Source\Shaders\SolidColor.fragmentshader" />
+    <None Include="..\Source\Shaders\Gouraud.fragmentshader" />
+    <None Include="..\Source\Shaders\Gouraud.vertexshader" />
+    <None Include="..\Source\Shaders\Phong.fragmentshader" />
+    <None Include="..\Source\Shaders\Phong.vertexshader" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\SheepModel.cpp" />
-    <ClCompile Include="..\Objects\Obj file and Sheep Model Class\WormModel.cpp" />
-    <ClCompile Include="..\Source\BSpline.cpp" />
-    <ClCompile Include="..\Source\BSplineCamera.cpp" />
-    <ClCompile Include="..\Source\Camera.cpp" />
-    <ClCompile Include="..\Source\Path.cpp" />
-    <ClCompile Include="..\Source\SphereModel.cpp" />
-    <ClCompile Include="..\Source\StaticCamera.cpp" />
-    <ClCompile Include="..\Source\EventManager.cpp" />
-    <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\Model.cpp" />
-    <ClCompile Include="..\Source\CubeModel.cpp" />
-    <ClCompile Include="..\Source\Renderer.cpp" />
-    <ClCompile Include="..\Source\ThirdPersonCamera.cpp" />
-    <ClCompile Include="..\Source\World.cpp" />
-    <ClCompile Include="..\ThirdParty\tinyObj\tiny_obj_loader.cc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\OBJLoader.h" />
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\SheepModel.h" />
-    <ClInclude Include="..\Objects\Obj file and Sheep Model Class\WormModel.h" />
-    <ClInclude Include="..\Source\AssetsManager.hpp" />
-    <ClInclude Include="..\Source\BSpline.h" />
-    <ClInclude Include="..\Source\BSplineCamera.h" />
-    <ClInclude Include="..\Source\Camera.h" />
-    <ClInclude Include="..\Source\MeshModel.hpp" />
-    <ClInclude Include="..\Source\ObjMesh.hpp" />
-    <ClInclude Include="..\Source\ParsingHelper.h" />
-    <ClInclude Include="..\Source\Path.h" />
-    <ClInclude Include="..\Source\SphereModel.h" />
-    <ClInclude Include="..\Source\StaticCamera.h" />
-    <ClInclude Include="..\Source\EventManager.h" />
-    <ClInclude Include="..\Source\Model.h" />
-    <ClInclude Include="..\Source\CubeModel.h" />
-    <ClInclude Include="..\Source\Renderer.h" />
-    <ClInclude Include="..\Source\ThirdPersonCamera.h" />
-    <ClInclude Include="..\Source\World.h" />
+    <ClInclude Include="..\ThirdParty\soil\SOIL.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\AssetsManager.hpp" />
+    <ClInclude Include="Source\BSpline\BSpline.h" />
+    <ClInclude Include="Source\BSpline\BSplineCamera.h" />
+    <ClInclude Include="Source\Camera\Camera.h" />
+    <ClInclude Include="Source\Camera\StaticCamera.h" />
+    <ClInclude Include="Source\Camera\ThirdPersonCamera.h" />
+    <ClInclude Include="Source\EventManager.h" />
+    <ClInclude Include="Source\Model_Classes\CubeModel.h" />
+    <ClInclude Include="Source\Model_Classes\MeshModel.hpp" />
+    <ClInclude Include="Source\Model_Classes\Model.h" />
+    <ClInclude Include="Source\Model_Classes\OBJLoader.h" />
+    <ClInclude Include="Source\Model_Classes\ObjMesh.hpp" />
+    <ClInclude Include="Source\Model_Classes\SheepModel.h" />
+    <ClInclude Include="Source\Model_Classes\SphereModel.h" />
+    <ClInclude Include="Source\Model_Classes\WormModel.h" />
+    <ClInclude Include="Source\ParsingHelper.h" />
+    <ClInclude Include="Source\Path.h" />
+    <ClInclude Include="Source\Renderer.h" />
+    <ClInclude Include="Source\World.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\BSpline\BSpline.cpp" />
+    <ClCompile Include="Source\BSpline\BSplineCamera.cpp" />
+    <ClCompile Include="Source\Camera\Camera.cpp" />
+    <ClCompile Include="Source\Camera\StaticCamera.cpp" />
+    <ClCompile Include="Source\Camera\ThirdPersonCamera.cpp" />
+    <ClCompile Include="Source\EventManager.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Model_Classes\CubeModel.cpp" />
+    <ClCompile Include="Source\Model_Classes\Model.cpp" />
+    <ClCompile Include="Source\Model_Classes\SheepModel.cpp" />
+    <ClCompile Include="Source\Model_Classes\SphereModel.cpp" />
+    <ClCompile Include="Source\Model_Classes\WormModel.cpp" />
+    <ClCompile Include="Source\Path.cpp" />
+    <ClCompile Include="Source\Renderer.cpp" />
+    <ClCompile Include="Source\World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

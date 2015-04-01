@@ -1,11 +1,11 @@
 #pragma once
 
 #include <memory>
-#include "ObjMesh.hpp"
+#include "Model_Classes/ObjMesh.hpp"
 #include "tiny_obj_loader.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "SOIL.h"
+#include "../../ThirdParty/soil/SOIL.h"
 
 //quick functions - to remove
 float randomColor()

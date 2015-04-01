@@ -11,7 +11,7 @@
 #include "World.h"
 #include "EventManager.h"
 #include "AssetsManager.hpp"
-#include "MeshModel.hpp"
+#include "Model_Classes/MeshModel.hpp"
 
 int main(int argc, char*argv[])
 {
