@@ -1,0 +1,55 @@
+#version 420 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexNormal_modelspace;  // You will need this when you do lighting
+layout(location = 2) in vec3 vertexUvs;
+
+layout(binding=0) uniform sampler2D ambiant_map;
+layout(binding=1) uniform sampler2D diffuse_map;
+layout(binding=2) uniform sampler2D specular_map;
+layout(binding=3) uniform sampler2D normal_map;
+
+// output to Fragment Shader
+out vec3 v_color;
+
+out vec3 normal;          // Transformed normal in View Space
+out vec2 uvs;
+
+out vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
+out vec3 lightVector;     // Vector from the vertex to the Light in View Space
+						  // Length of lightVector is the distance between light and vertex
+
+// Uniform
+// Values that stay constant for the whole mesh.
+uniform mat4 WorldTransform;
+uniform mat4 ViewTransform;
+uniform mat4 ProjectonTransform;
+
+// light position
+uniform vec3 WorldLightPosition; // if w = 1: Point light, if w = 0: directional light
+
+
+void main()
+{
+	mat4 MV = ViewTransform * WorldTransform;
+	mat4 MVP = ProjectonTransform * MV;
+
+	// Output position of the vertex, in clip space : MVP * position
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
+	v_color = vec3(1,1,1);
+	uvs = vertexUvs.xy;
+
+	// Prepare Data for Fragment Shader
+	// Should the normal be transformed?
+
+	normal = ( MV * vec4(vertexNormal_modelspace,0)).xyz;
+	
+	// Set up for caluclating the eyeVector
+	vec3 vertexPosition_CameraSpace = (MV * vec4(vertexPosition_modelspace,1)).xyz;
+	eyeVector = vec3(0,0,0) - vertexPosition_CameraSpace;
+	
+	// Set up for calculating the lightVector
+	vec3 lightPosition_CameraSpace = (ViewTransform * vec4(WorldLightPosition,1)).xyz;
+	lightVector = lightPosition_CameraSpace + eyeVector;
+}
