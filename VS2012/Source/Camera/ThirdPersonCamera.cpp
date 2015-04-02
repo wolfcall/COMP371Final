@@ -96,7 +96,6 @@ void ThirdPersonCamera::Update(float dt)
 	mHorizontalAngle += mouseSpeed * dt * float(1024 / 2 - xpos);
 	//mVerticalAngle += mouseSpeed * dt * float(768 / 2 - ypos);
 	mVerticalAngle = 1.57*-20 / 90;
-
 	// Controls
 
 	// Press W to move Forward
@@ -114,7 +113,7 @@ void ThirdPersonCamera::Update(float dt)
 	{
 		//mTargetModel->SetPosition(mTargetModel->GetPosition() - mRight * dt * speed);
 		wormSteering += mouseSpeed * dt * speed;
-		if (inc < +40)
+		if (inc < +30)
 		{
 			inc++;
 		}
@@ -125,7 +124,7 @@ void ThirdPersonCamera::Update(float dt)
 	{
 		//mTargetModel->SetPosition(mTargetModel->GetPosition() + mRight * dt * speed);
 		wormSteering -= mouseSpeed * dt * speed;
-		if (inc > -40)
+		if (inc > -30)
 		{
 			inc--;
 		}
@@ -135,11 +134,11 @@ void ThirdPersonCamera::Update(float dt)
 
 		if (inc > 0)
 		{
-			inc--;
+			inc-=2;
 		}
 		if (inc < 0)
 		{
-			inc++;
+			inc+=2;
 		}
 	}
 	wormSteeringOffset = wormSteering - inc/150.000; //set to + inc/40.000 for 'look-ahead' camera steering, set to - inc/60.000 for 'driving game-like' camera steering
