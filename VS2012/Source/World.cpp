@@ -37,6 +37,7 @@ const float lightKq = 2.0f;
 const vec4 lightPosition(0.0f, 10.0f, 0.0f, 1.0f);
 
 World* World::instance;
+auto assetsManager = AssetsManager::getInstance();
 
 World::World()
 {
@@ -358,8 +359,17 @@ Model* World::FindModelByIndex(unsigned int index)
     return mModel.size() > 0 ? mModel[index % mModel.size()] : nullptr;
 }
 
-void meshExplostion(){
-	AssetsManager* man = AssetsManager::getInstance();
-	MeshModel mesh = man->loadMesh("../Objects/cat/cat.obj");
-	mesh.SetScaling(1.02f*mesh.GetScaling());
+void World::meshExplostion(){
+	MeshModel mesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	mesh.SetScaling(2.0f*mesh.GetScaling());
+}
+
+void World::init(){
+
+	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+
+	World* worl = World::GetInstance();
+	auto testModel = worl->CreateModel<MeshModel>(testMesh);
+
+	testModel->SetScaling(glm::vec3(2));
 }

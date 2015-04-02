@@ -22,11 +22,16 @@ class World
 public:
 	World();
 	~World();
-	void meshExplostion();
     static World* GetInstance();
 
 	void Update(float dt);
 	void Draw();
+	
+	//World initial objects
+	void init();
+
+	//mesh changing
+	void meshExplostion();
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
@@ -43,10 +48,6 @@ public:
 		mModel.push_back(res);
 		return res;
 	}
-
-	/*Model* getMModel(){
-		return mModel.data;
-	}*/
 
 private:
     static World* instance;
