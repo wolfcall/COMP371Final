@@ -361,7 +361,7 @@ Model* World::FindModelByIndex(unsigned int index)
 
 void World::meshExplostion(){
 	MeshModel mesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-	mesh.SetScaling(2.0f*mesh.GetScaling());
+	//for (int x = 0; x < mModel.)
 }
 
 void World::init(){
