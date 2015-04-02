@@ -373,4 +373,18 @@ void World::init(){
 	auto testModel = worl->CreateModel<MeshModel>(testMesh);
 
 	testModel->SetScaling(glm::vec3(2));
+
+
+	//Loads the Landscape
+	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
+
+	World* Landworl = World::GetInstance();
+	auto LandTestModel = Landworl->CreateModel<MeshModel>(LandTestMesh);
+
+	LandTestModel->SetScaling(glm::vec3(7));
+	LandTestModel->SetPosition(glm::vec3(10,-1,0));
+
+
+
+
 }
