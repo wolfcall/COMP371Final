@@ -42,10 +42,12 @@ int main(int argc, char*argv[])
 
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 
-	auto testModel = world.CreateModel<MeshModel>(testMesh);
-
-	testModel->SetScaling(glm::vec3(2));
-
+	for (auto i = 0; i < 10; ++i)
+	{
+		auto testModel = world.CreateModel<MeshModel>(testMesh);
+		testModel->SetScaling(glm::vec3(3.0f / (float)i));
+		testModel->SetPosition(glm::vec3(i, 0, 0));
+	}
 	// Main Loop
 	do
 	{

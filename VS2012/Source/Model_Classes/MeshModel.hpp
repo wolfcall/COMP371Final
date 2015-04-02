@@ -67,6 +67,21 @@ public:
 				(void*)(2 * sizeof(glm::vec3))
 				);
 
+
+			//binding material
+			if (e.materialId >= 0)
+			{
+				auto &material = _mesh->getSubMaterials()[e.materialId];
+				glActiveTexture(GL_TEXTURE0 + 0);
+				glBindTexture(GL_TEXTURE_2D, material.textureAmbiant);
+				glActiveTexture(GL_TEXTURE0 + 1);
+				glBindTexture(GL_TEXTURE_2D, material.textureDiffuse);
+				glActiveTexture(GL_TEXTURE0 + 2);
+				glBindTexture(GL_TEXTURE_2D, material.textureSpecular);
+				glActiveTexture(GL_TEXTURE0 + 2);
+				glBindTexture(GL_TEXTURE_2D, material.textureNormal);
+			}
+
 			// Draw the triangles !
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, e._indexArrayID);
 			glDrawArrays(GL_TRIANGLES, 0, e._numOfVertices);

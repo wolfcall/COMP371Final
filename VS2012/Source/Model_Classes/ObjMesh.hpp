@@ -12,6 +12,7 @@ public:
 		unsigned int _indexArrayID = 0;
 		unsigned int _vertexBufferID = 0;
 		unsigned int _numOfVertices = 0;
+		int materialId = -1;
 	};
 
 	struct SubMaterial
@@ -28,7 +29,7 @@ public:
 	};
 
 	std::vector<SubMesh> &getSubMeshs() { return _subMeshs; }
-
+	std::vector<SubMaterial> &getSubMaterials() { return _subMaterials; }
 private:
 	std::vector < SubMesh > _subMeshs;
 	std::vector < SubMaterial > _subMaterials;

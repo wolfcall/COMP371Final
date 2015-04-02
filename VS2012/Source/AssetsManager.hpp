@@ -160,6 +160,9 @@ public:
 			tmp.clear();
 			tmp.reserve(mesh.indices.size() * 3); // 3 == positions + normals + UVs -> very dirty cause Uvs use vec3 ... okay for now :)
 
+
+			sub.materialId = mesh.material_ids.size() > 0 ? mesh.material_ids[0] : -1;
+
 			for (size_t f = 0; f < mesh.indices.size(); f++)
 			{
 					auto x = mesh.indices[f] * 3;
