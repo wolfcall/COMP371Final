@@ -44,6 +44,10 @@ public:
 		return res;
 	}
 
+	Model* getMModel(){
+		return &mModel.data;
+	}
+
 private:
     static World* instance;
 

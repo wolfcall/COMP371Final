@@ -23,6 +23,8 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 
+#include "AssetsManager.hpp"
+
 using namespace std;
 using namespace glm;
 
@@ -134,6 +136,8 @@ void World::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
+
+	meshExplostion();
 }
 
 void World::Draw()
@@ -351,4 +355,10 @@ BSpline* World::FindSplineByIndex(unsigned int index)
 Model* World::FindModelByIndex(unsigned int index)
 {
     return mModel.size() > 0 ? mModel[index % mModel.size()] : nullptr;
+}
+
+void meshExplostion(){
+	World* wor = World::GetInstance();
+	Model* vec = wor->getMModel();
+	printf("%s\n", vec[0]);
 }
