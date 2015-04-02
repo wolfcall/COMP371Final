@@ -17,6 +17,7 @@
 
 #include "Model_Classes/CubeModel.h"
 #include "Model_Classes/SphereModel.h"
+#include "Model_Classes/SheepModel.h"
 #include "Path.h"
 #include "BSpline/BSpline.h"
 
@@ -216,6 +217,38 @@ void World::Draw()
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
 
+	// Final project: Draw Sheep
+	// Set Shader for Sheep
+	prevShader = Renderer::GetCurrentShader();
+	Renderer::SetShader(SHADER_SHEEP);
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	// Send the view projection constants to the shader
+	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
+	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+
+	// This looks for the MVP Uniform variable in the Vertex Program
+	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	GLuint ProjectionMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+	// GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+
+	// Send the view projection constants to the shader
+	mat4 ViewMatrix = mCamera[mCurrentCamera]->GetViewMatrix();
+	mat4 ProjectionMatrix = mCamera[mCurrentCamera]->GetProjectionMatrix();
+	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
+	glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &ProjectionMatrix[0][0]);
+
+	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it)
+	{
+		// Draw model
+		(*it)->Draw();
+	}
+
+	// Restore previous shader
+	Renderer::SetShader((ShaderType)prevShader);
+	// Final project Draw Sheep ends
+
+
 	Renderer::EndFrame();
 }
 
@@ -280,6 +313,12 @@ void World::LoadScene(const char * scene_path)
 	    }
 	}
 	input.close();
+
+	// Final project
+	SheepModel* character = new SheepModel(); 
+	character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+	mSheep.push_back(character);	
+	// Final project
 
 	// Set PATH vertex buffers
 	for (vector<Path*>::iterator it = mPath.begin(); it < mPath.end(); ++it)

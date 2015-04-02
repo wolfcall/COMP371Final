@@ -69,6 +69,11 @@ void Renderer::Initialize()
 		LoadShaders(shaderPath + "Gouraud.vertexshader",
 		shaderPath + "Gouraud.fragmentshader")
 		);
+	sShaderProgramID.push_back(
+		LoadShaders(shaderPath + "SheepVertexShader.vertexshader",
+		shaderPath + "SheepFragmentShader.fragmentshader")
+		); // Final project
+
 	sCurrentShader = 0;
 
 }
