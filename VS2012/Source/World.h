@@ -22,7 +22,7 @@ class World
 public:
 	World();
 	~World();
-	//void meshExplostion();
+	void meshExplostion();
     static World* GetInstance();
 
 	void Update(float dt);

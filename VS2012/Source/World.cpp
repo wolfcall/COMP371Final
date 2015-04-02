@@ -23,7 +23,7 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 
-//#include "AssetsManager.hpp"
+#include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
 
 using namespace std;
