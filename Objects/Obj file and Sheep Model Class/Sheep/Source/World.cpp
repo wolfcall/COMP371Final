@@ -194,6 +194,17 @@ void World::Draw()
 	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
+	// This looks for the MVP Uniform variable in the Vertex Program
+	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	GLuint ProjectionMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+	// GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+
+	// Send the view projection constants to the shader
+	mat4 ViewMatrix = mCamera[mCurrentCamera]->GetViewMatrix();
+	mat4 ProjectionMatrix = mCamera[mCurrentCamera]->GetProjectionMatrix();
+	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
+	glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &ProjectionMatrix[0][0]);
+
 	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it)
 	{
 		// Draw model

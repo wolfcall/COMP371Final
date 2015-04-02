@@ -42,8 +42,14 @@ private:
 	std::vector<glm::vec3> normals; // Won't be used at the moment.
 	GLuint vertexbuffer;
 	GLuint uvbuffer;
+	GLuint normalbuffer;
 	GLuint Texture;	// Texture file
 	GLuint TextureID; // the ID of texture in shader
 	GLuint programID;
+
+	// For Rotation
+	float mRotationSpeed = 90; // 90 degrees per second
+	float mRotationAngle = 0;
+
 	// Final project ends
 };

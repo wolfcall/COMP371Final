@@ -35,22 +35,19 @@
     <None Include="..\Source\Shaders\BlueColor.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="..\Scenes\CoordinateSystem.scene">
-      <Filter>Resource Files\Scenes</Filter>
-    </None>
-    <None Include="..\Scenes\PathScene.scene">
-      <Filter>Resource Files\Scenes</Filter>
-    </None>
     <None Include="..\Source\Shaders\PathLines.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\Source\Shaders\PathLines.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="..\Source\Shaders\TextureFragmentShader.fragmentshader">
+    <None Include="..\Scenes\BSplineScene.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Source\Shaders\SheepFragmentShader.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="..\Source\Shaders\TransformVertexShader.vertexshader">
+    <None Include="..\Source\Shaders\SheepVertexShader.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
@@ -94,13 +91,13 @@
     <ClCompile Include="..\Source\BSplineCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\objloader.cpp">
-      <Filter>Source Files\Sheep</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\SheepModel.cpp">
       <Filter>Source Files\Sheep</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\texture.cpp">
+    <ClCompile Include="..\Source\SheepObjloader.cpp">
+      <Filter>Source Files\Sheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\SheepTexture.cpp">
       <Filter>Source Files\Sheep</Filter>
     </ClCompile>
   </ItemGroup>
@@ -144,13 +141,13 @@
     <ClInclude Include="..\Source\BSplineCamera.h">
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\objloader.hpp">
-      <Filter>Source Files\Sheep</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\SheepModel.h">
       <Filter>Source Files\Sheep</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\texture.hpp">
+    <ClInclude Include="..\Source\SheepObjloader.hpp">
+      <Filter>Source Files\Sheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SheepTexture.hpp">
       <Filter>Source Files\Sheep</Filter>
     </ClInclude>
   </ItemGroup>
