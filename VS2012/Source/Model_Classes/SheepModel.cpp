@@ -99,7 +99,7 @@ void SheepModel::Update(float dt)
 	if (mRotationAngle > 360)	{
 		mRotationAngle -= 360;
 	}
-	SetRotation(vec3(0.0f, 1.0f, 0.0f), mRotationAngle);
+	//SetRotation(vec3(0.0f, 1.0f, 0.0f), mRotationAngle);
 
 	Model::Update(dt);
 }
