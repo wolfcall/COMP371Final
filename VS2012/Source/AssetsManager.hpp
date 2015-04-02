@@ -116,17 +116,33 @@ public:
 			{
 				sub.textureAmbiant = loadTexture(GetFolder(path) + materials[i].ambient_texname);
 			}
+			else
+			{
+				sub.textureAmbiant = loadTexture("../Objects/white.bmp");
+			}
 			if (materials[i].diffuse_texname.size() > 0)
 			{
 				sub.textureDiffuse = loadTexture(GetFolder(path) + materials[i].diffuse_texname);
+			}
+			else
+			{
+				sub.textureDiffuse = loadTexture("../Objects/white.bmp");
 			}
 			if (materials[i].specular_texname.size() > 0)
 			{
 				sub.textureSpecular = loadTexture(GetFolder(path) + materials[i].specular_texname);
 			}
+			else
+			{
+				sub.textureSpecular = loadTexture("../Objects/white.bmp");
+			}
 			if (materials[i].normal_texname.size() > 0)
 			{
 				sub.textureNormal = loadTexture(GetFolder(path) + materials[i].normal_texname);
+			}
+			else
+			{
+				sub.textureNormal = loadTexture("../Objects/white.bmp");
 			}
 		}
 		
