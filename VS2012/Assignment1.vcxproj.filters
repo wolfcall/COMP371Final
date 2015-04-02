@@ -46,6 +46,12 @@
     <ClInclude Include="..\ThirdParty\tinyObj\tiny_obj_loader.h">
       <Filter>ExtInc</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Model_Classes\SheepObjloader.hpp">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model_Classes\SheepTexture.hpp">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene">
@@ -67,6 +73,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\Source\Shaders\Phong.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\SheepFragmentShader.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\SheepVertexShader.vertexshader">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -128,6 +140,12 @@
     <ClCompile Include="Source\World.cpp" />
     <ClCompile Include="..\ThirdParty\tinyObj\tiny_obj_loader.cc">
       <Filter>ExtInc</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model_Classes\SheepObjloader.cpp">
+      <Filter>Model_Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model_Classes\SheepTexture.cpp">
+      <Filter>Model_Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

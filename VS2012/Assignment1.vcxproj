@@ -108,6 +108,8 @@
     <None Include="..\Source\Shaders\Gouraud.vertexshader" />
     <None Include="..\Source\Shaders\Phong.fragmentshader" />
     <None Include="..\Source\Shaders\Phong.vertexshader" />
+    <None Include="..\Source\Shaders\SheepFragmentShader.fragmentshader" />
+    <None Include="..\Source\Shaders\SheepVertexShader.vertexshader" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\ThirdParty\tinyObj\tiny_obj_loader.h" />
@@ -125,6 +127,8 @@
     <ClInclude Include="Source\Model_Classes\OBJLoader.h" />
     <ClInclude Include="Source\Model_Classes\ObjMesh.hpp" />
     <ClInclude Include="Source\Model_Classes\SheepModel.h" />
+    <ClInclude Include="Source\Model_Classes\SheepObjloader.hpp" />
+    <ClInclude Include="Source\Model_Classes\SheepTexture.hpp" />
     <ClInclude Include="Source\Model_Classes\SphereModel.h" />
     <ClInclude Include="Source\Model_Classes\WormModel.h" />
     <ClInclude Include="Source\ParsingHelper.h" />
@@ -147,6 +151,8 @@
     <ClCompile Include="Source\Model_Classes\CubeModel.cpp" />
     <ClCompile Include="Source\Model_Classes\Model.cpp" />
     <ClCompile Include="Source\Model_Classes\SheepModel.cpp" />
+    <ClCompile Include="Source\Model_Classes\SheepObjloader.cpp" />
+    <ClCompile Include="Source\Model_Classes\SheepTexture.cpp" />
     <ClCompile Include="Source\Model_Classes\SphereModel.cpp" />
     <ClCompile Include="Source\Model_Classes\WormModel.cpp" />
     <ClCompile Include="Source\Path.cpp" />

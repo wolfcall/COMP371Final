@@ -16,6 +16,7 @@ class Camera;
 class Model;
 class Path;
 class BSpline;
+class SheepModel; // Final project
 
 class World
 {
@@ -57,4 +58,5 @@ private:
     std::vector<BSpline*> mSpline;
 	std::vector<Camera*> mCamera;
 	unsigned int mCurrentCamera;
+	std::vector<SheepModel*> mSheep; // Final project: declaration of sheep array
 };
