@@ -30,48 +30,48 @@ void main()
 	// Output position of the vertex, in clip space : MVP * position
 	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);
 	v_color = vertexColor;
-
-
-	// Implement Gouraud shading here...
-
-	vec3 eyeVector = (MV * vec4(vertexPosition_modelspace,1)).xyz;
-	vec3 normal = ( MV * vec4(vertexNormal_modelspace,0)).xyz;
-	vec3 lightPosition_CameraSpace = (ViewTransform * vec4(WorldLightPosition,1)).xyz;
-	vec3 lightVector = lightPosition_CameraSpace + eyeVector;
-	//float lightDistance = length(lightVector);
 	
-
+	// Implement Gouraud shading here...		
+	vec3 eye = (WorldTransform * vec4(vertexPosition_modelspace,1)).xyz;
+	vec3 normal = (WorldTransform * vec4(vertexNormal_modelspace,0)).xyz;
+	vec3 lightPosition_CameraSpace = (ViewTransform * vec4(WorldLightPosition,1)).xyz;
+	vec3 lightVector = lightPosition_CameraSpace + eye;
+	
 	// Normal of the fragment in camera space
-	vec3 newNormal  = normalize(normal);
-
-	//vec3 attenuation = lightAttenuation.z * pow(lightVector,lightAttenuation.x);
-
+	vec3 n = normalize(normal);
+	
 	// Direction of the light
-	vec3 lightNormal = normalize(lightColor); 
+	vec3 l = normalize(lightColor); 
 
 	// Cosine of the angle between the normal and the light direction clamped above 0
-	float cosTheta = clamp(dot(-newNormal,-lightNormal), 0,1);
+	float cosTheta = clamp(dot(-n,-l), 0,1);
+
+	//diffuse
+	vec3 diffuse_Color = v_color * cosTheta * lightColor;
 
 	//ambient color
 	vec3 ambientColor = v_color * materialCoefficients.x;	
 
-	vec3 eye = normalize(eyeVector);
-	vec3 ref = reflect(lightNormal,newNormal);
-
-	float cosBeta = clamp(dot(eye,ref),0,1);
-
-	vec3 attenuation = lightColor * pow(cosBeta,lightAttenuation.z);
-
-
+	//specular
+	vec3 E = normalize(eye);
+	vec3 R = reflect(l,n);
+	float cosAlpha = clamp(dot(E,R),0,1);	
+	
 	//specular, notice materialCoefficients.z is not here like in Phong.
-	vec3 specular_Color = materialCoefficients.z * lightColor * pow(cosBeta, materialCoefficients.w); //pow(cosBeta, materialCoefficients.w
+	vec3 specular_Color = lightColor * pow(cosAlpha, 64);
 
 	// This should be the final color on the Vertex, including the lighting
-	v_color = //Ambient
-	ambientColor * attenuation +
+	v_color = 
+	//Ambient
+	ambientColor + 
+	
 	//Diffuse
-	v_color * lightColor * cosTheta +
+	v_color * cosTheta;// +
+	
 	//Specular
-	specular_Color;
+	//specular_Color;
+	
 
+
+	
 }
