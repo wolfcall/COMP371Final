@@ -58,7 +58,7 @@ void main()
 	float cosAlpha = clamp(dot(E,R),0,1);	
 	
 	//specular, notice materialCoefficients.z is not here like in Phong.
-	vec3 specular_Color = lightColor * pow(cosAlpha, 64);
+	//vec3 specular_Color = lightColor * pow(cosAlpha, 5);
 
 	// This should be the final color on the Vertex, including the lighting
 	v_color = 
@@ -66,7 +66,7 @@ void main()
 	ambientColor + 
 	
 	//Diffuse
-	v_color * cosTheta;// +
+	v_color * cosTheta; // +
 	
 	//Specular
 	//specular_Color;

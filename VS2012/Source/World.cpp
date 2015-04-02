@@ -23,6 +23,8 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 
+#include "Model_Classes/WormModel.h"
+
 using namespace std;
 using namespace glm;
 
@@ -298,8 +300,8 @@ void World::LoadCameras()
     mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
-    // Cube Character controlled with Third Person Camera
-    CubeModel* character = new CubeModel();
+    // WormModel Character controlled with Third Person Camera
+    WormModel* character = new WormModel();
     character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
     mCamera.push_back(new ThirdPersonCamera(character));
     mModel.push_back(character);
