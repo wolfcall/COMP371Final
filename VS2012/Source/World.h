@@ -22,11 +22,16 @@ class World
 public:
 	World();
 	~World();
-	
     static World* GetInstance();
 
 	void Update(float dt);
 	void Draw();
+	
+	//World initial objects
+	void init();
+
+	//mesh changing
+	void meshExplostion();
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
