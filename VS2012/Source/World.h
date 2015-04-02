@@ -22,7 +22,7 @@ class World
 public:
 	World();
 	~World();
-	
+	//void meshExplostion();
     static World* GetInstance();
 
 	void Update(float dt);
@@ -44,9 +44,9 @@ public:
 		return res;
 	}
 
-	Model* getMModel(){
-		return &mModel.data;
-	}
+	/*Model* getMModel(){
+		return mModel.data;
+	}*/
 
 private:
     static World* instance;

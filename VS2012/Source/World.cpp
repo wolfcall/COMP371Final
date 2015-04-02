@@ -23,7 +23,8 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 
-#include "AssetsManager.hpp"
+//#include "AssetsManager.hpp"
+#include "Model_Classes\MeshModel.hpp"
 
 using namespace std;
 using namespace glm;
@@ -358,7 +359,7 @@ Model* World::FindModelByIndex(unsigned int index)
 }
 
 void meshExplostion(){
-	World* wor = World::GetInstance();
-	Model* vec = wor->getMModel();
-	printf("%s\n", vec[0]);
+	AssetsManager* man = AssetsManager::getInstance();
+	MeshModel mesh = man->loadMesh("../Objects/cat/cat.obj");
+	mesh.SetScaling(1.02f*mesh.GetScaling());
 }
