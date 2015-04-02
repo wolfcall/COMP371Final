@@ -1,4 +1,4 @@
-#version 330 core
+#version 420 core
 
 
 // Light and Material Uniform Variables
@@ -7,11 +7,17 @@ uniform vec4 materialCoefficients; // x: ambient   y: diffuse   z: specular   w:
 uniform vec3 lightColor;
 uniform vec3 lightAttenuation; // x: kC  y: kL  z: kQ
 
+layout(binding=0) uniform sampler2D ambiant_map;
+layout(binding=1) uniform sampler2D diffuse_map;
+layout(binding=2) uniform sampler2D specular_map;
+layout(binding=3) uniform sampler2D normal_map;
+
 
 // Inputs
 in vec3 v_color;		 // vertex color: also diffuse color
-
 in vec3 normal;          // Transformed normal in View Space
+in vec2 uvs;          // Transformed normal in View Space
+
 in vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
 in vec3 lightVector;     // Vector from the vertex to the Light in View Space
 						 // Length of lightVector is the distance between light and vertex
@@ -26,7 +32,7 @@ void main()
 	// Remember that directional light don't have attenuation
 	
 	// Normalize the normal
-	vec3 newNormal  = normalize(normal);
+	vec3 newNormal  = texture(normal_map, uvs).xyz;//normalize(normal);
 
 	// Normalize the lightColor
 	vec3 lightNormal = normalize(lightColor); 
@@ -35,17 +41,16 @@ void main()
 	float cosTheta = clamp(dot(newNormal,lightNormal), 0,1);	
 	
 	// For the ambient color to use as hack
-	vec3 ambientColor = v_color * vec3(0.1,0.1,0.1);		
+	vec3 ambientColor = texture(ambiant_map, uvs).xyz;
 
 	// For the specular color
-	vec3 specular_Color = vec3(0.40,0.40,0.40);
+	vec3 specular_Color = texture(specular_map, uvs).xyz;
 
 	vec3 eye = normalize(eyeVector);
 	vec3 ref = reflect(-lightNormal,newNormal);
 
 	float cosBeta = clamp(dot(eye,ref),0,1);
 
-	color = ambientColor + v_color * lightColor * cosTheta + 
-	specular_Color * lightColor * pow(cosBeta,5);
+	color = ambientColor + (v_color * lightColor * cosTheta + specular_Color * lightColor * pow(cosBeta,5));
 
 }
