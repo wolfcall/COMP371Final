@@ -345,7 +345,7 @@ void World::LoadCameras()
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
     // WormModel Character controlled with Third Person Camera
-    CubeModel* character = new CubeModel();
+    WormModel* character = new WormModel();
     character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
     mCamera.push_back(new ThirdPersonCamera(character));
     mModel.push_back(character);
@@ -405,14 +405,14 @@ void World::meshExplostion(){
 }
 
 void World::init(){
-
+	/*
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 
 	World* worl = World::GetInstance();
 	auto testModel = worl->CreateModel<MeshModel>(testMesh);
 
 	testModel->SetScaling(glm::vec3(2));
-
+	*/
 
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
