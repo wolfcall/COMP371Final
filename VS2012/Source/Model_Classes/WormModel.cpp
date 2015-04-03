@@ -52,8 +52,8 @@ WormModel::WormModel(vec3 size) : Model()
 	//std::vector<glm::vec3> vertices;
 	//std::vector<glm::vec2> uvs;
 	//std::vector<glm::vec3> normals; // Won't be used at the moment.
-	bool res = loadOBJ("../PacWorm.obj", vertices, uvs, normals);
-	SetScaling(vec3(0.003f, 0.003f, 0.003f));
+	bool res = loadOBJ("../PacFinal.obj", vertices, uvs, normals);
+	SetScaling(vec3(0.5f, 0.5f, 0.5f));
 
 	// Create a vertex array
 	glGenVertexArrays(1, &mVertexArrayID);
