@@ -361,7 +361,8 @@ Model* World::FindModelByIndex(unsigned int index)
 
 void World::meshExplostion(){
 	MeshModel mesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-	//for (int x = 0; x < mModel.)
+	auto mesh2 = mModel.data();
+	//printf("%s", mesh2);
 }
 
 void World::init(){

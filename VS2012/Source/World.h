@@ -32,6 +32,7 @@ public:
 
 	//mesh changing
 	void meshExplostion();
+	static 
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
@@ -49,6 +50,11 @@ public:
 		return res;
 	}
 
+	struct mesh{
+		template <typename T, typename... Args>
+		auto mesh;
+		char* name;
+	};
 private:
     static World* instance;
 
