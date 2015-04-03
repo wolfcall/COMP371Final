@@ -43,18 +43,33 @@ public:
     Model* FindModelByIndex(unsigned int index);
 
 	template <typename T, typename... Args>
-	Model *CreateModel(Args... args)
+	Model *CreateModel(std::string name, Args... args)
 	{
 		auto res = new T(args...);
 		mModel.push_back(res);
+		Meshes newMesh;
+		newMesh.mesh = res;
+		newMesh.name = name;
+		if (&mMeshes == NULL){
+			mMeshes = {newMesh};
+		}
+		else{
+			Meshes* tMesh = mMeshes;
+			mMeshes = new Meshes[(sizeof(mMeshes) / sizeof(*mMeshes)) + 1];
+			for (int x = 0; x < (sizeof(mMeshes) / sizeof(*mMeshes)); x++){
+				*(mMeshes + x) = *(tMesh + x);
+			}
+			mMeshes[(sizeof(mMeshes) / sizeof(*mMeshes)) - 1] = newMesh;
+			free(tMesh);
+		}
 		return res;
 	}
 
-	struct mesh{
-		template <typename T, typename... Args>
-		auto mesh;
-		char* name;
+	struct Meshes{
+		std::string name;
+		Model* mesh;
 	};
+
 private:
     static World* instance;
 

@@ -360,8 +360,8 @@ Model* World::FindModelByIndex(unsigned int index)
 }
 
 void World::meshExplostion(){
-	MeshModel mesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-	auto mesh2 = mModel.data();
+	//MeshModel mesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	//auto mesh2 = mModel.data();
 	//printf("%s", mesh2);
 }
 
@@ -370,7 +370,7 @@ void World::init(){
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 
 	World* worl = World::GetInstance();
-	auto testModel = worl->CreateModel<MeshModel>(testMesh);
+	auto testModel = worl->CreateModel<MeshModel>("Cat", testMesh);
 
 	testModel->SetScaling(glm::vec3(2));
 }
