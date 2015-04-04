@@ -14,38 +14,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/vector_angle.hpp>
 
-#include <iostream>
-#include <windows.h>
-#include "mmsystem.h"
-
-#define SND_FILENAME 0x20000
-#define SND_LOOP 8
-#define SND_ASYNC 1
-
 #include <GLFW/glfw3.h>
 #include <algorithm>
 
 
 using namespace glm;
-
-
-glm::vec3 ThirdPersonCamera::getWormPosition()
-{
-	return mTargetModel->GetPosition();
-}
-
-void ThirdPersonCamera::playSheepSound()
-{
-	PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
-	//PlaySound(TEXT("../Sound/evil_wakawaka_loop.WAV"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
-}
-
-void ThirdPersonCamera::playWormSound(bool loop)
-{
-	//PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
-	if (loop){ PlaySound(TEXT("../Sound/evil_wakawaka_loop.WAV"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC); }
-	else { PlaySound(TEXT("../Sound/evil_wakawaka_loop.WAV"), NULL, SND_FILENAME | SND_ASYNC); }
-}
 
 
 ThirdPersonCamera::ThirdPersonCamera(Model* targetModel)
@@ -164,22 +137,18 @@ void ThirdPersonCamera::Update(float dt)
 
 	// Controls
 
-	// S is used for breakpoint debugging
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
+	// X is used for breakpoint debugging
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X) == GLFW_PRESS)
 	{
-		playSheepSound();
-		//PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
-		//mTargetModel->GetPosition();
+		mTargetModel->GetPosition();
 	}
 
 
 	// Press W to move Forward
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
-	{
-		playWormSound(true);
-	}
+	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W ) == GLFW_PRESS)
+	//{
 	mTargetModel->SetPosition(mTargetModel->GetPosition() + wormLookAt*vec3(1, 0, 1) * dt * speed);
-
+	//}    
 	// Press S to move Backwards
 	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
 	//{
@@ -218,7 +187,7 @@ void ThirdPersonCamera::Update(float dt)
 			inc++;
 		}
 	}
-	wormSteeringOffset = wormSteering - inc / 150.000; //set to + inc/40.000 for 'look-ahead' camera steering, set to - inc/60.000 for 'driving game-like' camera steering
+	wormSteeringOffset = wormSteering - inc/150.000; //set to + inc/40.000 for 'look-ahead' camera steering, set to - inc/60.000 for 'driving game-like' camera steering
 	// @TODO
 	// Align target model with the horizontal angle
 	mTargetModel->SetRotation(vec3(0, 1, 0), wormSteering*57.3); //Not working 100% properly
