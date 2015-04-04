@@ -84,6 +84,11 @@ void ThirdPersonCamera::Update(float dt)
 	FoV = 45.0f;
 	speed = 5.0f;
 	mouseSpeed = 0.400f;
+	wallbound_x1 = 13;
+	wallbound_x2 = -41;
+
+	wallbound_z1 = 51;
+	wallbound_z2 = -51;
 
 	//Mouse Position
 	double xpos, ypos;
@@ -97,7 +102,47 @@ void ThirdPersonCamera::Update(float dt)
 	//mVerticalAngle += mouseSpeed * dt * float(768 / 2 - ypos);
 	mVerticalAngle = 1.57*-20 / 90;
 
+	if (mTargetModel->GetPosition().x > wallbound_x1){ //Walling
+		mTargetModel->SetPosition(vec3(wallbound_x1, mTargetModel->GetPosition().y, mTargetModel->GetPosition().z));
+	}
+	if (mTargetModel->GetPosition().x < wallbound_x2){ //Walling
+		mTargetModel->SetPosition(vec3(wallbound_x2, mTargetModel->GetPosition().y, mTargetModel->GetPosition().z));
+	}
+
+	if (mTargetModel->GetPosition().z > wallbound_z1){ //Walling
+		mTargetModel->SetPosition(vec3(mTargetModel->GetPosition().x, mTargetModel->GetPosition().y, wallbound_z1));
+	}
+	if (mTargetModel->GetPosition().z < wallbound_z2){ //Walling
+		mTargetModel->SetPosition(vec3(mTargetModel->GetPosition().x, mTargetModel->GetPosition().y, wallbound_z2));
+	}
+
+
+
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS)
+	{
+		wormSteering = 0; //NORTH
+	}
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_H) == GLFW_PRESS)
+	{
+		wormSteering = 4.71; //EAST
+	}
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_G) == GLFW_PRESS)
+	{
+		wormSteering = 3.14; //SOUTH
+	}
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_F) == GLFW_PRESS)
+	{
+		wormSteering = 1.57; //WEST
+	}
+
 	// Controls
+
+	// X is used for breakpoint debugging
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_X) == GLFW_PRESS)
+	{
+		mTargetModel->GetPosition();
+	}
+
 
 	// Press W to move Forward
 	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W ) == GLFW_PRESS)
