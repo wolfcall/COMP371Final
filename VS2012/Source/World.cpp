@@ -346,7 +346,7 @@ void World::LoadCameras()
     
     // WormModel Character controlled with Third Person Camera
     WormModel* character = new WormModel();
-    character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+    character->SetPosition(vec3(1.5f, 0.5f, 0.0f));
     mCamera.push_back(new ThirdPersonCamera(character));
     mModel.push_back(character);
     
