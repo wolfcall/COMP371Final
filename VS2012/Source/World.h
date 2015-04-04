@@ -31,8 +31,7 @@ public:
 	void init();
 
 	//mesh changing
-	void meshExplostion();
-	static 
+	void meshExplostion(); 
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
@@ -50,11 +49,12 @@ public:
 		Meshes newMesh;
 		newMesh.mesh = res;
 		newMesh.name = name;
-		if (&mMeshes == NULL){
-			mMeshes = {newMesh};
+		if (mMeshes == NULL){
+			mMeshes = new Meshes[1];
+			mMeshes[0] = newMesh;
 		}
 		else{
-			Meshes* tMesh = mMeshes;
+			Meshes[] tMesh = mMeshes;
 			mMeshes = new Meshes[(sizeof(mMeshes) / sizeof(*mMeshes)) + 1];
 			for (int x = 0; x < (sizeof(mMeshes) / sizeof(*mMeshes)); x++){
 				*(mMeshes + x) = *(tMesh + x);
@@ -72,7 +72,7 @@ public:
 
 private:
     static World* instance;
-
+	Meshes * mMeshes;
 	std::vector<Model*> mModel;
     std::vector<Path*> mPath;
     std::vector<BSpline*> mSpline;
