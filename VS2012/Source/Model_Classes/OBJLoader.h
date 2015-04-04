@@ -1,5 +1,5 @@
 // The following code was referenced from http://www.opengl-tutorial.org/
-
+/**
 #ifndef OBJLOADER_H
 #define OBJLOADER_H
 #include <vector>
@@ -24,4 +24,4 @@ bool LoadAssImp(
 	std::vector<glm::vec3> & normals
 	);
 */
-#endif
+//#endif
