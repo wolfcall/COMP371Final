@@ -368,7 +368,7 @@ void World::meshExplostion(){
 void World::init(){
 
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-
+	mMeshes = NULL;
 	World* worl = World::GetInstance();
 	auto testModel = worl->CreateModel<MeshModel>("Cat", testMesh);
 
