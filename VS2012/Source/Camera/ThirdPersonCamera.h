@@ -32,11 +32,6 @@ private:
     float mVerticalAngle;
     float mRadius;
 	int inc;
-
-	int wallbound_x1;
-	int wallbound_x2;
-	int wallbound_z1;
-	int wallbound_z2;
     
     // Camera Vectors
     glm::vec3 mPosition;
