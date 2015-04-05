@@ -47,28 +47,10 @@ public:
 	{
 		auto res = new T(args...);
 		mModel.push_back(res);
-		Meshes newMesh;
-		newMesh.mesh = res;
-		newMesh.name = name;
-		newMesh.strName = std::string(name);
-		//printf("%s\n", newMesh.name);
-		mMeshes.push_back(&newMesh);
-		/*else{
-			Meshes tMesh[(sizeof(mMeshes) / sizeof(*mMeshes))];
-			for (int x = 0; x < (sizeof(mMeshes) / sizeof(*mMeshes)); x++){
-				tMesh[x].mesh = mMeshes[x].mesh;
-				tMesh[x].name = mMeshes[x].name;
-				tMesh[x].strName = mMeshes[x].strName;
-			}
-			Meshes mMeshes[(sizeof(mMeshes) / sizeof(*mMeshes)) + 1];
-			for (int x = 0; x < (sizeof(mMeshes) / sizeof(*mMeshes)); x++){
-				mMeshes[x].mesh = tMesh[x].mesh;
-				mMeshes[x].name = tMesh[x].name;
-				mMeshes[x].strName = tMesh[x].strName;
-			}
-			mMeshes[(sizeof(mMeshes) / sizeof(*mMeshes)) - 1] = newMesh;
-			//free(tMesh);
-		}*/
+		mMeshes.push_back(new Meshes());
+		mMeshes[mMeshes.size() - 1]->mesh = res;
+		mMeshes[mMeshes.size() - 1]->name = name;
+		mMeshes[mMeshes.size() - 1]->strName = std::string(name);
 		return res;
 	}
 

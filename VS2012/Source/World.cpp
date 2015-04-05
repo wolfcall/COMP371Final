@@ -361,26 +361,22 @@ Model* World::FindModelByIndex(unsigned int index)
 
 void World::meshExplostion(){
 	Model* cat = findMesh("Cat");
-	//cat->SetScaling(1.02f * (cat->GetScaling()));
+	cat->SetScaling(1.0002f * (cat->GetScaling()));
 }
 
 void World::init(){
-
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	World* worl = World::GetInstance();
 	Model* testModel = worl->CreateModel<MeshModel>("Cat", testMesh);
 	Model* test2Model = worl->CreateModel<MeshModel>("Cat2", testMesh);
 	testModel->SetScaling(glm::vec3(2));
-	Meshes m;
-	printf("%p\n",&m);
 }
 
 Model* World::findMesh(std::string name){
 	std::vector<Meshes*>::iterator it;
 
 	for (it = mMeshes.begin(); it != mMeshes.end(); it++){
-		printf("x\n");
-		if ((*it)->strName == name){
+		if (name.compare((*it)->strName) == 0){
 			return (*it)->mesh;
 		}
 	}
