@@ -17,12 +17,14 @@
 
 #include "Model_Classes/CubeModel.h"
 #include "Model_Classes/SphereModel.h"
+#include "Model_Classes/SheepModel.h"
 #include "Path.h"
 #include "BSpline/BSpline.h"
 
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 
+#include "Model_Classes/WormModel.h"
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
 
@@ -215,6 +217,38 @@ void World::Draw()
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
 
+	// Final project: Draw Sheep
+	// Set Shader for Sheep
+	prevShader = Renderer::GetCurrentShader();
+	Renderer::SetShader(SHADER_SHEEP);
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	// Send the view projection constants to the shader
+	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
+	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
+
+	// This looks for the MVP Uniform variable in the Vertex Program
+	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	GLuint ProjectionMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+	// GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+
+	// Send the view projection constants to the shader
+	mat4 ViewMatrix = mCamera[mCurrentCamera]->GetViewMatrix();
+	mat4 ProjectionMatrix = mCamera[mCurrentCamera]->GetProjectionMatrix();
+	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
+	glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &ProjectionMatrix[0][0]);
+
+	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it)
+	{
+		// Draw model
+		(*it)->Draw();
+	}
+
+	// Restore previous shader
+	Renderer::SetShader((ShaderType)prevShader);
+	// Final project Draw Sheep ends
+
+
 	Renderer::EndFrame();
 }
 
@@ -280,6 +314,12 @@ void World::LoadScene(const char * scene_path)
 	}
 	input.close();
 
+	// Final project
+	SheepModel* character = new SheepModel(); 
+	character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+	mSheep.push_back(character);	
+	// Final project
+
 	// Set PATH vertex buffers
 	for (vector<Path*>::iterator it = mPath.begin(); it < mPath.end(); ++it)
 	{
@@ -304,9 +344,9 @@ void World::LoadCameras()
     mCamera.push_back(new StaticCamera(vec3(3.0f, 30.0f, 5.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
-    // Cube Character controlled with Third Person Camera
-    CubeModel* character = new CubeModel();
-    character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+    // WormModel Character controlled with Third Person Camera
+    WormModel* character = new WormModel();
+    character->SetPosition(vec3(2.0f, 0.8f, 0.0f));
     mCamera.push_back(new ThirdPersonCamera(character));
     mModel.push_back(character);
     
@@ -366,10 +406,17 @@ void World::meshExplostion(){
 
 void World::init(){
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-	World* worl = World::GetInstance();
-	Model* testModel = worl->CreateModel<MeshModel>("Cat", testMesh);
-	Model* test2Model = worl->CreateModel<MeshModel>("Cat2", testMesh);
+	World* world = World::GetInstance();
+	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
+	Model* test2Model = world->CreateModel<MeshModel>("Cat2", testMesh);
 	testModel->SetScaling(glm::vec3(2));
+	//Loads the Landscape
+	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
+
+	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
+
+	LandTestModel->SetScaling(glm::vec3(7));
+	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
 }
 
 Model* World::findMesh(std::string name){

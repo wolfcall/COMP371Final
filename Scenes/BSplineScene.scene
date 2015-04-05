@@ -1,24 +1,6 @@
 # This is a comment
 
-[Path]
-name     = "Path"
-position = -1.0 9 -2.0
-rotation = 0.0 0.0 1.0 90
-scaling = 0.8 0.8 0.8
-waypoint = 10.0 0.0 0.0
-waypoint = 7.07 0.0 7.07
-waypoint = 0.0 0.0 10.0
-waypoint = -7.07 0.0 7.07
-waypoint = -10.0 0.0 0.0
-waypoint = -7.07 0.0 -7.07
-waypoint = 0.0 0.0 -10.0
-waypoint = 7.07 0.0 -7.07
 
-[Path]
-name     = "Path2"
-position = 0.0 0.5 0.0
-waypoint = -3.0 0.0 0.0
-waypoint =  3.0 0.0 0.0
 
 [Spline]
 name     = "Spline"
