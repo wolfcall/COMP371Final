@@ -32,6 +32,7 @@ public:
 
 	//mesh changing
 	void meshExplostion(); 
+	Model* findMesh(std::string);
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
@@ -42,37 +43,44 @@ public:
     Model* FindModelByIndex(unsigned int index);
 
 	template <typename T, typename... Args>
-	Model *CreateModel(std::string name, Args... args)
+	Model *CreateModel(char* name, Args... args)
 	{
 		auto res = new T(args...);
 		mModel.push_back(res);
 		Meshes newMesh;
 		newMesh.mesh = res;
 		newMesh.name = name;
-		if (mMeshes == NULL){
-			mMeshes = new Meshes[1];
-			mMeshes[0] = newMesh;
-		}
-		else{
-			Meshes[] tMesh = mMeshes;
-			mMeshes = new Meshes[(sizeof(mMeshes) / sizeof(*mMeshes)) + 1];
+		newMesh.strName = std::string(name);
+		//printf("%s\n", newMesh.name);
+		mMeshes.push_back(&newMesh);
+		/*else{
+			Meshes tMesh[(sizeof(mMeshes) / sizeof(*mMeshes))];
 			for (int x = 0; x < (sizeof(mMeshes) / sizeof(*mMeshes)); x++){
-				*(mMeshes + x) = *(tMesh + x);
+				tMesh[x].mesh = mMeshes[x].mesh;
+				tMesh[x].name = mMeshes[x].name;
+				tMesh[x].strName = mMeshes[x].strName;
+			}
+			Meshes mMeshes[(sizeof(mMeshes) / sizeof(*mMeshes)) + 1];
+			for (int x = 0; x < (sizeof(mMeshes) / sizeof(*mMeshes)); x++){
+				mMeshes[x].mesh = tMesh[x].mesh;
+				mMeshes[x].name = tMesh[x].name;
+				mMeshes[x].strName = tMesh[x].strName;
 			}
 			mMeshes[(sizeof(mMeshes) / sizeof(*mMeshes)) - 1] = newMesh;
-			free(tMesh);
-		}
+			//free(tMesh);
+		}*/
 		return res;
 	}
 
 	struct Meshes{
-		std::string name;
+		char* name;
+		std::string strName;
 		Model* mesh;
 	};
 
 private:
     static World* instance;
-	Meshes * mMeshes;
+	std::vector<Meshes*> mMeshes;
 	std::vector<Model*> mModel;
     std::vector<Path*> mPath;
     std::vector<BSpline*> mSpline;

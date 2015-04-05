@@ -360,17 +360,29 @@ Model* World::FindModelByIndex(unsigned int index)
 }
 
 void World::meshExplostion(){
-	//MeshModel mesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-	//auto mesh2 = mModel.data();
-	//printf("%s", mesh2);
+	Model* cat = findMesh("Cat");
+	//cat->SetScaling(1.02f * (cat->GetScaling()));
 }
 
 void World::init(){
 
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-	mMeshes = NULL;
 	World* worl = World::GetInstance();
-	auto testModel = worl->CreateModel<MeshModel>("Cat", testMesh);
-
+	Model* testModel = worl->CreateModel<MeshModel>("Cat", testMesh);
+	Model* test2Model = worl->CreateModel<MeshModel>("Cat2", testMesh);
 	testModel->SetScaling(glm::vec3(2));
+	Meshes m;
+	printf("%p\n",&m);
+}
+
+Model* World::findMesh(std::string name){
+	std::vector<Meshes*>::iterator it;
+
+	for (it = mMeshes.begin(); it != mMeshes.end(); it++){
+		printf("x\n");
+		if ((*it)->strName == name){
+			return (*it)->mesh;
+		}
+	}
+	return NULL;
 }
