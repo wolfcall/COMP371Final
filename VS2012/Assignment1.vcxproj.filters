@@ -155,4 +155,9 @@
       <Filter>ExtInc</Filter>
     </Library>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GeometryShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>
