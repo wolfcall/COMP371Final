@@ -400,30 +400,32 @@ Model* World::FindModelByIndex(unsigned int index)
 }
 
 void World::meshExplostion(){
-	MeshModel mesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-	mesh.SetScaling(2.0f*mesh.GetScaling());
+	Model* cat = findMesh("Cat");
+	cat->SetScaling(1.0002f * (cat->GetScaling()));
 }
 
 void World::init(){
-	/*
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-
-	World* worl = World::GetInstance();
-	auto testModel = worl->CreateModel<MeshModel>(testMesh);
-
+	World* world = World::GetInstance();
+	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
+	Model* test2Model = world->CreateModel<MeshModel>("Cat2", testMesh);
 	testModel->SetScaling(glm::vec3(2));
-	*/
-
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
-	World* Landworl = World::GetInstance();
-	auto LandTestModel = Landworl->CreateModel<MeshModel>(LandTestMesh);
+	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
 	LandTestModel->SetScaling(glm::vec3(7));
-	LandTestModel->SetPosition(glm::vec3(10,-1,0));
+	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+}
 
+Model* World::findMesh(std::string name){
+	std::vector<Meshes*>::iterator it;
 
-
-
+	for (it = mMeshes.begin(); it != mMeshes.end(); it++){
+		if (name.compare((*it)->strName) == 0){
+			return (*it)->mesh;
+		}
+	}
+	return NULL;
 }

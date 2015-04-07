@@ -32,7 +32,8 @@ public:
 	void init();
 
 	//mesh changing
-	void meshExplostion();
+	void meshExplostion(); 
+	Model* findMesh(std::string);
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
@@ -43,16 +44,26 @@ public:
     Model* FindModelByIndex(unsigned int index);
 
 	template <typename T, typename... Args>
-	Model *CreateModel(Args... args)
+	Model *CreateModel(char* name, Args... args)
 	{
 		auto res = new T(args...);
 		mModel.push_back(res);
+		mMeshes.push_back(new Meshes());
+		mMeshes[mMeshes.size() - 1]->mesh = res;
+		mMeshes[mMeshes.size() - 1]->name = name;
+		mMeshes[mMeshes.size() - 1]->strName = std::string(name);
 		return res;
 	}
 
+	struct Meshes{
+		char* name;
+		std::string strName;
+		Model* mesh;
+	};
+
 private:
     static World* instance;
-
+	std::vector<Meshes*> mMeshes;
 	std::vector<Model*> mModel;
     std::vector<Path*> mPath;
     std::vector<BSpline*> mSpline;

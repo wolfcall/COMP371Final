@@ -25,6 +25,10 @@ private:
     virtual void CalculateCameraBasis();
     Model* mTargetModel;
     
+	void playSheepSound();
+	void playWormSound(bool loop);
+	glm::vec3 ThirdPersonCamera::getWormPosition();
+
     // Cartesian Coordinates
     float mHorizontalAngle;
 	float wormSteering;
@@ -32,6 +36,12 @@ private:
     float mVerticalAngle;
     float mRadius;
 	int inc;
+
+
+	int wallbound_x1;
+	int wallbound_x2;
+	int wallbound_z1;
+	int wallbound_z2;
     
     // Camera Vectors
     glm::vec3 mPosition;
