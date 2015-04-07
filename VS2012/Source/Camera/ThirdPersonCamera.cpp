@@ -145,7 +145,7 @@ void ThirdPersonCamera::Update(float dt)
 
 
 
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS)
+/*	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_T) == GLFW_PRESS)
 	{
 		wormSteering = 0; //NORTH
 	}
@@ -160,7 +160,7 @@ void ThirdPersonCamera::Update(float dt)
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_F) == GLFW_PRESS)
 	{
 		wormSteering = 1.57; //WEST
-	}
+	}*/
 
 	// Controls
 
