@@ -113,6 +113,7 @@ void World::Update(float dt)
 			mCurrentCamera = 3;
 		}
 	}
+	/*
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
 	{
         // Spline camera
@@ -121,7 +122,7 @@ void World::Update(float dt)
 			mCurrentCamera = 4;
 		}
 	}
-
+	*/
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
