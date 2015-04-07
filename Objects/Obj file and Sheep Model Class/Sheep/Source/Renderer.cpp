@@ -83,8 +83,13 @@ void Renderer::Initialize()
                             shaderPathPrefix + "BlueColor.fragmentshader")
                                );
 	sShaderProgramID.push_back(
+<<<<<<< HEAD
 				LoadShaders(shaderPathPrefix + "SheepVertexShader.vertexshader",
 							shaderPathPrefix + "SheepFragmentShader.fragmentshader")
+=======
+				LoadShaders(shaderPathPrefix + "TransformVertexShader.vertexshader",
+							shaderPathPrefix + "TextureFragmentShader.fragmentshader")
+>>>>>>> master
 							   ); // Final project: load shader, push programID (the reference to shader) into array
 
 	sCurrentShader = 0;

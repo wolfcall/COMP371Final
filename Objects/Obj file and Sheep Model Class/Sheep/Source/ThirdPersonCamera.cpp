@@ -120,7 +120,11 @@ void ThirdPersonCamera::Update(float dt)
 	// @TODO
     // Align target model with the horizontal angle
 
+<<<<<<< HEAD
 	// mTargetModel->SetRotation(glm::vec3(0.0f,1.0f,0.0f),(mHorizontalAngle)*180/pi+180);
+=======
+	mTargetModel->SetRotation(glm::vec3(0.0f,1.0f,0.0f),(mHorizontalAngle)*180/pi+180);
+>>>>>>> master
 
     
     CalculateCameraBasis();
