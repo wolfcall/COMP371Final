@@ -314,10 +314,11 @@ void World::LoadScene(const char * scene_path)
 	}
 	input.close();
 
+	//Sheep was here
 	// Final project
-	SheepModel* character = new SheepModel(); 
+	SheepModel* character = new SheepModel();
 	character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
-	mSheep.push_back(character);	
+	mSheep.push_back(character);
 	// Final project
 
 	// Set PATH vertex buffers
@@ -401,15 +402,20 @@ Model* World::FindModelByIndex(unsigned int index)
 
 void World::meshExplostion(){
 	Model* cat = findMesh("Cat");
-	cat->SetScaling(1.0002f * (cat->GetScaling()));
+	//cat->SetScaling(1.0002f * (cat->GetScaling()));
 }
 
 void World::init(){
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
+	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 	World* world = World::GetInstance();
 	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
-	Model* test2Model = world->CreateModel<MeshModel>("Cat2", testMesh);
+	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
+	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
 	testModel->SetScaling(glm::vec3(2));
+	wormModel->SetScaling(glm::vec3(0.5));
+	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
@@ -417,6 +423,8 @@ void World::init(){
 
 	LandTestModel->SetScaling(glm::vec3(7));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+	
+	
 }
 
 Model* World::findMesh(std::string name){

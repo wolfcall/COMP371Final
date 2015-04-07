@@ -53,6 +53,8 @@ ThirdPersonCamera::ThirdPersonCamera(Model* targetModel)
 
 {
 	assert(mTargetModel != nullptr);
+	world = World::GetInstance();
+	mTargetModel = world->findMesh("Worm");
 	CalculateCameraBasis();
 }
 
