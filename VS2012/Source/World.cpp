@@ -416,26 +416,49 @@ void World::init(){
 
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
+	//auto fenceMesh = assetsManager->loadMesh("../fence.obj");
 	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 	World* world = World::GetInstance();
 	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
+	//Model* fenceModel = world->CreateModel<MeshModel>("Fence", fenceMesh);
 	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
 	testModel->SetScaling(glm::vec3(2));
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+
 
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
 	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
+	//auto FenceMesh = assetsManager->loadMesh("../fence.obj");
+	//auto FenceModel = world->CreateModel<MeshModel>("Fence", FenceMesh);
+
 	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+
+	
+	//FenceModel->SetPosition(glm::vec3(13, -1.5, 51));
+	
+	// Loop to generate fence around parameter
+	int x = 13;
+	int y = 51;
+	for (int i = 0; i < 11; i++) {
+
+
+		auto FenceMesh = assetsManager->loadMesh("../fence.obj");
+		auto FenceModel = world->CreateModel<MeshModel>("Fence", FenceMesh);
+		FenceModel->SetPosition(glm::vec3(x, -1.5, y));
+		x-=5;
+		
+	}
 
 	//Loads Tree
 
 	for (int i = 1; i < 5; i++){
+
 
 		int randomNumberX = rand() % (13-(-41)) + (-41);
 		int randomNumberZ = rand() % (51-(-51)) + (-51);
