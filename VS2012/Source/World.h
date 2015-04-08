@@ -27,9 +27,7 @@ public:
 
 	void Update(float dt);
 	void Draw();
-	void SheepSpawn(bool particle);
-	void treeSpawn(int num);
-
+	
 	//World initial objects
 	void init();
 
@@ -72,5 +70,4 @@ private:
 	std::vector<Camera*> mCamera;
 	unsigned int mCurrentCamera;
 	std::vector<SheepModel*> mSheep; // Final project: declaration of sheep array
-
 };
