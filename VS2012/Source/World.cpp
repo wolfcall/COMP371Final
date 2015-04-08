@@ -28,6 +28,10 @@
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
 
+//For random number generator
+#include <ctime>
+
+
 using namespace std;
 using namespace glm;
 
@@ -407,6 +411,9 @@ void World::meshExplostion(){
 }
 
 void World::init(){
+	//Random number
+	srand(time(NULL));
+
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
@@ -417,6 +424,7 @@ void World::init(){
 	testModel->SetScaling(glm::vec3(2));
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
@@ -424,6 +432,23 @@ void World::init(){
 
 	LandTestModel->SetScaling(glm::vec3(7));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+
+	//Loads Tree
+	
+	int randomNumberX = rand() % -41 + (13);
+	int randomNumberZ = rand() % -51 + (51);
+
+	for (int i = 0; i < 5; i++){
+
+		int randomNumberX = rand() % 13 + (-41);
+		int randomNumberZ = rand() % 51 + (-51);
+
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");		
+		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);	
+		TreeModel->SetScaling(glm::vec3(15));
+		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+
+	}
 	
 	
 }
