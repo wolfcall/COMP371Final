@@ -27,7 +27,15 @@
 #include "Model_Classes/WormModel.h"
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
+<<<<<<< HEAD
 #include <ctime>;
+=======
+
+//For random number generator
+#include <ctime>
+
+
+>>>>>>> origin/bcbackup
 using namespace std;
 using namespace glm;
 
@@ -113,6 +121,7 @@ void World::Update(float dt)
 			mCurrentCamera = 3;
 		}
 	}
+	/*
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
 	{
         // Spline camera
@@ -121,7 +130,7 @@ void World::Update(float dt)
 			mCurrentCamera = 4;
 		}
 	}
-
+	*/
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
@@ -406,8 +415,15 @@ void World::meshExplostion(){
 }
 
 void World::init(){
+<<<<<<< HEAD
 	srand(time(NULL));
 	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+=======
+	//Random number
+	srand(time(NULL));
+
+	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+>>>>>>> origin/bcbackup
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 	World* world = World::GetInstance();
 	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
@@ -424,13 +440,28 @@ void World::init(){
 	}
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
 	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
-	LandTestModel->SetScaling(glm::vec3(7));
+	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+
+	//Loads Tree
+
+	for (int i = 1; i < 5; i++){
+
+		int randomNumberX = rand() % (13-(-41)) + (-41);
+		int randomNumberZ = rand() % (51-(-51)) + (-51);
+
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");		
+		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);	
+		TreeModel->SetScaling(glm::vec3(15));
+		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+
+	}
 	
 	
 }
