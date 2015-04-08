@@ -430,18 +430,15 @@ void World::init(){
 
 	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
-	LandTestModel->SetScaling(glm::vec3(7));
+	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
 
 	//Loads Tree
-	
-	int randomNumberX = rand() % -41 + (13);
-	int randomNumberZ = rand() % -51 + (51);
 
-	for (int i = 0; i < 5; i++){
+	for (int i = 1; i < 5; i++){
 
-		int randomNumberX = rand() % 13 + (-41);
-		int randomNumberZ = rand() % 51 + (-51);
+		int randomNumberX = rand() % (13-(-41)) + (-41);
+		int randomNumberZ = rand() % (51-(-51)) + (-51);
 
 		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");		
 		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);	
