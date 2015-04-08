@@ -27,15 +27,11 @@
 #include "Model_Classes/WormModel.h"
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
-<<<<<<< HEAD
-#include <ctime>;
-=======
 
 //For random number generator
 #include <ctime>
 
 
->>>>>>> origin/bcbackup
 using namespace std;
 using namespace glm;
 
@@ -415,15 +411,10 @@ void World::meshExplostion(){
 }
 
 void World::init(){
-<<<<<<< HEAD
-	srand(time(NULL));
-	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
-=======
 	//Random number
 	srand(time(NULL));
+	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 
-	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
->>>>>>> origin/bcbackup
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 	World* world = World::GetInstance();
 	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
