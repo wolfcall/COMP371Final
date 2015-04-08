@@ -27,7 +27,7 @@
 #include "Model_Classes/WormModel.h"
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
-
+#include <ctime>;
 using namespace std;
 using namespace glm;
 
@@ -316,9 +316,9 @@ void World::LoadScene(const char * scene_path)
 
 	//Sheep was here
 	// Final project
-	SheepModel* character = new SheepModel();
-	character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
-	mSheep.push_back(character);
+	//SheepModel* character = new SheepModel();
+	//character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+	//mSheep.push_back(character);
 	// Final project
 
 	// Set PATH vertex buffers
@@ -406,14 +406,22 @@ void World::meshExplostion(){
 }
 
 void World::init(){
-	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	srand(time(NULL));
+	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
-	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 	World* world = World::GetInstance();
-	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
+	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
-	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
-	testModel->SetScaling(glm::vec3(2));
+	for (int x = 0; x < 90;x++){
+		auto sheepMesh = assetsManager->loadMesh("../sheep1.obj");
+		Model* sheepModel = world->CreateModel<MeshModel>("Sheep", sheepMesh);
+		sheepModel->SetScaling(glm::vec3(0.025));
+		float xpos, zpos;
+		xpos = rand() % (13 - (-41)) + (-41);
+		zpos = rand() % (51 - (-51)) + (-51);
+		printf("%f %f\n", xpos, zpos);
+		sheepModel->SetPosition(vec3(xpos,0.0,zpos));
+	}
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
 	//Loads the Landscape
