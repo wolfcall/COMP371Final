@@ -28,6 +28,10 @@
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
 
+//For random number generator
+#include <ctime>
+
+
 using namespace std;
 using namespace glm;
 
@@ -113,6 +117,7 @@ void World::Update(float dt)
 			mCurrentCamera = 3;
 		}
 	}
+	/*
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
 	{
         // Spline camera
@@ -121,7 +126,7 @@ void World::Update(float dt)
 			mCurrentCamera = 4;
 		}
 	}
-
+	*/
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
@@ -314,10 +319,11 @@ void World::LoadScene(const char * scene_path)
 	}
 	input.close();
 
+	//Sheep was here
 	// Final project
-	SheepModel* character = new SheepModel(); 
+	SheepModel* character = new SheepModel();
 	character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
-	mSheep.push_back(character);	
+	mSheep.push_back(character);
 	// Final project
 
 	// Set PATH vertex buffers
@@ -401,22 +407,47 @@ Model* World::FindModelByIndex(unsigned int index)
 
 void World::meshExplostion(){
 	Model* cat = findMesh("Cat");
-	cat->SetScaling(1.0002f * (cat->GetScaling()));
+	//cat->SetScaling(1.0002f * (cat->GetScaling()));
 }
 
 void World::init(){
+	//Random number
+	srand(time(NULL));
+
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
+	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 	World* world = World::GetInstance();
 	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
-	Model* test2Model = world->CreateModel<MeshModel>("Cat2", testMesh);
+	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
+	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
 	testModel->SetScaling(glm::vec3(2));
+	wormModel->SetScaling(glm::vec3(0.5));
+	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
 	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
-	LandTestModel->SetScaling(glm::vec3(7));
+	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+
+	//Loads Tree
+
+	for (int i = 1; i < 5; i++){
+
+		int randomNumberX = rand() % (13-(-41)) + (-41);
+		int randomNumberZ = rand() % (51-(-51)) + (-51);
+
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");		
+		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);	
+		TreeModel->SetScaling(glm::vec3(15));
+		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+
+	}
+	
+	
 }
 
 Model* World::findMesh(std::string name){
