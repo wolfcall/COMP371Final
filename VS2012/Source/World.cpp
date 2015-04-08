@@ -443,15 +443,25 @@ void World::init(){
 	//FenceModel->SetPosition(glm::vec3(13, -1.5, 51));
 	
 	// Loop to generate fence around parameter
-	int x = 13;
-	int y = 51;
-	for (int i = 0; i < 11; i++) {
+	int x = 13; // Start position for first fence section
+	int z = 51; // Start position for first fence section
+	int x2 = -41; // Start position for second fence section opposite side
+	for (int i = 0; i < 22; i++) {
 
+		if (i >= 0 && i <= 10) {
+			auto FenceMesh = assetsManager->loadMesh("../fence.obj");
+			auto FenceModel = world->CreateModel<MeshModel>("Fence", FenceMesh);
+			FenceModel->SetPosition(glm::vec3(x, -1.5, z));
+			x -= 5;
+		}
 
-		auto FenceMesh = assetsManager->loadMesh("../fence.obj");
-		auto FenceModel = world->CreateModel<MeshModel>("Fence", FenceMesh);
-		FenceModel->SetPosition(glm::vec3(x, -1.5, y));
-		x-=5;
+		if (i > 10) {
+			z = -53.5;
+			auto FenceMesh1 = assetsManager->loadMesh("../fence.obj");
+			auto FenceModel1 = world->CreateModel<MeshModel>("Fence1", FenceMesh1);
+			FenceModel1->SetPosition(glm::vec3(x2, -1.5, z));
+			x2 += 5;
+		}
 		
 	}
 
