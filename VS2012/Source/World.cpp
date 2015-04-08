@@ -351,10 +351,10 @@ void World::LoadCameras()
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
     // WormModel Character controlled with Third Person Camera
-    WormModel* character = new WormModel();
-    character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
-    mCamera.push_back(new ThirdPersonCamera(character));
-    mModel.push_back(character);
+    //WormModel* character = new WormModel();
+    //character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+    mCamera.push_back(new ThirdPersonCamera(World::GetInstance()->findMesh("Worm")));
+    //mModel.push_back(character);
     
     // BSpline Camera
     BSpline* spline = FindSpline("\"RollerCoaster\"");
