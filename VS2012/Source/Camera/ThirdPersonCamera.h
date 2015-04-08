@@ -11,6 +11,7 @@
 
 #include "Camera.h"
 #include "../BSpline/BSpline.h"
+#include "../World.h"
 
 class ThirdPersonCamera : public Camera
 {
@@ -59,5 +60,6 @@ private:
 	float FoV;
 	glm::vec3 thirdPersonOffset;
 
-
+	World* world;
+	Model* wormMesh;
 };
