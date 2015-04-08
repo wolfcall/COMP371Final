@@ -1,0 +1,51 @@
+#version 330 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec2 vertexUV;
+layout(location = 2) in vec3 vertexNormal_modelspace; 
+
+// Output data ; will be interpolated for each fragment.
+out vec2 UV;
+
+out vec3 normal;          // Transformed normal in View Space
+out vec3 eyeVector;       // Vector from the vertex to the Camera in View Space
+out vec4 lightVector;     // Vector from the vertex to the Light in View Space
+						  // Length of lightVector is the distance between light and vertex
+
+
+// Values that stay constant for the whole mesh.
+uniform mat4 ViewProjectionTransform;	// uniform in world.cpp
+uniform mat4 WorldTransform;	// uniform in sheep.cpp
+uniform mat4 ViewTransform;	// uniform in world.cpp
+uniform mat4 ProjectonTransform;	// uniform in world.cpp
+// light position
+uniform vec4 SunLightPosition_modelspace; // uniform in sheep.cpp// if w = 1: Point light, if w = 0: directional light
+
+void main(){
+
+	// Output position of the vertex, in clip space : MVP * position
+	// WorldTransform matrix is stored in Model; ViewProjectionTransform matrix is stored in camera.
+	// Final project
+	mat4 MV = ViewTransform * WorldTransform;
+	mat4 MVP = ProjectonTransform * MV;
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1); // Default Output to window: Must be named as gl_Position. The position of each vertex displayed in window, must be in clip space. 
+	
+	// UV of the vertex. No special space for this one.
+	UV = vertexUV;
+
+	// Final project: for shading
+	// Prepare Data for Fragment Shader
+	// The normal should be transformed to view space
+	normal =( MV * vec4(vertexNormal_modelspace,0) ).xyz; // (x,y,z) --> (x,y,z,1) // (x,y,z,w).xyz --> (x,y,z) // vector:(x,y,z,0) 
+
+	eyeVector = vec3(0,0,0) - ( MV * vec4(vertexPosition_modelspace,1)).xyz; // vector = end point - start point // position:(x,y,z,1)
+
+	vec4 WorldLightPosition = WorldTransform * SunLightPosition_modelspace;
+	// if w = 1: Point light, if w = 0: directional light
+	if(WorldLightPosition.w == 1) 
+		lightVector = ViewTransform * WorldLightPosition - vec4((MV * vec4(vertexPosition_modelspace,1)).xyz,0); 
+	else
+		lightVector = ViewTransform * (-WorldLightPosition);
+}
+
