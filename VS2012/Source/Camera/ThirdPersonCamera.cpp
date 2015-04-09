@@ -175,11 +175,11 @@ void ThirdPersonCamera::Update(float dt)
 	}*/
 
 
-	// Press W to move Forward
-	/*if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
+	// Press W to play sound
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 	{
 		playWormSound(true);
-	}*/
+	}
 	mTargetModel->SetPosition(mTargetModel->GetPosition() + wormLookAt*vec3(1, 0, 1) * dt * speed);
 
 	// Press S to move Backwards
