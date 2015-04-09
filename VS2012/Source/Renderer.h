@@ -20,10 +20,10 @@ struct GLFWwindow;
 
 enum ShaderType
 {
-	PHONG_SHADER,
 	GOURAUD_SHADER,
-	SHADER_SHEEP, // Final project: add one shader. Index: 3
-	SHADER_SHEEP_PARTICLE, // Final project: add one shader. Index: 4
+	PHONG_SHADER,
+	SHADER_SHEEP, // Final project: add one shader. Index: 2
+	SHADER_SHEEP_PARTICLE, // Final project: add one shader. Index: 3
 	NUM_SHADERS
 };
 

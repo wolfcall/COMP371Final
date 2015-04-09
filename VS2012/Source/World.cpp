@@ -18,6 +18,7 @@
 #include "Model_Classes/CubeModel.h"
 #include "Model_Classes/SphereModel.h"
 #include "Model_Classes/SheepModel.h"
+#include "Model_Classes/SheepParticleModel.h"
 #include "Path.h"
 #include "BSpline/BSpline.h"
 
@@ -146,6 +147,43 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
+	// Ning's Sheep
+	// Final project
+	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it) // Here vector = array 
+	{
+		(*it)->Update(dt);
+	}
+
+	// Ning's sheep particle
+	// Final project
+	for (vector<SheepParticleModel*>::iterator it = mSheepParticle.begin(); it < mSheepParticle.end(); ++it) // Here vector = array 
+	{
+		(*it)->SetViewMatrix(mCamera[mCurrentCamera]->GetViewMatrix());
+		(*it)->Update(dt);
+	}
+
+	while (mSheepParticle.size()>0 && (mSheepParticle[0]->IsAlive() == false)){
+		mSheepParticle.erase(mSheepParticle.begin()); // remove mSheepParticle[0] if it's dead
+	}
+
+	// Ning's collision
+	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
+	if (length(findMesh("Worm")->GetPosition() -mSheep[0]->GetPosition())<4.0f )
+	{
+		SheepParticleModel* character_sheep_particle = new SheepParticleModel(); // Final project
+		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
+		mSheepParticle.push_back(character_sheep_particle);
+		mSheep.erase(mSheep.begin());
+		SheepModel* character_sheep = new SheepModel(); // Final project
+		mSheep.push_back(character_sheep);	// Final project
+		// Final project
+	}
+	//watch
+	//printf("number of sheep:%d\n", mSheep.size());
+	// ----------------------------------------------------------------------------------------------------------------------------------
+
+
+
 	meshExplostion();
 }
 
@@ -222,20 +260,18 @@ void World::Draw()
 	// Restore previous shader
 	Renderer::SetShader((ShaderType) prevShader);
 
-	// Final project: Draw Sheep
-	// Set Shader for Sheep
+
+	//Ning's Sheep
+	// ----------------------------------------------------------------------------------------------------------------------------------
+		// Final project: Draw Sheep
+		// Set Shader for Sheep
 	prevShader = Renderer::GetCurrentShader();
 	Renderer::SetShader(SHADER_SHEEP);
 	glUseProgram(Renderer::GetShaderProgramID());
 
-	// Send the view projection constants to the shader
-	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
-	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-
 	// This looks for the MVP Uniform variable in the Vertex Program
 	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 	GLuint ProjectionMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-	// GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
 
 	// Send the view projection constants to the shader
 	mat4 ViewMatrix = mCamera[mCurrentCamera]->GetViewMatrix();
@@ -247,11 +283,52 @@ void World::Draw()
 	{
 		// Draw model
 		(*it)->Draw();
+		//watch
+		// printf("draw sheep:%f\n", EventManager::GetFrameTime());
+		// printf("number of sheep particle:%u\n", mSheepParticle.size());
 	}
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType)prevShader);
 	// Final project Draw Sheep ends
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+
+
+	// Ning's sheep particle
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// Final project: Sacrifice for particle draw
+	mSacrifice[0]->Draw();
+	// Final project: Draw Sheep Particle
+	// Set Shader for Sheep Particle
+	prevShader = Renderer::GetCurrentShader();
+	Renderer::SetShader(SHADER_SHEEP_PARTICLE);
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	GLuint programID = Renderer::GetShaderProgramID();
+	// Send the view projection constants to the shader
+	// Each frame has only 1 camera, so everything regarding to camera is put into World.cpp
+	GLuint CameraRight_worldspace_ID = glGetUniformLocation(programID, "CameraRight_worldspace");
+	GLuint CameraUp_worldspace_ID = glGetUniformLocation(programID, "CameraUp_worldspace");
+	GLuint ViewProjMatrixID = glGetUniformLocation(programID, "VP");
+
+	// Send the view projection constants to the shader
+	glUniform3f(CameraRight_worldspace_ID, ViewMatrix[0][0], ViewMatrix[1][0], ViewMatrix[2][0]); // [column][row]
+	glUniform3f(CameraUp_worldspace_ID, ViewMatrix[0][1], ViewMatrix[1][1], ViewMatrix[2][1]);	// [column][row]
+	glUniformMatrix4fv(ViewProjMatrixID, 1, GL_FALSE, &VP[0][0]);
+
+	for (vector<SheepParticleModel*>::iterator it = mSheepParticle.begin(); it < mSheepParticle.end(); ++it)
+	{
+		// Draw model
+		(*it)->Draw();
+	}
+
+	// Restore previous shader
+	Renderer::SetShader((ShaderType)prevShader);
+	// Final project Draw Sheep Particle ends
+
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
 
 
 	Renderer::EndFrame();
@@ -319,13 +396,6 @@ void World::LoadScene(const char * scene_path)
 	}
 	input.close();
 
-	//Sheep was here
-	// Final project
-	SheepModel* character = new SheepModel();
-	//character->SetPosition(vec3(0.0f, -10.5f, 0.0f));
-	mSheep.push_back(character);
-	// Final project
-
 	// Set PATH vertex buffers
 	for (vector<Path*>::iterator it = mPath.begin(); it < mPath.end(); ++it)
 	{
@@ -340,7 +410,27 @@ void World::LoadScene(const char * scene_path)
 		(*it)->CreateVertexBuffer();
 	}
     
+
+	//Ning's sheep spawn
+	//Transparent sheep loader
+	TransparentSheepSpawn();
+
+
     LoadCameras();
+}
+
+// Ning's ghost sheep sqawn
+void World::TransparentSheepSpawn(){
+	// Ning's Sheep
+	// Sheep was here
+	// Final project
+	SheepModel* character = new SheepModel();
+	//character->SetPosition(vec3(0.0f, -10.5f, 0.0f));
+	mSheep.push_back(character);
+	CubeModel * sacrifice = new CubeModel();
+	sacrifice->SetPosition(vec3(0.0f, -20.0f, 0.0f));
+	mSacrifice.push_back(sacrifice);
+	// Final project
 }
 
 void World::LoadCameras()
@@ -487,3 +577,5 @@ void World::treeSpawn(int num){
 		} while ((xpos < 5 && xpos > -5) || (zpos < 5 && zpos > -5));
 	}
 }
+
+

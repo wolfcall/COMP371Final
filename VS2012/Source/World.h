@@ -17,6 +17,7 @@ class Model;
 class Path;
 class BSpline;
 class SheepModel; // Final project
+class SheepParticleModel;// Final project
 
 class World
 {
@@ -37,6 +38,7 @@ public:
 
 	void SheepSpawn(bool particle);
 	void treeSpawn(int num);
+	void TransparentSheepSpawn();
 
 	void LoadScene(const char * scene_path);
     void LoadCameras();
@@ -73,4 +75,6 @@ private:
 	std::vector<Camera*> mCamera;
 	unsigned int mCurrentCamera;
 	std::vector<SheepModel*> mSheep; // Final project: declaration of sheep array
+	std::vector<SheepParticleModel*> mSheepParticle; // Final project: declaration of sheep particle array
+	std::vector<Model *> mSacrifice;
 };
