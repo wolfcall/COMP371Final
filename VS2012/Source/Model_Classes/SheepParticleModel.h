@@ -31,7 +31,7 @@ struct Particle{
 };
 
 // Capacity of particles for each sheep particle model
-const int MaxParticles = 10000;
+const int MaxParticles = 25; //Originally 10000
 
 
 // Inheritance from Model
