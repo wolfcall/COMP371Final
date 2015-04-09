@@ -46,7 +46,7 @@ void Renderer::Initialize()
 		exit(-1);
 	}
 
-	// Black background
+	// Greyish background
 	glClearColor(0.0f, 0.2f, 0.4f, 0.0f);
 	
 	// Enable depth test

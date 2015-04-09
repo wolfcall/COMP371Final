@@ -20,6 +20,7 @@ int main(int argc, char*argv[])
 
 	World world;
 
+	world.init();
 	if (argc > 1)
 	{
 		world.LoadScene(argv[1]);
@@ -38,7 +39,6 @@ int main(int argc, char*argv[])
 
 	}
 
-	world.init();
 
 	// Main Loop
 	do
