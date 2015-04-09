@@ -505,11 +505,11 @@ void World::init(){
 	srand(time(NULL));
 	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
-<<<<<<< HEAD
+
 	//auto fenceMesh = assetsManager->loadMesh("../fence.obj");
 	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
-=======
->>>>>>> Georges
+
+
 	World* world = World::GetInstance();
 	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
@@ -518,15 +518,15 @@ void World::init(){
 	//testModel->SetScaling(glm::vec3(2));
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
-<<<<<<< HEAD
 
 
-=======
+
+
 	auto sheepMesh = assetsManager->loadMesh("../sheep1.obj");
 	Model* sheepModel = world->CreateModel<MeshModel>("Sheep", sheepMesh);
 	sheepModel->SetScaling(glm::vec3(0.025));
 	world->SheepSpawn(false);
->>>>>>> Georges
+
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
@@ -536,7 +536,7 @@ void World::init(){
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
 	treeSpawn(5);
 
-<<<<<<< HEAD
+
 	
 	// Loop to generate first set of fence parallel (opposite) to each other 
 	int x = 13; // Start position for first fence section
@@ -609,8 +609,7 @@ void World::init(){
 		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
 
 	}
-=======
->>>>>>> Georges
+
 	
 	
 }
