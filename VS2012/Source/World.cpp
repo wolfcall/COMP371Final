@@ -28,6 +28,10 @@
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
 
+//For random number generator
+#include <ctime>
+
+
 using namespace std;
 using namespace glm;
 
@@ -113,6 +117,7 @@ void World::Update(float dt)
 			mCurrentCamera = 3;
 		}
 	}
+	/*
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
 	{
         // Spline camera
@@ -121,7 +126,7 @@ void World::Update(float dt)
 			mCurrentCamera = 4;
 		}
 	}
-
+	*/
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
@@ -314,10 +319,11 @@ void World::LoadScene(const char * scene_path)
 	}
 	input.close();
 
+	//Sheep was here
 	// Final project
-	SheepModel* character = new SheepModel(); 
+	SheepModel* character = new SheepModel();
 	character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
-	mSheep.push_back(character);	
+	mSheep.push_back(character);
 	// Final project
 
 	// Set PATH vertex buffers
@@ -401,22 +407,109 @@ Model* World::FindModelByIndex(unsigned int index)
 
 void World::meshExplostion(){
 	Model* cat = findMesh("Cat");
-	cat->SetScaling(1.0002f * (cat->GetScaling()));
+	//cat->SetScaling(1.0002f * (cat->GetScaling()));
 }
 
 void World::init(){
+	//Random number
+	srand(time(NULL));
+
 	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
+	//auto fenceMesh = assetsManager->loadMesh("../fence.obj");
+	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 	World* world = World::GetInstance();
 	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
-	Model* test2Model = world->CreateModel<MeshModel>("Cat2", testMesh);
+	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
+	//Model* fenceModel = world->CreateModel<MeshModel>("Fence", fenceMesh);
+	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
 	testModel->SetScaling(glm::vec3(2));
+	wormModel->SetScaling(glm::vec3(0.5));
+	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+
+
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
 	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
-	LandTestModel->SetScaling(glm::vec3(7));
+	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+
+	
+	// Loop to generate first set of fence parallel (opposite) to each other 
+	int x = 13; // Start position for first fence section
+	int z = 51; // Start position for first fence section
+	int x2 = -39; // Start position for second fence section opposite side
+	int z2 = -53.5; // Start position for the second fence section opposite side
+
+	for (int i = 0; i < 23; i++) {
+
+		if (i >= 0 && i <= 10) {
+
+			auto FenceMesh = assetsManager->loadMesh("../fence.obj");
+			auto FenceModel = world->CreateModel<MeshModel>("Fence", FenceMesh);
+			FenceModel->SetPosition(glm::vec3(x, -1.5, z));
+			x -= 5;
+
+		}
+
+		if (i > 10) {
+
+			auto FenceMesh1 = assetsManager->loadMesh("../fence.obj");
+			auto FenceModel1 = world->CreateModel<MeshModel>("Fence1", FenceMesh1);
+			FenceModel1->SetPosition(glm::vec3(x2, -1.5, z2));
+			x2 += 5;
+		}
+		
+	}
+
+	// Another loop to generate second set of fence parallel (opposite) to each other
+	int x3 = 16;
+	int z3 = 51;
+	int x4 = -41;
+	int z4 = -45;
+	for (int i = 0; i < 40; i++) {
+		if (i >= 0 && i <= 19) {
+
+			auto FenceMesh2 = assetsManager->loadMesh("../fence.obj");
+			auto FenceModel2 = world->CreateModel<MeshModel>("Fence2", FenceMesh2);
+			FenceModel2->SetPosition(glm::vec3(0, -1.5, 0));
+			FenceModel2->SetRotation(glm::vec3(FenceModel2->GetPosition()), 85.0);
+			FenceModel2->SetPosition(glm::vec3(x3, -1.5, z3));
+			z3 -= 5;
+		}
+
+		if (i > 19) {
+
+			auto FenceMesh3 = assetsManager->loadMesh("../fence.obj");
+			auto FenceModel3 = world->CreateModel<MeshModel>("Fence3", FenceMesh3);
+			FenceModel3->SetPosition(glm::vec3(0, -1.5, 0));
+			FenceModel3->SetRotation(glm::vec3(FenceModel3->GetPosition()), 85.0);
+			FenceModel3->SetPosition(glm::vec3(x4, -1.5, z4));
+			z4 += 5;
+
+		}
+	}
+
+	// Fence complete
+
+	//Loads Tree
+
+	for (int i = 1; i < 5; i++){
+
+
+		int randomNumberX = rand() % (13-(-41)) + (-41);
+		int randomNumberZ = rand() % (51-(-51)) + (-51);
+
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");		
+		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);	
+		TreeModel->SetScaling(glm::vec3(15));
+		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+
+	}
+	
+	
 }
 
 Model* World::findMesh(std::string name){

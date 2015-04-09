@@ -35,12 +35,22 @@
     <None Include="..\Source\Shaders\BlueColor.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+<<<<<<< HEAD
+=======
+    <None Include="..\Scenes\CoordinateSystem.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+    <None Include="..\Scenes\PathScene.scene">
+      <Filter>Resource Files\Scenes</Filter>
+    </None>
+>>>>>>> master
     <None Include="..\Source\Shaders\PathLines.fragmentshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\Source\Shaders\PathLines.vertexshader">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+<<<<<<< HEAD
     <None Include="..\Scenes\BSplineScene.scene">
       <Filter>Resource Files\Scenes</Filter>
     </None>
@@ -48,6 +58,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="..\Source\Shaders\SheepVertexShader.vertexshader">
+=======
+    <None Include="..\Source\Shaders\TextureFragmentShader.fragmentshader">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\TransformVertexShader.vertexshader">
+>>>>>>> master
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
@@ -91,6 +107,7 @@
     <ClCompile Include="..\Source\BSplineCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Source\SheepModel.cpp">
       <Filter>Source Files\Sheep</Filter>
     </ClCompile>
@@ -98,6 +115,15 @@
       <Filter>Source Files\Sheep</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\SheepTexture.cpp">
+=======
+    <ClCompile Include="..\Source\objloader.cpp">
+      <Filter>Source Files\Sheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\SheepModel.cpp">
+      <Filter>Source Files\Sheep</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\texture.cpp">
+>>>>>>> master
       <Filter>Source Files\Sheep</Filter>
     </ClCompile>
   </ItemGroup>
@@ -141,6 +167,7 @@
     <ClInclude Include="..\Source\BSplineCamera.h">
       <Filter>Source Files\Camera</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\Source\SheepModel.h">
       <Filter>Source Files\Sheep</Filter>
     </ClInclude>
@@ -148,6 +175,15 @@
       <Filter>Source Files\Sheep</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\SheepTexture.hpp">
+=======
+    <ClInclude Include="..\Source\objloader.hpp">
+      <Filter>Source Files\Sheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\SheepModel.h">
+      <Filter>Source Files\Sheep</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\texture.hpp">
+>>>>>>> master
       <Filter>Source Files\Sheep</Filter>
     </ClInclude>
   </ItemGroup>

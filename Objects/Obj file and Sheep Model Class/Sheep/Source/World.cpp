@@ -194,6 +194,7 @@ void World::Draw()
 	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
 	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
 
+<<<<<<< HEAD
 	// This looks for the MVP Uniform variable in the Vertex Program
 	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
 	GLuint ProjectionMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
@@ -205,6 +206,8 @@ void World::Draw()
 	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
 	glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &ProjectionMatrix[0][0]);
 
+=======
+>>>>>>> master
 	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it)
 	{
 		// Draw model

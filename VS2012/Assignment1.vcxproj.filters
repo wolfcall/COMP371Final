@@ -42,7 +42,6 @@
     <ClInclude Include="Source\World.h" />
     <ClInclude Include="Source\AssetsManager.hpp" />
     <ClInclude Include="Source\Model_Classes\MeshModel.hpp" />
-    <ClInclude Include="Source\Model_Classes\ObjMesh.hpp" />
     <ClInclude Include="..\ThirdParty\tinyObj\tiny_obj_loader.h">
       <Filter>ExtInc</Filter>
     </ClInclude>
@@ -50,6 +49,9 @@
       <Filter>Model_Classes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Model_Classes\SheepTexture.hpp">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Model_Classes\ObjMesh.hpp">
       <Filter>Model_Classes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -152,5 +154,10 @@
     <Library Include="..\ThirdParty\soil\SOIL.lib">
       <Filter>ExtInc</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GeometryShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
