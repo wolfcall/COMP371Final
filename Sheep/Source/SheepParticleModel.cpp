@@ -12,27 +12,14 @@
 #include "SheepTexture.hpp"
 #include "SheepObjloader.hpp"
 
+#define pi 3.14
+
 
 // Include GLEW - OpenGL Extension Wrangler
 #include <GL/glew.h>
 
 using namespace glm;
 
-// For shading. Should be in the same file with Uniform
-// Material Coefficients
-const float ka = 0.5f;
-const float kd = 0.8f;
-const float ks = 0.2f;
-const float n = 50.0f;
-
-// Light Coefficients
-const vec3 lightColor(1.0f, 1.0f, 1.0f); // white
-const float lightKc = 0.0f; // f att: constant
-const float lightKl = 0.0f; // f att: linear
-const float lightKq = 1.0f; // f att: quatratic
-
-// const vec4 lightPosition(0.0f, 300.0f, 0.0f, 1.0f); // If w = 1.0f, we have a point light
-const vec4 lightPosition(0.0f, -5.0f, 0.0f, 0.0f); // If w = 0.0f, we have a directional light
 
 // The VBO containing the 4 vertices of the particles.
 // Thanks to instancing, they will be shared by all particles.
@@ -70,6 +57,7 @@ SheepParticleModel::SheepParticleModel() : Model()
 	g_particule_position_size_data = new GLfloat[MaxParticles * 4];
 	g_particule_color_data = new GLubyte[MaxParticles * 4];
 
+	// Initialize each particle, all are dead.
 	for (int i = 0; i<MaxParticles; i++){
 		ParticlesContainer[i].life = -1.0f;
 		ParticlesContainer[i].cameradistance = -1.0f;
@@ -104,35 +92,49 @@ SheepParticleModel::SheepParticleModel() : Model()
 	// Initialize with empty (NULL) buffer : it will be updated later, each frame.
 	glBufferData(GL_ARRAY_BUFFER, MaxParticles * 4 * sizeof(GLubyte), NULL, GL_STREAM_DRAW);
 
+
 	// Generate new particles
+	// Activate the first 1000 particles, search from left to right, find the 1st dead one and then activate it
 	for (int i = 0; i<newparticles; i++){
 		int particleIndex = FindUnusedParticle();
 		ParticlesContainer[particleIndex].life = ((float) rand()) / RAND_MAX + 2.0f; // This particle will live 2 -3 seconds.
-		ParticlesContainer[particleIndex].pos = glm::vec3(0.0f, 0.0f, 0.0f);
+		ParticlesContainer[particleIndex].pos = glm::vec3(0.0f, 0.0f, 0.0f); // Origin of SheepParticleModel space // Then put this origion to sheep
 
 		float spread = 2.0f;
-		glm::vec3 maindir = glm::vec3(0.0f, 0.0f, 0.0f);
+		glm::vec3 maindir = glm::vec3(0.0f, 0.0f, 0.0f); // Initial velocity is 0
 		// Very bad way to generate a random direction; 
 		// See for instance http://stackoverflow.com/questions/5408276/python-uniform-spherical-distribution instead,
 		// combined with some user-controlled parameters (main direction, spread, etc)
+		/* cube
 		glm::vec3 randomdir = glm::vec3(
-			(rand() % 2000 - 1000.0f) / 1000.0f, //-1 to 1
-			(rand() % 2000 - 1000.0f) / 1000.0f, //-1 to 1
-			(rand() % 2000 - 1000.0f) / 1000.0f	//-1 to 1
+			(rand() % 2000 - 1000.0f) / 1000.0f, // x: -1 to 1
+			(rand() % 2000 - 1000.0f) / 1000.0f, // y: -1 to 1
+			(rand() % 2000 - 1000.0f) / 1000.0f	// z: -1 to 1
 			);
+			*/
+		float alpha = (((float)rand()) / RAND_MAX - 0.5) * pi; // (-pi/2, +pi/2)
+		float beta = (((float)rand()) / RAND_MAX) * 2 * pi;	// (0, 2pi)
+		float r = ((float)rand()) / RAND_MAX; // (0, 1)
+		glm::vec3 randomdir = glm::vec3(
+			r * cos(alpha) * cos(beta),	// x
+			r * sin(alpha),	// y
+			-1 * r * cos(alpha) * sin(beta)	// z
+			);	// sphere
 
-		ParticlesContainer[particleIndex].speed = maindir + randomdir*spread;
+		ParticlesContainer[particleIndex].speed = maindir + randomdir*spread; // sphere with r (0, 2)
 
 
 		// Very bad way to generate a random color
-		ParticlesContainer[particleIndex].r = 255;
-		ParticlesContainer[particleIndex].g = 255;
-		ParticlesContainer[particleIndex].b = 255;
-		ParticlesContainer[particleIndex].a = (rand() % 256) / 3;
+		// Particle color
+		ParticlesContainer[particleIndex].r = 255;	// white
+		ParticlesContainer[particleIndex].g = 255;	// white
+		ParticlesContainer[particleIndex].b = 255;	// white
+		ParticlesContainer[particleIndex].a = (rand() % 256) / 3; // 255 is opacity
 
-		ParticlesContainer[particleIndex].size = (rand() % 1000) / 5000.0f + 0.1f;
+		// Random size of each particle (square)
+		ParticlesContainer[particleIndex].size = (rand() % 1000) / 5000.0f + 0.1f; // 0.1*0.1 - 0.3*0.3
 
-	}
+	} // End of for loop
 
 	// Restore previous shader
 	Renderer::SetShader((ShaderType)prevShader);
@@ -150,7 +152,9 @@ SheepParticleModel::~SheepParticleModel()
 	glDeleteTextures(1, &Texture);
 }
 
+
 // Private method
+// search in ParticlesContainer[]
 int SheepParticleModel::FindUnusedParticle(){
 	for (int i = LastUsedParticle; i<MaxParticles; i++){
 		if (ParticlesContainer[i].life < 0){
@@ -175,6 +179,7 @@ void SheepParticleModel::SortParticles(){
 	std::sort(&ParticlesContainer[0], &ParticlesContainer[MaxParticles]);
 }
 
+// Public method to test if the particle model is dead
 bool SheepParticleModel::IsAlive(){
 	return ParticlesContainer[0].life>0; // If all particles are dead, then particle model is dead.
 }
@@ -191,6 +196,7 @@ void SheepParticleModel::Update(float dt)
 	// That will only work if your world transform is correct...
 	// mRotationAngleInDegrees += 90 * dt; // spins by 90 degrees per second
 
+
 	// Update all particle including the new create particles
 	// Simulate all particles
 	ParticlesCount = 0;
@@ -200,17 +206,16 @@ void SheepParticleModel::Update(float dt)
 
 		if (p.life > 0.0f){
 
-			// Decrease life
-			p.life -= dt;
+			p.life -= dt;	// Decrease life
+
 			if (p.life > 0.0f){
 
 				// Simulate simple physics : gravity only, no collisions
 				p.speed += glm::vec3(0.0f, -9.81f, 0.0f) * (float)dt * 0.1f;  // v(t) = v0 + gt	// Average speed: v bar = v0 + gt/2
 				p.pos += p.speed * (float)dt;
-				p.cameradistance = glm::length(mViewMatrix*GetWorldMatrix()*vec4(p.pos,1));
-				//ParticlesContainer[i].pos += glm::vec3(0.0f,10.0f, 0.0f) * (float)delta;
+				p.cameradistance = glm::length(( mViewMatrix*GetWorldMatrix()*vec4(p.pos,1)) - vec4(0.0f, 0.0f, 0.0f, 0.0f));
 
-				// Fill the GPU buffer
+				// Fill the attibute arrays
 				g_particule_position_size_data[4 * ParticlesCount + 0] = p.pos.x;
 				g_particule_position_size_data[4 * ParticlesCount + 1] = p.pos.y;
 				g_particule_position_size_data[4 * ParticlesCount + 2] = p.pos.z;
@@ -222,8 +227,7 @@ void SheepParticleModel::Update(float dt)
 				g_particule_color_data[4 * ParticlesCount + 2] = p.b;
 				g_particule_color_data[4 * ParticlesCount + 3] = p.a;
 
-			}
-			else{
+			} else {
 				// Particles that just died will be put at the end of the buffer in SortParticles();
 				// -particles step1
 				p.cameradistance = -1.0f;
@@ -231,8 +235,8 @@ void SheepParticleModel::Update(float dt)
 
 			ParticlesCount++;
 
-		}
-	}
+		} // End of if
+	} // End of for loop
 
 	//watch
 	//printf("ParticlesCount:%d\n", ParticlesCount);
@@ -255,6 +259,12 @@ void SheepParticleModel::Draw()
 	glBufferData(GL_ARRAY_BUFFER, MaxParticles * 4 * sizeof(GLubyte), NULL, GL_STREAM_DRAW); // Buffer orphaning, a common way to improve streaming perf. See above link for details.
 	glBufferSubData(GL_ARRAY_BUFFER, 0, ParticlesCount * sizeof(GLubyte) * 4, g_particule_color_data);
 
+	// Bind our texture in Texture Unit 0
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, Texture); // Texture to UV
+	// Set our "myTextureSampler" sampler to user Texture Unit 0
+	glUniform1i(TextureID, 0);	// Texture --> TextureID
+
 	// Transparent
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -263,14 +273,10 @@ void SheepParticleModel::Draw()
 	GLuint programID = Renderer::GetShaderProgramID();
 	glUseProgram(programID);
 
-	GLuint WorldMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "WorldTransform");
-	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]);
+	GLuint WorldMatrixLocation = glGetUniformLocation(programID, "WorldTransform");
+	glUniformMatrix4fv(WorldMatrixLocation, 1, GL_FALSE, &GetWorldMatrix()[0][0]); // Each model has its own WorldMatrix
 
-	// Bind our texture in Texture Unit 0
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, Texture); // Texture to UV
-	// Set our "myTextureSampler" sampler to user Texture Unit 0
-	glUniform1i(TextureID, 0);
+	
 
 	// Same as the billboards tutorial
 	/*
@@ -330,7 +336,7 @@ void SheepParticleModel::Draw()
 	// This is equivalent to :
 	// for(i in ParticlesCount) : glDrawArrays(GL_TRIANGLE_STRIP, 0, 4), 
 	// but faster.
-	glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, 4, ParticlesCount);
+	glDrawArraysInstancedARB(GL_TRIANGLE_STRIP, 0, 4, ParticlesCount);	// Each square has 4 vertices
 
 	glDisableVertexAttribArray(squareVerticesID);
 	glDisableVertexAttribArray(xyzsID);
