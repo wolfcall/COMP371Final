@@ -167,19 +167,19 @@ void ThirdPersonCamera::Update(float dt)
 	// Controls
 
 	// S is used for breakpoint debugging
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
+	/*if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
 	{
 		playSheepSound();
 		//PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
 		//mTargetModel->GetPosition();
-	}
+	}*/
 
 
 	// Press W to move Forward
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
+	/*if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_W) == GLFW_PRESS)
 	{
 		playWormSound(true);
-	}
+	}*/
 	mTargetModel->SetPosition(mTargetModel->GetPosition() + wormLookAt*vec3(1, 0, 1) * dt * speed);
 
 	// Press S to move Backwards
