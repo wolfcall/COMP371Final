@@ -35,6 +35,9 @@ public:
 	void meshExplostion(); 
 	Model* findMesh(std::string);
 
+	void SheepSpawn(bool particle);
+	void treeSpawn(int num);
+
 	void LoadScene(const char * scene_path);
     void LoadCameras();
 
