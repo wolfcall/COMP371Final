@@ -322,7 +322,7 @@ void World::LoadScene(const char * scene_path)
 	//Sheep was here
 	// Final project
 	SheepModel* character = new SheepModel();
-	character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+	character->SetPosition(vec3(0.0f, -10.5f, 0.0f));
 	mSheep.push_back(character);
 	// Final project
 
@@ -351,8 +351,8 @@ void World::LoadCameras()
     mCamera.push_back(new StaticCamera(vec3(0.5f,  0.5f, 5.0f), vec3(0.0f, 0.5f, 0.0f), vec3(0.0f, 1.0f, 0.0f)));
     
     // WormModel Character controlled with Third Person Camera
-    WormModel* character = new WormModel();
-    character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
+	Model* character = World::GetInstance()->findMesh("Worm");
+    //character->SetPosition(vec3(0.0f, 0.5f, 0.0f));
     mCamera.push_back(new ThirdPersonCamera(character));
     mModel.push_back(character);
     
@@ -406,28 +406,37 @@ Model* World::FindModelByIndex(unsigned int index)
 }
 
 void World::meshExplostion(){
-	Model* cat = findMesh("Cat");
+	//Model* cat = findMesh("Cat");
 	//cat->SetScaling(1.0002f * (cat->GetScaling()));
 }
 
 void World::init(){
 	//Random number
 	srand(time(NULL));
-
-	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
+<<<<<<< HEAD
 	//auto fenceMesh = assetsManager->loadMesh("../fence.obj");
 	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
+=======
+>>>>>>> Georges
 	World* world = World::GetInstance();
-	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
+	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
 	//Model* fenceModel = world->CreateModel<MeshModel>("Fence", fenceMesh);
 	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
-	testModel->SetScaling(glm::vec3(2));
+	//testModel->SetScaling(glm::vec3(2));
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+<<<<<<< HEAD
 
 
+=======
+	auto sheepMesh = assetsManager->loadMesh("../sheep1.obj");
+	Model* sheepModel = world->CreateModel<MeshModel>("Sheep", sheepMesh);
+	sheepModel->SetScaling(glm::vec3(0.025));
+	world->SheepSpawn(false);
+>>>>>>> Georges
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
@@ -435,7 +444,9 @@ void World::init(){
 
 	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+	treeSpawn(5);
 
+<<<<<<< HEAD
 	
 	// Loop to generate first set of fence parallel (opposite) to each other 
 	int x = 13; // Start position for first fence section
@@ -508,6 +519,8 @@ void World::init(){
 		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
 
 	}
+=======
+>>>>>>> Georges
 	
 	
 }
@@ -521,4 +534,39 @@ Model* World::findMesh(std::string name){
 		}
 	}
 	return NULL;
+}
+
+void World::SheepSpawn(bool particle){
+	srand(time(NULL));
+	Model* sheepModel = World::GetInstance()->findMesh("Sheep");
+	if (sheepModel != NULL){
+		float xpos, zpos;
+		do{
+			if (particle){
+				//nings partical code
+			}
+			else{
+				xpos = rand() % (13 - (-41)) + (-41);
+				zpos = rand() % (51 - (-51)) + (-51);
+				printf("%f %f\n", xpos, zpos);
+				sheepModel->SetPosition(vec3(xpos, 0.0, zpos));
+			}
+		} while ((xpos < 5 && xpos > -5) || (zpos < 5 && zpos > -5));
+	}
+}
+void World::treeSpawn(int num){
+	float xpos, zpos;
+	for (int i = 0; i < num; i++){
+		do{
+			//Loads Tree
+			xpos = rand() % (13 - (-41)) + (-41);
+			zpos = rand() % (51 - (-51)) + (-51);
+
+			auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+			auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
+			TreeModel->SetScaling(glm::vec3(15));
+			TreeModel->SetPosition(glm::vec3(xpos, .25, zpos));
+
+		} while ((xpos < 5 && xpos > -5) || (zpos < 5 && zpos > -5));
+	}
 }
