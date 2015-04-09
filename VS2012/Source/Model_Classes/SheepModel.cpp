@@ -100,6 +100,17 @@ SheepModel::SheepModel() : Model()
 
 }
 
+void SheepModel::ResetPosition(){
+	mRotationAngle = 0;
+	mRotationSpeed = ((float)rand() / (RAND_MAX)) * 330.0 + 30.0f; // Set random rotation speed
+
+	// For transparency
+	alpha = ((float)rand() / (RAND_MAX)) / 2.0 + 0.25f; // Set random transparency
+	float mPositionx = ((float)rand() / (RAND_MAX))*(wallbound_x1 - wallbound_x2) + wallbound_x2;	// (x2, x1)
+	float mPositionz = ((float)rand() / (RAND_MAX))*(wallbound_z1 - wallbound_z2) + wallbound_z2;	// (z2, z1)
+	SetPosition(vec3(mPositionx, 0.0f, mPositionz));
+}
+
 SheepModel::~SheepModel()
 {
 	// Free the GPU from the Vertex Buffer

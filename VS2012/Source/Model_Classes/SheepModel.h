@@ -20,6 +20,7 @@ public:
 
 	virtual void Update(float dt);
 	virtual void Draw();
+	void ResetPosition();
 
 protected:
 	virtual bool ParseLine(const std::vector<ci_string> &token);
