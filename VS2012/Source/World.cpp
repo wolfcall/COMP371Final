@@ -154,6 +154,8 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
 	// Ning's Sheep
 	// Final project
 	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it) // Here vector = array 
@@ -185,6 +187,12 @@ void World::Update(float dt)
 		//mSheep.erase(mSheep.begin());
 		//SheepModel* character_sheep = new SheepModel(); // Final project
 		//mSheep.push_back(character_sheep);	// Final project
+
+		/*SheepParticleModel* character_sheep_particle = new SheepParticleModel(); // Final project
+		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
+		mSheepParticle.push_back(character_sheep_particle);
+		mSheep[0]->ResetPosition();*/
+
 		// Final project
 	}
 	//watch
@@ -308,6 +316,7 @@ void World::Draw()
 	// ----------------------------------------------------------------------------------------------------------------------------------
 	// Final project: Sacrifice for particle draw
 	mSacrifice[0]->Draw();
+
 	// Final project: Draw Sheep Particle
 	// Set Shader for Sheep Particle
 	prevShader = Renderer::GetCurrentShader();
@@ -419,15 +428,16 @@ void World::LoadScene(const char * scene_path)
 		(*it)->CreateVertexBuffer();
 	}
     
-
+	// ----------------------------------------------------------------------------------------------------------------------------------
 	//Ning's sheep spawn
 	//Transparent sheep loader
 	TransparentSheepSpawn();
-
+	// ----------------------------------------------------------------------------------------------------------------------------------
 
     LoadCameras();
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------------
 // Ning's ghost sheep sqawn
 void World::TransparentSheepSpawn(){
 	// Ning's Sheep
@@ -441,6 +451,7 @@ void World::TransparentSheepSpawn(){
 	mSacrifice.push_back(sacrifice);
 	// Final project
 }
+// ----------------------------------------------------------------------------------------------------------------------------------
 
 void World::LoadCameras()
 {

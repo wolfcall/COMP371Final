@@ -86,6 +86,12 @@
     <None Include="..\Source\Shaders\SheepVertexShader.vertexshader">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\Source\Shaders\SheepParticle.fragmentshader">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Source\Shaders\SheepParticle.vertexshader">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment1.rc" />

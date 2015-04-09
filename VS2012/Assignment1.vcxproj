@@ -109,6 +109,8 @@
     <None Include="..\Source\Shaders\Phong.fragmentshader" />
     <None Include="..\Source\Shaders\Phong.vertexshader" />
     <None Include="..\Source\Shaders\SheepFragmentShader.fragmentshader" />
+    <None Include="..\Source\Shaders\SheepParticle.fragmentshader" />
+    <None Include="..\Source\Shaders\SheepParticle.vertexshader" />
     <None Include="..\Source\Shaders\SheepVertexShader.vertexshader" />
   </ItemGroup>
   <ItemGroup>
