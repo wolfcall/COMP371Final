@@ -140,10 +140,10 @@ void World::Update(float dt)
 	{
 		Renderer::SetShader(GOURAUD_SHADER);
 	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
-	{
-		Renderer::SetShader(PHONG_SHADER);
-	}
+	//else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
+	//{
+		//Renderer::SetShader(PHONG_SHADER);
+	//}
 
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
