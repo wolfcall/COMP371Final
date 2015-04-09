@@ -25,6 +25,13 @@
 #include <GLFW/glfw3.h>
 #include "EventManager.h"
 
+#include <windows.h>
+#include "mmsystem.h"
+
+#define SND_FILENAME 0x20000
+#define SND_LOOP 8
+#define SND_ASYNC 1
+
 #include "Model_Classes/WormModel.h"
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
@@ -170,9 +177,10 @@ void World::Update(float dt)
 	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
 	if (length(findMesh("Worm")->GetPosition() -mSheep[0]->GetPosition())<4.0f )
 	{
-		SheepParticleModel* character_sheep_particle = new SheepParticleModel(); // Final project
-		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
-		mSheepParticle.push_back(character_sheep_particle);
+		SheepParticleModel* character_sheep_particle = new SheepParticleModel(); // Final project	//particles
+		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));	//particles
+		mSheepParticle.push_back(character_sheep_particle);											//particles
+		PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
 		mSheep.erase(mSheep.begin());
 		SheepModel* character_sheep = new SheepModel(); // Final project
 		mSheep.push_back(character_sheep);	// Final project
@@ -184,7 +192,7 @@ void World::Update(float dt)
 
 
 
-	meshExplostion();
+	//meshExplostion();
 }
 
 void World::Draw()
