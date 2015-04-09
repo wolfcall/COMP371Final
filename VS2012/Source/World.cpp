@@ -181,9 +181,10 @@ void World::Update(float dt)
 		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));	//particles
 		mSheepParticle.push_back(character_sheep_particle);											//particles
 		PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
-		mSheep.erase(mSheep.begin());
-		SheepModel* character_sheep = new SheepModel(); // Final project
-		mSheep.push_back(character_sheep);	// Final project
+		mSheep[0]->Reposition();
+		//mSheep.erase(mSheep.begin());
+		//SheepModel* character_sheep = new SheepModel(); // Final project
+		//mSheep.push_back(character_sheep);	// Final project
 		// Final project
 	}
 	//watch

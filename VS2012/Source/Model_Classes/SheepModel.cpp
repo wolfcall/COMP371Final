@@ -111,6 +111,13 @@ SheepModel::~SheepModel()
 	//glDeleteVertexArrays(1, &VertexArrayID);
 }
 
+void SheepModel::Reposition()
+{
+	float mPositionx = ((float)rand() / (RAND_MAX))*(wallbound_x1 - wallbound_x2) + wallbound_x2;	// (x2, x1)
+	float mPositionz = ((float)rand() / (RAND_MAX))*(wallbound_z1 - wallbound_z2) + wallbound_z2;	// (z2, z1)
+	SetPosition(vec3(mPositionx, 0.0f, mPositionz));
+}
+
 void SheepModel::Update(float dt)
 {
 	// If you are curious, un-comment this line to have spinning cubes!
