@@ -78,6 +78,11 @@ void Renderer::Initialize()
 		shaderPath + "SheepParticle.fragmentshader")
 		); // Final project: load shader, push programID (the reference to shader) into array
 
+	// Final project: For sheep's transparency
+	// Enable blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 
 	sCurrentShader = 0;
 

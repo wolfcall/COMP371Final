@@ -93,7 +93,7 @@ SheepModel::SheepModel() : Model()
 	mRotationSpeed = ((float)rand() / (RAND_MAX)) * 330.0 + 30.0f; // Set random rotation speed
 
 	// For transparency
-	alpha = ((float)rand() / (RAND_MAX)) /2.0 + 0.5f; // Set random transparency
+	alpha = ((float)rand() / (RAND_MAX)) /2.0 + 0.25f; // Set random transparency
 	float mPositionx = ((float)rand() / (RAND_MAX))*(wallbound_x1 - wallbound_x2) + wallbound_x2;	// (x2, x1)
 	float mPositionz = ((float)rand() / (RAND_MAX))*(wallbound_z1 - wallbound_z2) + wallbound_z2;	// (z2, z1)
 	SetPosition(vec3(mPositionx, 0.0f, mPositionz));
@@ -131,6 +131,7 @@ void SheepModel::Draw()
 	//watch
 	//printf("GetCurrentShader:%u\n", Renderer::GetCurrentShader());
 	//printf("Sheep Position: %f,%f,%f\n", mPosition[0], mPosition[1], mPosition[2]);
+	//printf("transparency:%f\n", alpha);
 
 	// Draw the Vertex Buffer
 	// Note this draws a unit Cube
