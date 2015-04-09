@@ -433,19 +433,20 @@ void World::init(){
 
 	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
-	//auto FenceMesh = assetsManager->loadMesh("../fence.obj");
-	//auto FenceModel = world->CreateModel<MeshModel>("Fence", FenceMesh);
-
 	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
 
-	
-	//FenceModel->SetPosition(glm::vec3(13, -1.5, 51));
+	// Testing for rotation...
+	auto FenceMesh2 = assetsManager->loadMesh("../fence.obj");
+	auto FenceModel2 = world->CreateModel<MeshModel>("Fence2", FenceMesh2);
+	FenceModel2->SetPosition(glm::vec3(0, -1.5, 0));
+	FenceModel2->SetRotation(glm::vec3(FenceModel2->GetPosition()), 85.0);// FenceModel2->GetPosition()
 	
 	// Loop to generate fence around parameter
 	int x = 13; // Start position for first fence section
 	int z = 51; // Start position for first fence section
 	int x2 = -41; // Start position for second fence section opposite side
+	//int z2 = -51;
 	for (int i = 0; i < 22; i++) {
 
 		if (i >= 0 && i <= 10) {
@@ -456,10 +457,10 @@ void World::init(){
 		}
 
 		if (i > 10) {
-			z = -53.5;
+			int z2 = -53.5;
 			auto FenceMesh1 = assetsManager->loadMesh("../fence.obj");
 			auto FenceModel1 = world->CreateModel<MeshModel>("Fence1", FenceMesh1);
-			FenceModel1->SetPosition(glm::vec3(x2, -1.5, z));
+			FenceModel1->SetPosition(glm::vec3(x2, -1.5, z2));
 			x2 += 5;
 		}
 		
