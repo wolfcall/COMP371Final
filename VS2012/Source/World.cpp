@@ -200,6 +200,8 @@ void World::Draw()
 {
 	Renderer::BeginFrame();
 
+	glCullFace(GL_BACK);// default
+	glEnable(GL_CULL_FACE);// hide all CW faces
 	
 	// Set shader to use
 	// Get a handle for our Transformation Matrices uniform
@@ -531,10 +533,10 @@ void World::init(){
 
 
 
-	auto sheepMesh = assetsManager->loadMesh("../sheep1.obj");
-	Model* sheepModel = world->CreateModel<MeshModel>("Sheep", sheepMesh);
-	sheepModel->SetScaling(glm::vec3(0.025));
-	world->SheepSpawn(false);
+	//auto sheepMesh = assetsManager->loadMesh("../sheep1.obj");
+	//Model* sheepModel = world->CreateModel<MeshModel>("Sheep", sheepMesh);
+	//sheepModel->SetScaling(glm::vec3(0.025));
+	//world->SheepSpawn(false);
 
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
@@ -606,6 +608,7 @@ void World::init(){
 
 	//Loads Tree
 
+	/*for (int i = 1; i < 5; i++){
 
 
 		int randomNumberX = rand() % (13-(-41)) + (-41);
@@ -616,6 +619,7 @@ void World::init(){
 		TreeModel->SetScaling(glm::vec3(15));
 		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
 
+	}*/
 
 	
 	
@@ -647,6 +651,7 @@ void World::SheepSpawn(bool particle){
 				printf("%f %f\n", xpos, zpos);
 				sheepModel->SetPosition(vec3(xpos, 0.0, zpos));
 			}
+		} while ((xpos < 5 && xpos > -5) && (zpos < 5 && zpos > -5));
 	}
 
 	//Ning's Model
@@ -659,6 +664,11 @@ void World::treeSpawn(int num){
 			//Loads Tree
 			xpos = rand() % (13 - (-41)) + (-41);
 			zpos = rand() % (51 - (-51)) + (-51);
+		} while ((xpos < 5 && xpos > -5) && (zpos < 5 && zpos > -5));
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
+		TreeModel->SetScaling(glm::vec3(15));
+		TreeModel->SetPosition(glm::vec3(xpos, .25, zpos));
 	}
 }
 
