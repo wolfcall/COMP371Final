@@ -128,6 +128,7 @@
     <ClInclude Include="Source\Model_Classes\ObjMesh.hpp" />
     <ClInclude Include="Source\Model_Classes\SheepModel.h" />
     <ClInclude Include="Source\Model_Classes\SheepObjloader.hpp" />
+    <ClInclude Include="Source\Model_Classes\SheepParticleModel.h" />
     <ClInclude Include="Source\Model_Classes\SheepTexture.hpp" />
     <ClInclude Include="Source\Model_Classes\SphereModel.h" />
     <ClInclude Include="Source\Model_Classes\WormModel.h" />
@@ -152,6 +153,7 @@
     <ClCompile Include="Source\Model_Classes\Model.cpp" />
     <ClCompile Include="Source\Model_Classes\SheepModel.cpp" />
     <ClCompile Include="Source\Model_Classes\SheepObjloader.cpp" />
+    <ClCompile Include="Source\Model_Classes\SheepParticleModel.cpp" />
     <ClCompile Include="Source\Model_Classes\SheepTexture.cpp" />
     <ClCompile Include="Source\Model_Classes\SphereModel.cpp" />
     <ClCompile Include="Source\Model_Classes\WormModel.cpp" />

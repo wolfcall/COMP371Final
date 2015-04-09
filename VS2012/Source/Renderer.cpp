@@ -73,6 +73,11 @@ void Renderer::Initialize()
 		LoadShaders(shaderPath + "SheepVertexShader.vertexshader",
 		shaderPath + "SheepFragmentShader.fragmentshader")
 		); // Final project
+	sShaderProgramID.push_back(
+		LoadShaders(shaderPath + "SheepParticle.vertexshader",
+		shaderPath + "SheepParticle.fragmentshader")
+		); // Final project: load shader, push programID (the reference to shader) into array
+
 
 	sCurrentShader = 0;
 

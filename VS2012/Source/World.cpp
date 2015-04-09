@@ -322,7 +322,7 @@ void World::LoadScene(const char * scene_path)
 	//Sheep was here
 	// Final project
 	SheepModel* character = new SheepModel();
-	character->SetPosition(vec3(0.0f, -10.5f, 0.0f));
+	//character->SetPosition(vec3(0.0f, -10.5f, 0.0f));
 	mSheep.push_back(character);
 	// Final project
 
@@ -467,6 +467,9 @@ void World::SheepSpawn(bool particle){
 			}
 		} while ((xpos < 5 && xpos > -5) || (zpos < 5 && zpos > -5));
 	}
+
+	//Ning's Model
+
 }
 void World::treeSpawn(int num){
 	float xpos, zpos;
