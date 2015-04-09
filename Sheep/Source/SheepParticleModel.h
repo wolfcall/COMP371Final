@@ -13,22 +13,28 @@
 #include <GL/glew.h>
 
 // CPU representation of a particle
+// Structure for each particle
 struct Particle{
 	glm::vec3 pos, speed;
 	unsigned char r, g, b, a; // Color
-	float size, angle, weight;
+	float size, angle, weight; // Random size. angle & weight are not used.
 	float life; // Remaining life of the particle. if <0 : dead and unused.
 	float cameradistance; // *Squared* distance to the camera. if dead : -1.0f
 
+	// Algorithm for sorting: define <
+	// cameraDistance is large --> particle is small
+	// Soring default: ascendent --> particle from small to large --> cameraDistance from large to small
 	bool operator<(const Particle& that) const {
 		// Sort in reverse order : far particles drawn first.
 		return this->cameradistance > that.cameradistance;
 	}
 };
 
+// Capacity of particles for each sheep particle model
 const int MaxParticles = 10000;
 
 
+// Inheritance from Model
 class SheepParticleModel : public Model
 {
 public:
@@ -45,6 +51,7 @@ protected:
 
 private:
 	// The vertex format could be different for different types of models
+	// 4 vertices of the particle. will be shared by all particles.
 	struct Vertex
 	{
 		glm::vec3 position;
@@ -52,38 +59,35 @@ private:
 		glm::vec3 color;
 	};
 
-	unsigned int mVertexArrayID;
-	unsigned int mVertexBufferID;
-	
 	// Final project //obj files
 	GLuint TextureID;
 	GLuint squareVerticesID;
 	GLuint xyzsID;
 	GLuint colorID;
 
-	GLfloat* g_particule_position_size_data;
-	GLubyte* g_particule_color_data;
+	// 2 arrays. only alive particles are in these 2 arrays.
+	// 1 particle using 4 index // used size is 4*ParticlesCount
+	GLfloat* g_particule_position_size_data;	// xyzs	// array --> buffer -->shader
+	// 1 particle using 4 index // used size is 4*ParticlesCount
+	GLubyte* g_particule_color_data;	// rgba	// array --> buffer -->shader
 
-	GLuint Texture;
-	GLuint billboard_vertex_buffer;
-	GLuint particles_position_buffer;
-	GLuint particles_color_buffer;
+	GLuint Texture; // Texture --> TextureID (draw)
+	GLuint billboard_vertex_buffer;	// 4 vertices // g_vertex_buffer_data[] --> billboard_vertex_buffer (constructor) // buffer --> shader (draw)
+	GLuint particles_position_buffer;// g_particule_position_size_data[] --> particles_position_buffer (draw) // buffer --> shader (draw)
+	GLuint particles_color_buffer; // g_particule_color_data[] --> particles_color_buffer (draw) // buffer --> shader (draw)
+
 
 	// Particle struct
-	int FindUnusedParticle();
-	glm::mat4 mViewMatrix;
-	void SortParticles();
-	Particle ParticlesContainer[MaxParticles];
-	int LastUsedParticle = 0;
-	int newparticles = 1000;
-	int ParticlesCount;
+	// 1 particle using 1 index
+	Particle ParticlesContainer[MaxParticles];	// 1 SheepParticleModel has only 1 ParticlesContainer[], containing alive & dead particles.
 
-	// For Rotation
-	float mRotationSpeed; 
-	float mRotationAngle = 0;
+	int FindUnusedParticle();	// Find border between alive & dead
+	int LastUsedParticle = 0;	// Index of border between alive & dead // border is 1st dead
+	void SortParticles(); // Left: alive  Right: dead
+	glm::mat4 mViewMatrix;	// used to calculate cameradistance
 
-	// For transparency
-	float alpha;
+	int newparticles = 1000;	// In the 1st frame, 1 SheepParticleModel actually draw 1000 particles
+	int ParticlesCount;	// Initial value: 1000// Amount of alive particles actually displayed in each frame
 
 	// Final project ends
 };

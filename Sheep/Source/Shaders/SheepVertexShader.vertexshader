@@ -15,7 +15,6 @@ out vec4 lightVector;     // Vector from the vertex to the Light in View Space
 
 
 // Values that stay constant for the whole mesh.
-uniform mat4 ViewProjectionTransform;	// uniform in world.cpp
 uniform mat4 WorldTransform;	// uniform in sheep.cpp
 uniform mat4 ViewTransform;	// uniform in world.cpp
 uniform mat4 ProjectonTransform;	// uniform in world.cpp

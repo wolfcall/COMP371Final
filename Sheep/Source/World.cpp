@@ -130,11 +130,16 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
+
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+
 	// Final project
 	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it) // Here vector = array 
 	{
 		(*it)->Update(dt);
 	}
+
 	// Final project
 	for (vector<SheepParticleModel*>::iterator it = mSheepParticle.begin(); it < mSheepParticle.end(); ++it) // Here vector = array 
 	{
@@ -142,17 +147,24 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
-	while (mSheepParticle.size()>0 && mSheepParticle[0]->IsAlive() == false){
-		mSheepParticle.erase(mSheepParticle.begin());
+	while (mSheepParticle.size()>0 && (mSheepParticle[0]->IsAlive() == false) ){
+		mSheepParticle.erase(mSheepParticle.begin()); // remove mSheepParticle[0] if it's dead
 	}
 
 	//Final project
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
 	{
-		SheepParticleModel* character = new SheepParticleModel(); // Final project
-		character->SetPosition(mSheep[0]->GetPosition()+vec3(0.0f,1.5f,0.0f));
-		mSheepParticle.push_back(character);	// Final project
+		SheepParticleModel* character_sheep_particle = new SheepParticleModel(); // Final project
+		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
+		mSheepParticle.push_back(character_sheep_particle);
+		mSheep.erase(mSheep.begin());
+		SheepModel* character_sheep = new SheepModel(); // Final project
+		mSheep.push_back(character_sheep);	// Final project
+		// Final project
 	}
+	//watch
+	printf("number of sheep:%d\n", mSheep.size());
+	// ----------------------------------------------------------------------------------------------------------------------------------
 
 }
 
@@ -161,6 +173,40 @@ void World::Draw()
 	Renderer::BeginFrame();
 	unsigned int prevShader;
 	
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// Final project: Draw Sheep
+	// Set Shader for Sheep
+	prevShader = Renderer::GetCurrentShader();
+	Renderer::SetShader(SHADER_SHEEP);
+	glUseProgram(Renderer::GetShaderProgramID());
+
+	// This looks for the MVP Uniform variable in the Vertex Program
+	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
+	GLuint ProjectionMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
+	// GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
+
+	// Send the view projection constants to the shader
+	mat4 ViewMatrix = mCamera[mCurrentCamera]->GetViewMatrix();
+	mat4 ProjectionMatrix = mCamera[mCurrentCamera]->GetProjectionMatrix();
+	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
+	glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &ProjectionMatrix[0][0]);
+
+	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it)
+	{
+		// Draw model
+		(*it)->Draw();
+		//watch
+		// printf("draw sheep:%f\n", EventManager::GetFrameTime());
+		// printf("number of sheep particle:%u\n", mSheepParticle.size());
+	}
+
+	// Restore previous shader
+	Renderer::SetShader((ShaderType)prevShader);
+	// Final project Draw Sheep ends
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+
 	// Set shader to use
 	glUseProgram(Renderer::GetShaderProgramID());
 
@@ -179,68 +225,7 @@ void World::Draw()
 	}
 
 
-	
-
-	// Draw Path Lines
-	
-	// Set Shader for path lines
-	prevShader = Renderer::GetCurrentShader();
-	Renderer::SetShader(SHADER_PATH_LINES);
-	glUseProgram(Renderer::GetShaderProgramID());
-
-	// Send the view projection constants to the shader
-	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
-	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-
-	for (vector<Path*>::iterator it = mPath.begin(); it < mPath.end(); ++it)
-	{
-		// Draw model
-		(*it)->Draw();
-	}
-
-    // Draw B-Spline Lines (using the same shader for Path Lines)
-    for (vector<BSpline*>::iterator it = mSpline.begin(); it < mSpline.end(); ++it)
-	{
-		// Draw model
-		(*it)->Draw();
-	}
-
-	// Restore previous shader
-	Renderer::SetShader((ShaderType) prevShader);
-
-	// Final project: Draw Sheep
-	// Set Shader for Sheep
-	prevShader = Renderer::GetCurrentShader();
-	Renderer::SetShader(SHADER_SHEEP);
-	glUseProgram(Renderer::GetShaderProgramID());
-
-	// Send the view projection constants to the shader
-	VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform");
-	glUniformMatrix4fv(VPMatrixLocation, 1, GL_FALSE, &VP[0][0]);
-
-	// This looks for the MVP Uniform variable in the Vertex Program
-	GLuint ViewMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewTransform");
-	GLuint ProjectionMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ProjectonTransform");
-	// GLuint VPMatrixLocation = glGetUniformLocation(Renderer::GetShaderProgramID(), "ViewProjectionTransform"); 
-
-	// Send the view projection constants to the shader
-	mat4 ViewMatrix = mCamera[mCurrentCamera]->GetViewMatrix();
-	mat4 ProjectionMatrix = mCamera[mCurrentCamera]->GetProjectionMatrix();
-	glUniformMatrix4fv(ViewMatrixLocation, 1, GL_FALSE, &ViewMatrix[0][0]);
-	glUniformMatrix4fv(ProjectionMatrixLocation, 1, GL_FALSE, &ProjectionMatrix[0][0]);
-
-	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it)
-	{
-		// Draw model
-		(*it)->Draw();
-		//watch
-		printf("draw sheep:%f\n", EventManager::GetFrameTime());
-		printf("number of sheep particle:%u\n", mSheepParticle.size());
-	}
-
-	// Restore previous shader
-	Renderer::SetShader((ShaderType)prevShader);
-	// Final project Draw Sheep ends
+	// ----------------------------------------------------------------------------------------------------------------------------------
 
 
 	// Final project: Draw Sheep Particle
@@ -251,13 +236,14 @@ void World::Draw()
 
 	GLuint programID = Renderer::GetShaderProgramID();
 	// Send the view projection constants to the shader
-	GLuint CameraRight_worldspace_ID = glGetUniformLocation(programID, "CameraRight_worldspace");
+	// Each frame has only 1 camera, so everything regarding to camera is put into World.cpp
+	GLuint CameraRight_worldspace_ID = glGetUniformLocation(programID, "CameraRight_worldspace"); 
 	GLuint CameraUp_worldspace_ID = glGetUniformLocation(programID, "CameraUp_worldspace");
 	GLuint ViewProjMatrixID = glGetUniformLocation(programID, "VP");
 
 	// Send the view projection constants to the shader
-	glUniform3f(CameraRight_worldspace_ID, ViewMatrix[0][0], ViewMatrix[1][0], ViewMatrix[2][0]);
-	glUniform3f(CameraUp_worldspace_ID, ViewMatrix[0][1], ViewMatrix[1][1], ViewMatrix[2][1]);
+	glUniform3f(CameraRight_worldspace_ID, ViewMatrix[0][0], ViewMatrix[1][0], ViewMatrix[2][0]); // [column][row]
+	glUniform3f(CameraUp_worldspace_ID, ViewMatrix[0][1], ViewMatrix[1][1], ViewMatrix[2][1]);	// [column][row]
 	glUniformMatrix4fv(ViewProjMatrixID, 1, GL_FALSE, &VP[0][0]);
 
 	for (vector<SheepParticleModel*>::iterator it = mSheepParticle.begin(); it < mSheepParticle.end(); ++it)
@@ -269,6 +255,12 @@ void World::Draw()
 	// Restore previous shader
 	Renderer::SetShader((ShaderType)prevShader);
 	// Final project Draw Sheep Particle ends
+
+
+	// ----------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 	Renderer::EndFrame();
 }
@@ -360,11 +352,16 @@ void World::LoadCameras()
     
     // Cube Character controlled with Third Person Camera
 	// Final project
-    SheepModel* character = new SheepModel(); // Final project
+	CubeModel* character = new CubeModel(); // Final project
    //  character->SetPosition(vec3(0.0f, 0.0f, 0.0f));
     mCamera.push_back(new ThirdPersonCamera(character)); // set the 3rd person camera which always follow cube character
-    mSheep.push_back(character);	// Final project
-    
+    mModel.push_back(character);	// Final project
+
+	SheepModel* character_sheep = new SheepModel(); // Final project
+	mSheep.push_back(character_sheep);	// Final project
+	// Final project
+
+
     // BSpline Camera
     BSpline* spline = FindSpline("\"RollerCoaster\"");
     if (spline == nullptr) // nullptr = null pointer = not find
