@@ -180,7 +180,7 @@ void ThirdPersonCamera::Update(float dt)
 	{
 		playWormSound(true);
 	}
-	mTargetModel->SetPosition(mTargetModel->GetPosition() + wormLookAt*vec3(1, 0, 1) * dt * speed);
+	mTargetModel->SetPosition(mTargetModel->GetPosition() + wormLookAt*vec3(1, 0, 1) * dt * (speed * 2));
 
 	// Press S to move Backwards
 	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_S) == GLFW_PRESS)
