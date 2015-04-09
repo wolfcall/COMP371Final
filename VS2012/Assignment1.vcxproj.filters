@@ -54,6 +54,9 @@
     <ClInclude Include="Source\Model_Classes\ObjMesh.hpp">
       <Filter>Model_Classes</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Model_Classes\SheepParticleModel.h">
+      <Filter>Model_Classes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Scenes\BSplineScene.scene">
@@ -147,6 +150,9 @@
       <Filter>Model_Classes</Filter>
     </ClCompile>
     <ClCompile Include="Source\Model_Classes\SheepTexture.cpp">
+      <Filter>Model_Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Model_Classes\SheepParticleModel.cpp">
       <Filter>Model_Classes</Filter>
     </ClCompile>
   </ItemGroup>

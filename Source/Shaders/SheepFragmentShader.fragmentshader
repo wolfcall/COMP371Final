@@ -10,7 +10,7 @@ in vec4 lightVector;     // Vector from the vertex to the Light in View Space
 
 
 // Ouput data
-out vec3 color;
+out vec4 color;
 
 // Values that stay constant for the whole mesh.
 uniform sampler2D myTextureSampler;
@@ -19,6 +19,7 @@ uniform sampler2D myTextureSampler;
 uniform vec4 materialCoefficients; // x: ambient   y: diffuse   z: specular   w: specular exponent
 uniform vec3 lightColor;
 uniform vec3 lightAttenuation; // x: kC  y: kL  z: kQ
+uniform float alpha; // For transparency
 
 void main(){
 
@@ -54,6 +55,6 @@ void main(){
 	else
 		Fatt = 1/(lightAttenuation.x + d*lightAttenuation.y + d*d*lightAttenuation.z);
 
-	color = Ia*Ka*v_color + Fatt*Ilight*Kd*( clamp(dot(N,L), 0, 1) )*lightColor*v_color + Fatt*Ilight*Ks* pow(( clamp(dot(R,V), 0, 1) ), Nshiny) *lightColor;
-
+	color.rgb = Ia*Ka*v_color + Fatt*Ilight*Kd*( clamp(dot(N,L), 0, 1) )*lightColor*v_color + Fatt*Ilight*Ks* pow(( clamp(dot(R,V), 0, 1) ), Nshiny) *lightColor;
+	color.a = alpha; // For sheep transparency
 }

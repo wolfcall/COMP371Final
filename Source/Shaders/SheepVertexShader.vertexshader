@@ -15,7 +15,6 @@ out vec4 lightVector;     // Vector from the vertex to the Light in View Space
 
 
 // Values that stay constant for the whole mesh.
-uniform mat4 ViewProjectionTransform;	// uniform in world.cpp
 uniform mat4 WorldTransform;	// uniform in sheep.cpp
 uniform mat4 ViewTransform;	// uniform in world.cpp
 uniform mat4 ProjectonTransform;	// uniform in world.cpp
@@ -29,7 +28,7 @@ void main(){
 	// Final project
 	mat4 MV = ViewTransform * WorldTransform;
 	mat4 MVP = ProjectonTransform * MV;
-	gl_Position =  MVP * vec4(vertexPosition_modelspace,1);;
+	gl_Position =  MVP * vec4(vertexPosition_modelspace,1); // Default Output to window: Must be named as gl_Position. The position of each vertex displayed in window, must be in clip space. 
 	
 	// UV of the vertex. No special space for this one.
 	UV = vertexUV;

@@ -22,8 +22,9 @@ enum ShaderType
 {
 	PHONG_SHADER,
 	GOURAUD_SHADER,
-	NUM_SHADERS,
-	SHADER_SHEEP // Final project: add one shader. Index: 3
+	SHADER_SHEEP, // Final project: add one shader. Index: 3
+	SHADER_SHEEP_PARTICLE, // Final project: add one shader. Index: 4
+	NUM_SHADERS
 };
 
 

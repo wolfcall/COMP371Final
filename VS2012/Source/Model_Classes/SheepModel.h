@@ -15,7 +15,7 @@
 class SheepModel : public Model
 {
 public:
-	SheepModel(glm::vec3 size = glm::vec3(1.0f, 1.0f, 1.0f));
+	SheepModel();
 	virtual ~SheepModel();
 
 	virtual void Update(float dt);
@@ -37,9 +37,9 @@ private:
 	unsigned int mVertexBufferID;
 	
 	// Final project //obj files
-	std::vector<glm::vec3> vertices;
-	std::vector<glm::vec2> uvs;
-	std::vector<glm::vec3> normals; // Won't be used at the moment.
+	std::vector<glm::vec3> vertices; // Array
+	std::vector<glm::vec2> uvs;	// Array
+	std::vector<glm::vec3> normals; // Array // Won't be used at the moment.
 	GLuint vertexbuffer;
 	GLuint uvbuffer;
 	GLuint normalbuffer;
@@ -48,8 +48,11 @@ private:
 	GLuint programID;
 
 	// For Rotation
-	float mRotationSpeed = 90; // 90 degrees per second
-	float mRotationAngle = 0;
+	float mRotationSpeed; 
+	float mRotationAngle;
+
+	// For transparency
+	float alpha;
 
 	// Final project ends
 };
