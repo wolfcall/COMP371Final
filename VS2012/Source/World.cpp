@@ -28,6 +28,10 @@
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
 
+//For random number generator
+#include <ctime>
+
+
 using namespace std;
 using namespace glm;
 
@@ -113,6 +117,7 @@ void World::Update(float dt)
 			mCurrentCamera = 3;
 		}
 	}
+	/*
 	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
 	{
         // Spline camera
@@ -121,7 +126,7 @@ void World::Update(float dt)
 			mCurrentCamera = 4;
 		}
 	}
-
+	*/
 	// Spacebar to change the shader
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
 	{
@@ -406,9 +411,10 @@ void World::meshExplostion(){
 }
 
 void World::init(){
+	//Random number
+	srand(time(NULL));
 	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
-	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 	World* world = World::GetInstance();
 	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
@@ -425,8 +431,10 @@ void World::init(){
 
 	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
 
-	LandTestModel->SetScaling(glm::vec3(7));
+	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
+	treeSpawn(5);
+
 	
 	
 }
@@ -460,10 +468,18 @@ void World::SheepSpawn(bool particle){
 		} while ((xpos < 5 && xpos > -5) || (zpos < 5 && zpos > -5));
 	}
 }
-void treeSpawn(int num){
+void World::treeSpawn(int num){
 	float xpos, zpos;
-	for (int x = 0; x < num; x++){
+	for (int i = 0; i < num; i++){
 		do{
+			//Loads Tree
+			xpos = rand() % (13 - (-41)) + (-41);
+			zpos = rand() % (51 - (-51)) + (-51);
+
+			auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+			auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
+			TreeModel->SetScaling(glm::vec3(15));
+			TreeModel->SetPosition(glm::vec3(xpos, .25, zpos));
 
 		} while ((xpos < 5 && xpos > -5) || (zpos < 5 && zpos > -5));
 	}
