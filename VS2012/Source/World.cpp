@@ -517,7 +517,7 @@ void World::init(){
 
 // Ryan's attempt to load trees with collision in mind
 int * treePosition() {
-
+	static int treeArr[5];
 	for (int i = 1; i < 5; i++){
 
 
@@ -531,7 +531,7 @@ int * treePosition() {
 
 	}
 	return treeArr;
-};
+}
 
 
 
