@@ -495,7 +495,28 @@ void World::init(){
 	// Fence complete
 
 	//Loads Tree
-	int * treePosition() {
+
+	/*for (int i = 1; i < 5; i++){
+
+
+	int randomNumberX = rand() % (13-(-41)) + (-41);
+	int randomNumberZ = rand() % (51-(-51)) + (-51);
+
+	auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+	auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);
+	TreeModel->SetScaling(glm::vec3(15));
+	TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+
+	}*/
+
+
+
+
+
+}
+
+// Ryan's attempt to load trees with collision in mind
+int * treePosition() {
 
 	for (int i = 1; i < 5; i++){
 
@@ -510,8 +531,7 @@ void World::init(){
 
 	}
 	return treeArr;
-	};
-}
+};
 
 
 
