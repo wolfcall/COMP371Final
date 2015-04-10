@@ -19,7 +19,6 @@ public:
 	virtual ~SheepModel();
 
 	virtual void Update(float dt);
-	virtual void Reposition();
 	virtual void Draw();
 	void ResetPosition();
 
