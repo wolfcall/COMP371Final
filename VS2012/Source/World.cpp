@@ -152,14 +152,14 @@ void World::Update(float dt)
 	// Ryan's attempt at using the tree position function for tree collision 
 	
 
-	//for (int i = 0; i < 5; i++) {
-	//	float tree_position = treeArr[i].x;
-	//	
-	//	if (findMesh("Worm")->GetPosition().x > tree_position) {
-	//		findMesh("Worm")->SetPosition(treeArr[i].x + vec3(0.0f, 1.5f, 0.0f));
-	//		//character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
-	//	}
-	//}
+	for (int i = 0; i < 5; i++) {
+		float tree_position = treeArr[i].x;
+		
+		if (findMesh("Worm")->GetPosition().x > tree_position) {
+			findMesh("Worm")->SetPosition(treeArr[i].x + vec3(0.0f, 1.5f, 0.0f));
+			//character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
+		}
+	}
 
 
 	meshExplostion();
@@ -430,19 +430,19 @@ void World::init(){
 	//Random number
 	srand(time(NULL));
 
-	auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 	//auto fenceMesh = assetsManager->loadMesh("../fence.obj");
 	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 	World* world = World::GetInstance();
-	Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
+	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
 	//Model* fenceModel = world->CreateModel<MeshModel>("Fence", fenceMesh);
 	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
-	testModel->SetScaling(glm::vec3(2));
+	//testModel->SetScaling(glm::vec3(2));
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
-	//treePosition();
+	treePosition();
 
 
 	//Loads the Landscape
@@ -541,7 +541,8 @@ void World::treePosition() {
 		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
 		TreeModel->SetScaling(glm::vec3(15));
 		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
-		treeArr[i] = TreeModel->GetPosition();
+		treeArr.push_back(glm::vec3(TreeModel->GetPosition()));
+		//treeArr[i] = TreeModel->GetPosition();
 
 	}
 	//return treeArr;
