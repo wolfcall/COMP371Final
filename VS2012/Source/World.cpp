@@ -431,12 +431,12 @@ void World::init(){
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
-	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
+	auto LandTestModel = world->CreateModel<MeshModel>("Mountain", LandTestMesh);
 
 	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
 
-	
+
 	// Loop to generate first set of fence parallel (opposite) to each other 
 	int x = 13; // Start position for first fence section
 	int z = 51; // Start position for first fence section
@@ -461,7 +461,7 @@ void World::init(){
 			FenceModel1->SetPosition(glm::vec3(x2, -1.5, z2));
 			x2 += 5;
 		}
-		
+
 	}
 
 	// Another loop to generate second set of fence parallel (opposite) to each other
@@ -495,22 +495,25 @@ void World::init(){
 	// Fence complete
 
 	//Loads Tree
+	int * treePosition() {
 
 	for (int i = 1; i < 5; i++){
 
 
-		int randomNumberX = rand() % (13-(-41)) + (-41);
-		int randomNumberZ = rand() % (51-(-51)) + (-51);
+		int randomNumberX = rand() % (13 - (-41)) + (-41);
+		int randomNumberZ = rand() % (51 - (-51)) + (-51);
 
-		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");		
-		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);	
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);
 		TreeModel->SetScaling(glm::vec3(15));
 		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
 
 	}
-	
-	
+	return treeArr;
+	};
 }
+
+
 
 Model* World::findMesh(std::string name){
 	std::vector<Meshes*>::iterator it;
