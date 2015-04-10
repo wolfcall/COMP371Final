@@ -442,6 +442,7 @@ void World::init(){
 	testModel->SetScaling(glm::vec3(2));
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+	//treePosition();
 
 
 	//Loads the Landscape
@@ -508,7 +509,6 @@ void World::init(){
 		}
 	}
 
-	//treePosition();
 	// End Fence complete
 
 	//Loads Tree
@@ -529,23 +529,23 @@ void World::init(){
 }
 
  //Ryan's attempt to load trees with collision in mind
-//void treePosition() {
-//	//std::vector<glm::vec3> treeArr[5];
-//	//static int treeArr[5];
-//	for (int i = 1; i < 5; i++){
-//
-//		int randomNumberX = rand() % (13 - (-41)) + (-41);
-//		int randomNumberZ = rand() % (51 - (-51)) + (-51);
-//
-//		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
-//		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
-//		TreeModel->SetScaling(glm::vec3(15));
-//		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
-//		treeArr[i] = TreeModel->GetPosition();
-//
-//	}
-//	//return treeArr;
-//}
+void World::treePosition() {
+	//std::vector<glm::vec3> treeArr[5];
+	//static int treeArr[5];
+	for (int i = 1; i < 5; i++){
+
+		int randomNumberX = rand() % (13 - (-41)) + (-41);
+		int randomNumberZ = rand() % (51 - (-51)) + (-51);
+
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
+		TreeModel->SetScaling(glm::vec3(15));
+		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+		treeArr[i] = TreeModel->GetPosition();
+
+	}
+	//return treeArr;
+}
 
 
 
