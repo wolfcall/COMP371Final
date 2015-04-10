@@ -29,7 +29,7 @@ public:
 	void Draw();
 
 	// To store tree positions
-	vector<glm::vec3> * treePosition();
+	vector<glm::vec3> treeArr;
 
 	//World initial objects
 	void init();
