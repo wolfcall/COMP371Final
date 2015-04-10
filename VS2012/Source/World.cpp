@@ -43,7 +43,9 @@ const float lightKl = 0.0f;
 const float lightKq = 2.0f;
 const vec4 lightPosition(0.0f, 10.0f, 0.0f, 1.0f);
 
+// A vector array to store our tree positions
 vector<glm::vec3> treeArr;
+glm::vec3 treeBounds;
 
 World* World::instance;
 auto assetsManager = AssetsManager::getInstance();
@@ -149,14 +151,16 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
-	// Ryan's attempt at using the tree position function for tree collision 
-	
-
-	for (int i = 0; i < 5; i++) {
-		float tree_position = treeArr[i].x;
+	// Ryan's attempt at using the tree position function for tree collision detection
+	for (int i = 0; i < 4; i++) {
+		float treeBoxX = treeArr[0].x;
+		float treeBoxZ = treeArr[0].z;
+		treeBoxX = treeBoxX + 0.5;
+		treeBoxZ = treeBoxZ + 0.5;
+		treeBounds = vec3(treeBoxX, treeArr[0].y, treeBoxZ);
 		
-		if (findMesh("Worm")->GetPosition().x > tree_position) {
-			findMesh("Worm")->SetPosition(treeArr[i].x + vec3(0.0f, 1.5f, 0.0f));
+		if (findMesh("Worm")->GetPosition().x < treeBoxX) {
+			findMesh("Worm")->SetPosition(treeBounds + vec3(0.5, 0.25, 0.5)); //treeArr[i] + vec3(0.0f, 1.5f, 0.0f)
 			//character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
 		}
 	}
@@ -530,8 +534,7 @@ void World::init(){
 
  //Ryan's attempt to load trees with collision in mind
 void World::treePosition() {
-	//std::vector<glm::vec3> treeArr[5];
-	//static int treeArr[5];
+
 	for (int i = 1; i < 5; i++){
 
 		int randomNumberX = rand() % (13 - (-41)) + (-41);
@@ -542,10 +545,9 @@ void World::treePosition() {
 		TreeModel->SetScaling(glm::vec3(15));
 		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
 		treeArr.push_back(glm::vec3(TreeModel->GetPosition()));
-		//treeArr[i] = TreeModel->GetPosition();
 
 	}
-	//return treeArr;
+	
 }
 
 
