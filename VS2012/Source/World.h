@@ -27,7 +27,10 @@ public:
 
 	void Update(float dt);
 	void Draw();
-	
+
+	// To store tree positions
+	vector<glm::vec3> * treePosition();
+
 	//World initial objects
 	void init();
 

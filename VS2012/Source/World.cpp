@@ -146,6 +146,19 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
+	// Ryan's attempt at using the tree position function for tree collision 
+	vector<glm::vec3> *p;
+
+	for (int i = 0; i < 5; i++) {
+		float tree_position = &p[i];
+		
+		if (length(findMesh("Worm")->GetPosition) - tree_position < 2.0f) {
+			findMesh("Worm")->SetPosition(tree_position, findMesh("Worm")->GetPosition.y,
+				findMesh("Worm")->GetPosition.z);
+		}
+	}
+
+
 	meshExplostion();
 }
 
@@ -436,7 +449,7 @@ void World::init(){
 	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
 
-
+	// Ryan's fence installation
 	// Loop to generate first set of fence parallel (opposite) to each other 
 	int x = 13; // Start position for first fence section
 	int z = 51; // Start position for first fence section
@@ -492,7 +505,7 @@ void World::init(){
 		}
 	}
 
-	// Fence complete
+	// End Fence complete
 
 	//Loads Tree
 
@@ -509,25 +522,22 @@ void World::init(){
 
 	}*/
 
-
-
-
-
 }
 
 // Ryan's attempt to load trees with collision in mind
-int * treePosition() {
-	static int treeArr[5];
+vector<glm::vec3> * treePosition() {
+	std::vector<glm::vec3> treeArr[5];
+	//static int treeArr[5];
 	for (int i = 1; i < 5; i++){
-
 
 		int randomNumberX = rand() % (13 - (-41)) + (-41);
 		int randomNumberZ = rand() % (51 - (-51)) + (-51);
 
 		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
-		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);
+		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
 		TreeModel->SetScaling(glm::vec3(15));
 		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+		treeArr[i] = TreeModel->GetPosition();
 
 	}
 	return treeArr;
