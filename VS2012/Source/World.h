@@ -72,8 +72,12 @@ public:
 		Model* mesh;
 	};
 	void treeCollision(Model* mainObj);
+	void boostCollision(Model* mainObj);
+	void generateBoost();
 private:
 	int trees;
+	int lives;
+	bool hasDied;
     static World* instance;
 	std::vector<Meshes*> mMeshes;
 	std::vector<Model*> mModel;

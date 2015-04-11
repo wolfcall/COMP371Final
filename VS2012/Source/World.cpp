@@ -170,6 +170,8 @@ void World::Update(float dt)
 	{
 		(*it)->Update(dt);
 	}
+
+	boostCollision(World::GetInstance()->findMesh("Worm"));
 	//for (int i = 0; i < trees; i++) {
 	//	float treeBoxX = treeArr[0].x;
 	//	float treeBoxZ = treeArr[0].z;
@@ -509,11 +511,17 @@ void World::init(){
 	//Random number
 	srand(time(NULL));
 	trees = 0;
+	lives = 10;
+	hasDied = false;
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 
-
+	printf("Life count %d", lives);
 
 	World* world = World::GetInstance();
+	auto boostMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	Model* boostModel = world->CreateModel<MeshModel>("boost", boostMesh);
+	boostModel->SetPosition(vec3(0.0, -10.0, 0.0));
+
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
 	//Model* fenceModel = world->CreateModel<MeshModel>("Fence", fenceMesh);
 	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
@@ -632,6 +640,8 @@ Model* World::findMesh(std::string name){
 	return NULL;
 }
 
+
+
 void World::SheepSpawn(float dt){
 	srand(time(NULL));
 	/*Model* sheepModel = World::GetInstance()->findMesh("Sheep");
@@ -680,7 +690,12 @@ void World::SheepSpawn(float dt){
 		mSheepParticle.push_back(character_sheep_particle);
 		PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
 		mSheep[0]->ResetPosition();
+		srand(time(NULL));
+		int random = rand() % 2;
 
+		if (random == 1){
+			generateBoost();
+		}
 		// Final project
 	}
 	//watch
@@ -712,17 +727,33 @@ void World::treeCollision(Model* mainObj){
 	// Ryan's attempt at using the tree position function for tree collision detection
 	// It almost works. PacWorm collides with one tree but it gets stuck in that position.
 	vec2 mainOV2 = vec2(mainObj->GetPosition().x, mainObj->GetPosition().z);
-
+	bool treefound = false;
 	for (vector<Model*>::iterator it = mTrees.begin(); it < mTrees.end(); ++it) // Here vector = array 
 	{
 		vec2 tree = vec2((*it)->GetPosition().x, (*it)->GetPosition().z);
 		vec2 diff = mainOV2 - tree;
 
 		float sqV = powf(diff.x, 2.0) + powf(diff.y, 2.0);
-		if (sqrtf(sqV) < 1.0){
+		if (sqrtf(sqV) < 1.0 && !hasDied){
 			//printf("%f\n", sqrtf(sqV));
-			exit(0);
+			//exit(0);
+			lives--;
+			treefound = true;
+			hasDied = true;
+			printf("Life count %d\n", lives);
+			break;
 		}
+		else if (sqrtf(sqV) < 1.0){
+			treefound = true;
+		}
+	}
+	if (!treefound){
+		hasDied = false;
+	}
+	if (lives == 0){
+		printf("You have lost \n GAME OVER\n");
+		mainObj->SetPosition(vec3(0,1,0));
+		lives = 10;
 	}
 	//for (int i = 0; i < trees; i++) {
 	//	float treeBoxX = treeArr[0].x;
@@ -736,4 +767,38 @@ void World::treeCollision(Model* mainObj){
 	//		
 	//	}
 	//}
+}
+
+void World::boostCollision(Model* mainObj){
+	World* world = World::GetInstance();
+	Model* boost = world->findMesh("boost");
+	vec2 mainOV2 = vec2(mainObj->GetPosition().x, mainObj->GetPosition().z);
+	if (boost != NULL){
+		vec2 obj = vec2(boost->GetPosition().x, boost->GetPosition().z);
+		vec2 diff = mainOV2 - obj;
+		float sqV = powf(diff.x, 2.0) + powf(diff.y, 2.0);
+		if (sqrtf(sqV) < 1.0 && boost->GetPosition().y >= 0.0){
+			lives++;
+			boost->SetPosition(vec3(0.0, -10.0, 0.0));
+			printf("Life count %d\n", lives);
+		}
+	}
+}
+
+void World::generateBoost(){
+	World* world = World::GetInstance();
+	Model* boostModel = world->findMesh("boost");
+	if (boostModel == NULL){
+		float xpos, zpos;
+		xpos = rand() % (13 - (-41)) + (-41);
+		zpos = rand() % (51 - (-51)) + (-51);
+		boostModel->SetScaling(vec3(2));
+		boostModel->SetPosition(vec3(xpos, 0.0, zpos));
+	}else if (boostModel->GetPosition().y < 0){
+		float xpos, zpos;
+		xpos = rand() % (13 - (-41)) + (-41);
+		zpos = rand() % (51 - (-51)) + (-51);
+		boostModel->SetScaling(vec3(2));
+		boostModel->SetPosition(vec3(xpos, 0.0, zpos));
+	}
 }

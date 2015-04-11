@@ -11,6 +11,7 @@
 #include "../Renderer.h"
 #include "SheepTexture.hpp"
 #include "SheepObjloader.hpp"
+#include "../World.h"
 
 // Should be put into World.h, then include World.h
 #define wallbound_x1 13
@@ -132,6 +133,10 @@ void SheepModel::Update(float dt)
 		mRotationAngle -= 360;
 	}
 	SetRotation(vec3(0.0f, 1.0f, 0.0f), mRotationAngle);
+	Model* cat = World::GetInstance()->findMesh("boost");
+	if (cat != NULL && cat->GetPosition().y >=0){
+		cat->SetRotation(vec3(0.0f, 1.0f, 0.0f), mRotationAngle);
+	}
 
 	Model::Update(dt);
 }
