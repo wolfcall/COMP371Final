@@ -191,6 +191,21 @@ void World::Update(float dt)
 	//printf("number of sheep:%d\n", mSheep.size());
 	// ----------------------------------------------------------------------------------------------------------------------------------
 
+	// Ning's tree colission
+	float mTreeRadius = 2.0f;
+	vec3 mWormFloorPos = findMesh("Worm")->GetPosition() - vec3(0.0f,1.0f,0.0f);
+	for (vector<Meshes*>::iterator it = mMeshes.begin(); it < mMeshes.end(); ++it)
+	{
+		if ((*it)->strName  == "Tree"){
+			vec3 mTreePos = (*it)->mesh ->GetPosition() - vec3(0.0f, 0.25f, 0.0f);
+			vec3 mTreeWormVector= mWormFloorPos - mTreePos;
+			if (length(mTreeWormVector) < mTreeRadius){
+				findMesh("Worm")->SetPosition(mTreePos + mTreeWormVector/length(mTreeWormVector)*mTreeRadius + vec3(0.0f, 1.0f, 0.0f));
+			}
+			//watch
+			//printf("distance:%f\n", length(mTreeWormVector));
+		}
+	}
 
 
 	//meshExplostion();
