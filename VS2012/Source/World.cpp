@@ -35,6 +35,7 @@
 #include "Model_Classes/WormModel.h"
 #include "AssetsManager.hpp"
 #include "Model_Classes\MeshModel.hpp"
+#include <vector>
 
 //For random number generator
 #include <ctime>
@@ -49,6 +50,10 @@ const float lightKc = 0.0f;
 const float lightKl = 0.0f;
 const float lightKq = 2.0f;
 const vec4 lightPosition(0.0f, 10.0f, 0.0f, 1.0f);
+
+// A vector array to store our tree positions
+vector<glm::vec3> treeArr;
+glm::vec3 treeBounds;
 
 World* World::instance;
 auto assetsManager = AssetsManager::getInstance();
@@ -154,6 +159,7 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
+<<<<<<< HEAD
 
 	// ----------------------------------------------------------------------------------------------------------------------------------
 	// Ning's Sheep
@@ -194,6 +200,25 @@ void World::Update(float dt)
 
 
 	//meshExplostion();
+=======
+	// Ryan's attempt at using the tree position function for tree collision detection
+	// It almost works. PacWorm collides with one tree but it gets stuck in that position.
+	//for (int i = 0; i < 4; i++) {
+	//	float treeBoxX = treeArr[0].x;
+	//	float treeBoxZ = treeArr[0].z;
+	//	treeBoxX = treeBoxX + 0.5;
+	//	treeBoxZ = treeBoxZ + 0.5;
+	//	treeBounds = vec3(treeBoxX, treeArr[0].y, treeBoxZ);
+	//	
+	//	if (findMesh("Worm")->GetPosition().x < treeBoxX) {
+	//		findMesh("Worm")->SetPosition(treeBounds + vec3(0.5, 0.25, 0.5)); //treeArr[i] + vec3(0.0f, 1.5f, 0.0f)
+	//		
+	//	}
+	//}
+
+
+	meshExplostion();
+>>>>>>> Ryan
 }
 
 void World::Draw()
@@ -517,6 +542,10 @@ void World::meshExplostion(){
 void World::init(){
 	//Random number
 	srand(time(NULL));
+<<<<<<< HEAD
+=======
+
+>>>>>>> Ryan
 	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 
@@ -532,6 +561,8 @@ void World::init(){
 	//testModel->SetScaling(glm::vec3(2));
 	wormModel->SetScaling(glm::vec3(0.5));
 	wormModel->SetPosition((wormModel->GetPosition() + vec3(0.0, 1.0, 0.0)));
+	// Call to spawn trees and store their positions
+	//treePosition();
 
 
 
@@ -544,14 +575,14 @@ void World::init(){
 	//Loads the Landscape
 	auto LandTestMesh = assetsManager->loadMesh("../VS2012/Objects/Mountain1.obj");
 
-	auto LandTestModel = world->CreateModel<MeshModel>("Mountain",LandTestMesh);
+	auto LandTestModel = world->CreateModel<MeshModel>("Mountain", LandTestMesh);
 
 	LandTestModel->SetScaling(glm::vec3(7.5));
 	LandTestModel->SetPosition(glm::vec3(10, -1, 0));
 	treeSpawn(5);
 
 
-	
+	// Ryan's fence installation
 	// Loop to generate first set of fence parallel (opposite) to each other 
 	int x = 13; // Start position for first fence section
 	int z = 51; // Start position for first fence section
@@ -576,7 +607,7 @@ void World::init(){
 			FenceModel1->SetPosition(glm::vec3(x2, -1.5, z2));
 			x2 += 5;
 		}
-		
+
 	}
 
 	// Another loop to generate second set of fence parallel (opposite) to each other
@@ -607,26 +638,51 @@ void World::init(){
 		}
 	}
 
-	// Fence complete
+	// End Fence complete
 
 	//Loads Tree
 
 	/*for (int i = 1; i < 5; i++){
 
 
-		int randomNumberX = rand() % (13-(-41)) + (-41);
-		int randomNumberZ = rand() % (51-(-51)) + (-51);
+	int randomNumberX = rand() % (13-(-41)) + (-41);
+	int randomNumberZ = rand() % (51-(-51)) + (-51);
 
-		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");		
-		auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);	
-		TreeModel->SetScaling(glm::vec3(15));
-		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+	auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+	auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);
+	TreeModel->SetScaling(glm::vec3(15));
+	TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
 
+	}*/
+
+<<<<<<< HEAD
 	}*/
 
 	
 	
+=======
+>>>>>>> Ryan
 }
+
+ //Ryan's attempt to load trees with collision in mind
+//void World::treePosition() {
+//
+//	for (int i = 1; i < 5; i++){
+//
+//		int randomNumberX = rand() % (13 - (-41)) + (-41);
+//		int randomNumberZ = rand() % (51 - (-51)) + (-51);
+//
+//		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
+//		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
+//		TreeModel->SetScaling(glm::vec3(15));
+//		TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
+//		treeArr.push_back(glm::vec3(TreeModel->GetPosition()));
+//
+//	}
+//	
+//}
+
+
 
 Model* World::findMesh(std::string name){
 	std::vector<Meshes*>::iterator it;

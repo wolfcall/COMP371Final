@@ -28,7 +28,13 @@ public:
 
 	void Update(float dt);
 	void Draw();
-	
+
+	// To store tree positions
+
+	//void treePosition();
+
+
+
 	//World initial objects
 	void init();
 
