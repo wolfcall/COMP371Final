@@ -42,7 +42,7 @@ public:
 	void meshExplostion(); 
 	Model* findMesh(std::string);
 
-	void SheepSpawn(bool particle);
+	void SheepSpawn(float dt);
 	void treeSpawn(int num);
 	void TransparentSheepSpawn();
 
@@ -55,13 +55,13 @@ public:
     Model* FindModelByIndex(unsigned int index);
 
 	template <typename T, typename... Args>
-	Model *CreateModel(char* name, Args... args)
+	Model *CreateModel(const char* name, Args... args)
 	{
 		auto res = new T(args...);
 		mModel.push_back(res);
 		mMeshes.push_back(new Meshes());
 		mMeshes[mMeshes.size() - 1]->mesh = res;
-		mMeshes[mMeshes.size() - 1]->name = name;
+		mMeshes[mMeshes.size() - 1]->name = const_cast<char*>(name);
 		mMeshes[mMeshes.size() - 1]->strName = std::string(name);
 		return res;
 	}
@@ -71,8 +71,9 @@ public:
 		std::string strName;
 		Model* mesh;
 	};
-
+	void treeCollision(Model* mainObj);
 private:
+	int trees;
     static World* instance;
 	std::vector<Meshes*> mMeshes;
 	std::vector<Model*> mModel;
@@ -83,4 +84,5 @@ private:
 	std::vector<SheepModel*> mSheep; // Final project: declaration of sheep array
 	std::vector<SheepParticleModel*> mSheepParticle; // Final project: declaration of sheep particle array
 	std::vector<Model *> mSacrifice;
+	std::vector<Model *> mTrees;
 };

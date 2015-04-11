@@ -159,51 +159,18 @@ void World::Update(float dt)
 		(*it)->Update(dt);
 	}
 
-<<<<<<< HEAD
 
-	// ----------------------------------------------------------------------------------------------------------------------------------
-	// Ning's Sheep
-	// Final project
+	SheepSpawn(dt);
+	treeCollision(World::GetInstance()->findMesh("Worm"));
+
+	//meshExplostion();
+	// Ryan's attempt at using the tree position function for tree collision detection
+	// It almost works. PacWorm collides with one tree but it gets stuck in that position.
 	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it) // Here vector = array 
 	{
 		(*it)->Update(dt);
 	}
-
-	// Ning's sheep particle
-	// Final project
-	for (vector<SheepParticleModel*>::iterator it = mSheepParticle.begin(); it < mSheepParticle.end(); ++it) // Here vector = array 
-	{
-		(*it)->SetViewMatrix(mCamera[mCurrentCamera]->GetViewMatrix());
-		(*it)->Update(dt);
-	}
-
-	while (mSheepParticle.size()>0 && (mSheepParticle[0]->IsAlive() == false)){
-		mSheepParticle.erase(mSheepParticle.begin()); // remove mSheepParticle[0] if it's dead
-	}
-
-	// Ning's collision
-	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
-	if (length(findMesh("Worm")->GetPosition() - mSheep[0]->GetPosition()) < 4.0f )
-	{
-		SheepParticleModel* character_sheep_particle = new SheepParticleModel(); // Final project	
-		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));	
-		mSheepParticle.push_back(character_sheep_particle);											
-		PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
-		mSheep[0]->ResetPosition();
-
-		// Final project
-	}
-	//watch
-	//printf("number of sheep:%d\n", mSheep.size());
-	// ----------------------------------------------------------------------------------------------------------------------------------
-
-
-
-	//meshExplostion();
-=======
-	// Ryan's attempt at using the tree position function for tree collision detection
-	// It almost works. PacWorm collides with one tree but it gets stuck in that position.
-	//for (int i = 0; i < 4; i++) {
+	//for (int i = 0; i < trees; i++) {
 	//	float treeBoxX = treeArr[0].x;
 	//	float treeBoxZ = treeArr[0].z;
 	//	treeBoxX = treeBoxX + 0.5;
@@ -217,8 +184,7 @@ void World::Update(float dt)
 	//}
 
 
-	meshExplostion();
->>>>>>> Ryan
+	//meshExplostion();
 }
 
 void World::Draw()
@@ -542,19 +508,12 @@ void World::meshExplostion(){
 void World::init(){
 	//Random number
 	srand(time(NULL));
-<<<<<<< HEAD
-=======
-
->>>>>>> Ryan
-	//auto testMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
+	trees = 0;
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 
-	//auto fenceMesh = assetsManager->loadMesh("../fence.obj");
-	//auto sheepMesh = assetsManager->loadMesh(".. / sheep1.obj");
 
 
 	World* world = World::GetInstance();
-	//Model* testModel = world->CreateModel<MeshModel>("Cat", testMesh);
 	Model* wormModel = world->CreateModel<MeshModel>("Worm", wormMesh);
 	//Model* fenceModel = world->CreateModel<MeshModel>("Fence", fenceMesh);
 	//world->CreateModel<MeshModel>("Sheep", sheepMesh);
@@ -640,28 +599,6 @@ void World::init(){
 
 	// End Fence complete
 
-	//Loads Tree
-
-	/*for (int i = 1; i < 5; i++){
-
-
-	int randomNumberX = rand() % (13-(-41)) + (-41);
-	int randomNumberZ = rand() % (51-(-51)) + (-51);
-
-	auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
-	auto TreeModel = world->CreateModel<MeshModel>("Tree", TreeMesh);
-	TreeModel->SetScaling(glm::vec3(15));
-	TreeModel->SetPosition(glm::vec3(randomNumberX, .25, randomNumberZ));
-
-	}*/
-
-<<<<<<< HEAD
-	}*/
-
-	
-	
-=======
->>>>>>> Ryan
 }
 
  //Ryan's attempt to load trees with collision in mind
@@ -695,9 +632,9 @@ Model* World::findMesh(std::string name){
 	return NULL;
 }
 
-void World::SheepSpawn(bool particle){
+void World::SheepSpawn(float dt){
 	srand(time(NULL));
-	Model* sheepModel = World::GetInstance()->findMesh("Sheep");
+	/*Model* sheepModel = World::GetInstance()->findMesh("Sheep");
 	if (sheepModel != NULL){
 		float xpos, zpos;
 		do{
@@ -711,10 +648,44 @@ void World::SheepSpawn(bool particle){
 				sheepModel->SetPosition(vec3(xpos, 0.0, zpos));
 			}
 		} while ((xpos < 5 && xpos > -5) && (zpos < 5 && zpos > -5));
-	}
+	}*/
 
 	//Ning's Model
+	// ----------------------------------------------------------------------------------------------------------------------------------
+	// Ning's Sheep
+	// Final project
+	for (vector<SheepModel*>::iterator it = mSheep.begin(); it < mSheep.end(); ++it) // Here vector = array 
+	{
+		(*it)->Update(dt);
+	}
 
+	// Ning's sheep particle
+	// Final project
+	for (vector<SheepParticleModel*>::iterator it = mSheepParticle.begin(); it < mSheepParticle.end(); ++it) // Here vector = array 
+	{
+		(*it)->SetViewMatrix(mCamera[mCurrentCamera]->GetViewMatrix());
+		(*it)->Update(dt);
+	}
+
+	while (mSheepParticle.size()>0 && (mSheepParticle[0]->IsAlive() == false)){
+		mSheepParticle.erase(mSheepParticle.begin()); // remove mSheepParticle[0] if it's dead
+	}
+
+	// Ning's collision
+	//if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_P) == GLFW_PRESS)
+	if (length(findMesh("Worm")->GetPosition() - mSheep[0]->GetPosition()) < 4.0f)
+	{
+		SheepParticleModel* character_sheep_particle = new SheepParticleModel(); // Final project	
+		character_sheep_particle->SetPosition(mSheep[0]->GetPosition() + vec3(0.0f, 1.5f, 0.0f));
+		mSheepParticle.push_back(character_sheep_particle);
+		PlaySound(TEXT("../Sound/SHEEPBAA.WAV"), NULL, SND_FILENAME | SND_ASYNC);
+		mSheep[0]->ResetPosition();
+
+		// Final project
+	}
+	//watch
+	//printf("number of sheep:%d\n", mSheep.size());
+	// ----------------------------------------------------------------------------------------------------------------------------------
 }
 void World::treeSpawn(int num){
 	float xpos, zpos;
@@ -725,10 +696,44 @@ void World::treeSpawn(int num){
 			zpos = rand() % (51 - (-51)) + (-51);
 		} while ((xpos < 5 && xpos > -5) && (zpos < 5 && zpos > -5));
 		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
-		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>("Tree", TreeMesh);
+		std::string name("Tree");
+		ostringstream converter;
+		converter << trees;
+		name.append(converter.str());
+		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>(name.c_str(), TreeMesh);
 		TreeModel->SetScaling(glm::vec3(15));
 		TreeModel->SetPosition(glm::vec3(xpos, .25, zpos));
+		trees++;
+		mTrees.push_back(TreeModel);
 	}
 }
 
+void World::treeCollision(Model* mainObj){
+	// Ryan's attempt at using the tree position function for tree collision detection
+	// It almost works. PacWorm collides with one tree but it gets stuck in that position.
+	vec2 mainOV2 = vec2(mainObj->GetPosition().x, mainObj->GetPosition().z);
 
+	for (vector<Model*>::iterator it = mTrees.begin(); it < mTrees.end(); ++it) // Here vector = array 
+	{
+		vec2 tree = vec2((*it)->GetPosition().x, (*it)->GetPosition().z);
+		vec2 diff = mainOV2 - tree;
+
+		float sqV = powf(diff.x, 2.0) + powf(diff.y, 2.0);
+		if (sqrtf(sqV) < 1.0){
+			//printf("%f\n", sqrtf(sqV));
+			exit(0);
+		}
+	}
+	//for (int i = 0; i < trees; i++) {
+	//	float treeBoxX = treeArr[0].x;
+	//	float treeBoxZ = treeArr[0].z;
+	//	treeBoxX = treeBoxX + 0.5;
+	//	treeBoxZ = treeBoxZ + 0.5;
+	//	treeBounds = vec3(treeBoxX, treeArr[0].y, treeBoxZ);
+	//	
+	//	if (findMesh("Worm")->GetPosition().x < treeBoxX) {
+	//		findMesh("Worm")->SetPosition(treeBounds + vec3(0.5, 0.25, 0.5)); //treeArr[i] + vec3(0.0f, 1.5f, 0.0f)
+	//		
+	//	}
+	//}
+}
