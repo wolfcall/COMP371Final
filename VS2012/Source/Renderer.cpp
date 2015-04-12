@@ -1,4 +1,4 @@
-//
+// NINGGE HU 6834051 ---- Push 2 shaders into array, add transparency
 // COMP 371 Assignment Framework
 //
 // Created by Nicolas Bergeron on 8/7/14.
@@ -72,13 +72,13 @@ void Renderer::Initialize()
 	sShaderProgramID.push_back(
 		LoadShaders(shaderPath + "SheepVertexShader.vertexshader",
 		shaderPath + "SheepFragmentShader.fragmentshader")
-		); // Final project
+		); // NINGGE HU Final project
 	sShaderProgramID.push_back(
 		LoadShaders(shaderPath + "SheepParticle.vertexshader",
 		shaderPath + "SheepParticle.fragmentshader")
-		); // Final project: load shader, push programID (the reference to shader) into array
+		); // NINGGE HU Final project: load shader, push programID (the reference to shader) into array
 
-	// Final project: For sheep's transparency
+	// NINGGE HU Final project: For sheep's transparency
 	// Enable blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -1,4 +1,4 @@
-//
+// NINGGE HU 6834051 ---- Name 2 index
 // COMP 371 Assignment Framework
 //
 // Created by Nicolas Bergeron on 8/7/14.
@@ -22,8 +22,8 @@ enum ShaderType
 {
 	PHONG_SHADER,
 	GOURAUD_SHADER,
-	SHADER_SHEEP, // Final project: add one shader. Index: 2
-	SHADER_SHEEP_PARTICLE, // Final project: add one shader. Index: 3
+	SHADER_SHEEP, // NINGGE HU Final project: add one shader. Index: 2
+	SHADER_SHEEP_PARTICLE, // NINGGE HU Final project: add one shader. Index: 3
 	NUM_SHADERS
 };
 

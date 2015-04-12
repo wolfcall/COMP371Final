@@ -1,4 +1,4 @@
-//
+// NINGGE HU 6834051 ---- Update(), draw(), LoadScene(), TransparentSheepSpawn()
 // COMP 371 Assignment Framework
 //
 // Created by Nicolas Bergeron on 8/7/14.
@@ -206,7 +206,7 @@ void World::Update(float dt)
 			//printf("distance:%f\n", length(mTreeWormVector));
 		}
 	}
-
+	// ----------------------------------------------------------------------------------------------------------------------------------
 
 	//meshExplostion();
 }

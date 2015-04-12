@@ -1,3 +1,4 @@
+// NINGGE HU 6834051 Sheep Particle Shader
 #version 120
 
 // Interpolated values from the vertex shaders

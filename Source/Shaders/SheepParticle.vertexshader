@@ -1,3 +1,4 @@
+// NINGGE HU 6834051 Sheep Particle Shader
 #version 120
 
 // Input vertex data, different for all executions of this shader.
