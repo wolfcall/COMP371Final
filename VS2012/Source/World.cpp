@@ -741,7 +741,8 @@ void World::treeCollision(Model* mainObj){
 			//exit(0);
 			lives--;
 			treefound = true;
-			hasDied = true;
+			hasDied = true; //ADD SOUND HERE
+			PlaySound(TEXT("../Sound/TreeImpact.WAV"), NULL, SND_FILENAME | SND_ASYNC);
 			printf("Life count %d\n", lives);
 			break;
 		}
@@ -781,6 +782,7 @@ void World::boostCollision(Model* mainObj){
 		float sqV = powf(diff.x, 2.0) + powf(diff.y, 2.0);
 		if (sqrtf(sqV) < 1.0 && boost->GetPosition().y >= 0.0){
 			lives++;
+			PlaySound(TEXT("../Sound/ExtraLife.WAV"), NULL, SND_FILENAME | SND_ASYNC);
 			boost->SetPosition(vec3(0.0, -10.0, 0.0));
 			printf("Life count %d\n", lives);
 		}
