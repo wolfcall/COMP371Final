@@ -705,12 +705,13 @@ void World::SheepSpawn(float dt){
 }
 void World::treeSpawn(int num){
 	float xpos, zpos;
+	Model* player = World::GetInstance()->findMesh("Worm");
 	for (int i = 0; i < num; i++){
 		do{
 			//Loads Tree
 			xpos = rand() % (13 - (-41)) + (-41);
 			zpos = rand() % (51 - (-51)) + (-51);
-		} while ((xpos < 5 && xpos > -5) && (zpos < 5 && zpos > -5));
+		} while ((xpos - player->GetPosition().x < 5 && xpos - player->GetPosition().x > -5) && (zpos - player->GetPosition().z < 5 && zpos - player->GetPosition().z > -5));
 		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
 		std::string name("Tree");
 		ostringstream converter;
