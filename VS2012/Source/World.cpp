@@ -738,6 +738,7 @@ void World::treeCollision(Model* mainObj){
 		hasDied = false;
 	}
 	if (lives == 0){
+		PlaySound(TEXT("../Sound/death.WAV"), NULL, SND_FILENAME | SND_ASYNC);
 		printf("You have lost \n GAME OVER\n");
 		mainObj->SetPosition(vec3(0,1,0));
 		lives = 10;
