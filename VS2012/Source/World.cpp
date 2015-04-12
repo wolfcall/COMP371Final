@@ -104,6 +104,7 @@ void World::Update(float dt)
 {
 	// User Inputs
 	// 0 1 2 to change the Camera
+	/*
 	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_1 ) == GLFW_PRESS)
 	{
 		mCurrentCamera = 0;
@@ -121,8 +122,8 @@ void World::Update(float dt)
 		{
 			mCurrentCamera = 2;
 		}
-	}
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_4 ) == GLFW_PRESS)
+	}*/
+	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_ENTER ) == GLFW_PRESS)
 	{
         // Spline camera
 		if (mCamera.size() > 3 && mSpline.size() > 0)
@@ -130,26 +131,7 @@ void World::Update(float dt)
 			mCurrentCamera = 3;
 		}
 	}
-	/*
-	else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_5 ) == GLFW_PRESS)
-	{
-        // Spline camera
-		if (mCamera.size() > 4 && mModel.size() > 0)
-		{
-			mCurrentCamera = 4;
-		}
-	}
-	*/
-	// Spacebar to change the shader
-	if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_0 ) == GLFW_PRESS)
-	{
-		Renderer::SetShader(GOURAUD_SHADER);
-	}
-	//else if (glfwGetKey(EventManager::GetWindow(), GLFW_KEY_9 ) == GLFW_PRESS)
-	//{
-		//Renderer::SetShader(PHONG_SHADER);
-	//}
-
+	
 	// Update current Camera
 	mCamera[mCurrentCamera]->Update(dt);
 
@@ -704,22 +686,24 @@ void World::SheepSpawn(float dt){
 	// ----------------------------------------------------------------------------------------------------------------------------------
 }
 void World::treeSpawn(int num){
-	float xpos, zpos;
+	float xpos, zpos, rot;
 	Model* player = World::GetInstance()->findMesh("Worm");
 	for (int i = 0; i < num; i++){
 		do{
 			//Loads Tree
 			xpos = rand() % (13 - (-41)) + (-41);
 			zpos = rand() % (51 - (-51)) + (-51);
+			rot = rand() % (180 - 0) + (0);
 		} while ((xpos - player->GetPosition().x < 5 && xpos - player->GetPosition().x > -5) && (zpos - player->GetPosition().z < 5 && zpos - player->GetPosition().z > -5));
-		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Tree.obj");
-		std::string name("Tree");
+		auto TreeMesh = assetsManager->loadMesh("../VS2012/Objects/Trees.obj");
+		std::string name("Trees");
 		ostringstream converter;
 		converter << trees;
 		name.append(converter.str());
 		auto TreeModel = World::GetInstance()->CreateModel<MeshModel>(name.c_str(), TreeMesh);
 		TreeModel->SetScaling(glm::vec3(15));
-		TreeModel->SetPosition(glm::vec3(xpos, .25, zpos));
+		TreeModel->SetRotation(TreeModel->GetRotationAxis(), rot);
+		TreeModel->SetPosition(glm::vec3(xpos, -.25, zpos));
 		trees++;
 		mTrees.push_back(TreeModel);
 	}
