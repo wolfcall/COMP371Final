@@ -515,7 +515,7 @@ void World::init(){
 	hasDied = false;
 	auto wormMesh = assetsManager->loadMesh("../PacFinal.obj");
 
-	printf("Life count %d", lives);
+	printf("Life count %d\n", lives);
 
 	World* world = World::GetInstance();
 	auto boostMesh = assetsManager->loadMesh("../Objects/cat/cat.obj");
