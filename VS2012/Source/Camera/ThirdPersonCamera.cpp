@@ -129,7 +129,6 @@ void ThirdPersonCamera::Update(float dt)
 	// Compute new orientation based on mouse position
 	mHorizontalAngle += mouseSpeed * dt * float(1024 / 2 - xpos);
 	//mVerticalAngle += mouseSpeed * dt * float(768 / 2 - ypos);
-	mVerticalAngle = 1.57*-20 / 90;
 
 	if (mTargetModel->GetPosition().x > wallbound_x1){ //Walling
 		mTargetModel->SetPosition(vec3(wallbound_x1, mTargetModel->GetPosition().y, mTargetModel->GetPosition().z));
