@@ -696,6 +696,7 @@ void World::SheepSpawn(float dt){
 		if (random == 1){
 			generateBoost();
 		}
+		treeSpawn(5);
 		// Final project
 	}
 	//watch
