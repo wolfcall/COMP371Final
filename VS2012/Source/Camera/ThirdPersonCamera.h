@@ -3,6 +3,7 @@
 //
 // Created by Nicolas Bergeron on 8/7/14.
 // Updated by Gary Chang on 28/1/15
+// Modified by Matthew Labelle-Dagenais
 //
 // Copyright (c) 2014-2015 Concordia University. All rights reserved.
 //
